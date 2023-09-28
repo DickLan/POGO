@@ -1,0 +1,9 @@
+.LC {
+  font-size: 20px;
+  /* 調整字體大小 */
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-size: 20px;
+  /* 調整連結文字大小 */
+}

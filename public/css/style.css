@@ -1,7 +1,45 @@
 /* 在你的 CSS 檔案中添加這段代碼 */
 body {
-  background-color: green;
+  /* background-color: green; */
   /* 將整個背景設為黑色 */
+}
+
+/* 最好每一次專案都設這個 會讓img自動適應視窗大小 */
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  height: auto;
+}
+
+.account {
+  /* padding: 0 20px; */
+  display: flex;
+  /* b/g/s 
+  flex-basis:每張卡佔多少空間
+  flex-glow:分配剩餘空間 ０:不分配 1:平均分 ２：中間是右邊的兩倍
+  flex-shrink:空間不足時如何收縮 這裡統一設１：表示三個帳號都會同比例收縮
+  若設定不同shrink 就會有不同收縮效果
+  */
+  /* flex: 32.5% 0 1; */
+  /* margin-right: -100px; */
+}
+
+/* 只在 992 以上視窗起作用 */
+@media (min-width:992px) {
+  .account {
+    display: flex;
+    flex: 32.5% 0 1;
+  }
+}
+
+.nav-link2 {
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: var(--bs-nav-link-font-weight);
+  color: var(--bs-nav-link-color);
+  text-decoration: none;
+  background: 0 0;
+  border: 0;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 
 .overlay {
@@ -14,4 +52,64 @@ body {
   /* 這裡的最後一個數值 (0.5) 控制透明度 */
   z-index: 999;
   /* 確保遮罩層在最上層 */
+}
+
+.nav-link:hover {
+  background-color: aqua;
+  color: red;
+}
+
+.levelStardust {
+  font-size: 15px;
+}
+
+.accountStardust {
+  font-size: 10px;
+}
+
+.accountStardustUnit {
+  font-size: 8px;
+  color: gray;
+}
+
+.accountPrice {
+  font-size: 14px;
+  color: rgba(255, 255, 0, 0.751);
+}
+
+.accountId {
+  font-size: 10px;
+  color: rgb(37, 193, 37);
+}
+
+.switchHeader {
+  font-size: 12px;
+  background-color: rgb(79, 72, 72);
+}
+
+.accountDetail,
+.accountAddToCart {
+  background-color: rgb(27, 121, 111);
+  /* 讓背景顏色跟隨父元素 */
+  color: white;
+  /* 設置文字顏色為白色 */
+  border: none;
+  /* 移除按鈕邊框 */
+  cursor: pointer;
+  /* 添加一個手形游標 */
+  transition: background-color 0.3s;
+}
+
+.accountDetail:hover {
+  background-color: rgba(66, 55, 55, 0.5);
+
+}
+
+.accountAddToCart:hover {
+  background-color: rgba(66, 55, 55, 0.5)
+}
+
+.cart-img {
+  width: 18px;
+  display: inline;
 }
