@@ -4,20 +4,19 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Account extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      User.hasMany(models.Shippingcart)
+      Account.belongsToMany(models.User, {
+        through: models.Pending,
+        foreignKey: 'accountId',
+        as: 'FendingUsers'
+      })
     }
   }
   Account.init({
     name: DataTypes.STRING,
-    contents_iv100: DataTypes.STRING,
-    contents_legend: DataTypes.STRING,
-    acct_id: DataTypes.INTEGER,
+    contentsIv100: DataTypes.STRING,
+    contentsLegend: DataTypes.STRING,
+    accountId: DataTypes.INTEGER,
     stardust: DataTypes.INTEGER,
     level: DataTypes.INTEGER,
     team: DataTypes.STRING,

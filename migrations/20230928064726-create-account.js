@@ -18,8 +18,8 @@ module.exports = {
       contents_legend: {
         type: Sequelize.STRING
       },
-      acct_id: {
-        type: Sequelize.INTEGER
+      account_id: {
+        type: Sequelize.STRING
       },
       stardust: {
         type: Sequelize.INTEGER
