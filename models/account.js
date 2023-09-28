@@ -5,10 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Account extends Model {
     static associate(models) {
+      console.log(models)
+      // 問題出在這 
       Account.belongsToMany(models.User, {
         through: models.Pending,
         foreignKey: 'accountId',
-        as: 'FendingUsers'
+        as: 'PendingUsers'
       })
     }
   }
