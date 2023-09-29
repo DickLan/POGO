@@ -39,6 +39,9 @@ module.exports = {
       youtube: {
         type: Sequelize.STRING
       },
+      price: {
+        type: Sequelize.INTEGER
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
@@ -46,7 +49,8 @@ module.exports = {
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+
     });
   },
   async down(queryInterface, Sequelize) {

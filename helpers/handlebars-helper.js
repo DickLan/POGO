@@ -13,6 +13,10 @@ module.exports = {
     // true 則執行if的部分
     // false 則執行else的部分
     return a === b ? options.fn(this) : options.inverse(this)
+  },
+  lookup: function (array, index) {
+    // return hbs array[index]
+    return array[index]
   }
 
 }

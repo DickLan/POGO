@@ -7,11 +7,12 @@ module.exports = {
       Array.from({ length: 5 }, () => ({
         stardust: 30,
         level: 40,
-        team: 'r',
-        contents_iv100: '大隻佬／二二二',
+        team: 'red',
+        price: 55555,
+        contents_iv100: `噴火龍／火伊布／飛腿郎／大蔥鴨／打擊鬼／尼偶小人／單首龍／電擊獸／幼基拉斯／飛天螳螂／黑魯加／電龍／投摔鬼／頭蓋龍／三合一磁怪／鯉魚王／迷你龍／`,
         contents_legend: '傳說佬／三三三',
-        acct_id: 'B01',
-        description: '圓陸鯊／過動員／噴火龍／永基拉／妙蛙種子／智輝猩／波克基古／鬼斯／單首龍／鯉魚王／飛腿郎／妙蛙花／拉魯拉斯／尼多王／甲殼龍／三合一磁怪／菊草葉／火球鼠',
+        account_id: 'B01',
+        description: '留空',
         created_at: new Date(),
         updated_at: new Date(),
         youtube: 'https://www.youtube.com/watch?v=fUNIR1GANHA'

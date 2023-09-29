@@ -72,9 +72,14 @@ img {
   color: gray;
 }
 
+.priceAccountId {
+  padding: 0%;
+}
+
 .accountPrice {
   font-size: 14px;
   color: rgba(255, 255, 0, 0.751);
+
 }
 
 .accountId {

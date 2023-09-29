@@ -125,99 +125,114 @@
           </div>
 
           {{!-- 每一個account --}}
-          <div class="account mx-auto col-lg-4 col-12 card text-center ">
+          {{#each accounts}}
+          {{!-- {{this.}} --}}
+          <div class="account pad mx-auto col-lg-4 col-12 card text-center ">
             <div class="acct-up card-header">
-              1
+              <div class="card-info row">
+                {{!-- team --}}
+                <div class="team-info col-3">
+                  <img class="img-fluid" src="/images/PokeTeams/{{this.team}}.png" alt="">
+                </div>
+                {{!-- Level & Stardust --}}
+                <div class="card-text levelStardust col-6 mx-auto ">
+                  <div class="d-flex justify-content-between">
+                    <span class="accountLevel">Level: {{this.level}}</span> <br>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span class="accountStardust">Stardust:{{this.stardust}}</span> <br>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span class="accountStardustUnit">&lpar;Unit: 10 kilo&rpar;</span>
+                  </div>
+                </div>
+                {{!-- price & acct_id --}}
+                {{!-- align-items-center justify-content-center --}}
+                <div class="card-text priceAccountId col-3 d-flex flex-column justify-content-between  ">
+                  <span class="accountPrice px-0 py-0 align-self-start">$ {{this.price}} NT</span> <br>
+                  <span class="accountId ml-auto align-self-end">#{{this.accountId}}</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="card-header switchHeader ">
+              <ul class="nav nav-tabs card-header-tabs row my-auto">
+                <li class="nav-item col-6 ">
+                  <div class="d-flex justify-content-between ">
+                    <a class="nav-link active" aria-current="true" href="">IV100 Pokemons </a>
+
+
+                  </div>
+                </li>
+                <li class="nav-item col-6 ">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <a class="nav-link " href="">Legend Pokemons</a>
+                  </div>
+                </li>
+              </ul>
             </div>
             <div class="acct-mid card-body">
+
               {{!-- row 1 --}}
               <div class="row mb-3">
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 0}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 1}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 2}}.png" alt="">
                 </div>
               </div>
+
               {{!-- row 2 --}}
               <div class="row mb-3">
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 3}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 4}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 5}}.png" alt="">
                 </div>
               </div>
+
               {{!-- row 3 --}}
               <div class="row mb-3">
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 6}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 7}}.png" alt="">
                 </div>
                 <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
+                  <img class="card-img" src="/images/PokemonDataset/{{lookup this.contentsIv100Array 8}}.png" alt="">
                 </div>
               </div>
+
             </div>
-            <div class="acct-down card-footer">
-              Card footer
+            <div class="acct-down card-footer row">
+
+              <div class="detail border col-6   accountDetail d-inline-flex align-items-center ">
+                {{!-- text-decoration-none 去掉button底線 --}}
+                <a href="" class=" text-light text-decoration-none"><img class="me-2" src="/images/someIcon/eye.png"
+                    alt="">Detail</a>
+              </div>
+
+              <div class="addToCart border accountAddToCart col-6 d-inline-flex align-items-center  ">
+                <form action="" class="" method="post">
+                  {{!-- add to cart --}}
+                  <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
+                  <button class="addToCartButton bg-dark" type="submit">AddToCart</button>
+                </form>
+              </div>
             </div>
           </div>
-          {{!-- 每一個account --}}
-          <div class="account mx-auto col-lg-4 col-12 card text-center ">
-            <div class="acct-up card-header">
-              1
-            </div>
-            <div class="acct-mid card-body">
-              {{!-- row 1 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-              {{!-- row 2 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-              {{!-- row 3 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="acct-down card-footer">
-              Card footer
-            </div>
-          </div>
+          {{/each}}
+
 
         </div>
 
