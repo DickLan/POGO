@@ -26,6 +26,9 @@ const accountController = {
         return res.render('admin/accounts', { accounts: data })
       })
       .catch(err => next(err))
+  },
+  getAccount: (req, res, next) => {
+    res.render('admin/detail')
   }
 }
 
