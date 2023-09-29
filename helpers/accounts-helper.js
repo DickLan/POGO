@@ -16,7 +16,7 @@ module.exports = {
     // terms:變量名稱
     const terms = input.split('／')
     const translatedTerms = terms.map(term => {
-      console.log(term)
+      // console.log(term)
       // replace:正則表達式將空格變為空字串
       const pininResult = pinyin(term, { toneType: 'none' }).replace(/\s/g, '')
       // 返回轉換後的英文名稱

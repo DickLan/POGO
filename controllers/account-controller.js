@@ -14,10 +14,10 @@ const accountController = {
         let data = accounts.map(act => ({
           ...act,
           // 見一個新的array 辨認圖片用
-          contentsIv100Array: accountsHelper.cToE(act.contentsIv100),
-          dick: [5, 6, 7]
+          // 只傳前９個item作為展示用 到detail時再全部顯示
+          contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9)
         }))
-        console.log(data)
+        // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
         // 因為對照用的dict來源 中英文是excel表 來自網路上
         // 共有1035筆 但實際上 圖庫的檔案只有907張 且部分名稱會有差異

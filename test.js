@@ -15,7 +15,7 @@ function ce(input) {
   // terms:變量名稱
   const terms = input.split('／')
   const translatedTerms = terms.map(term => {
-    console.log(term)
+    // console.log(term)
     // 將繁體中文轉成拼音 無聲調
     // replace:正則表達式將空格變為空字串
     const pininResult = pinyin(term, { toneType: 'none' }).replace(/\s/g, '')

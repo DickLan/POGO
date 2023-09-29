@@ -2079,8 +2079,8 @@ const dict = {}
 for (let i = 0; i < bb.length; i++) {
   dict[bb[i]] = d[i]
 }
-console.log(dict)
-console.log(bb.length)
-console.log(bb[1])
+// console.log(dict)
+// console.log(bb.length)
+// console.log(bb[1])
 
 module.exports = dict
