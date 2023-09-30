@@ -7,7 +7,6 @@ const handlebarsHelpers = require('./helpers/handlebars-helper')
 const methodOverride = require('method-override')
 const bcrypt = require('bcryptjs')
 const sequelize = require('sequelize')
-// const bootstrap = require('bootstrap') 
 
 // require('./associations')
 // if (process.env.NODE_ENV !== 'production') {
