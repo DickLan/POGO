@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 const accountController = require('../../controllers/account-controller')
 
-router.use('/accounts/detailTemp', accountController.getAccount)
+// 測試用 之後要刪
+router.use('/accounts/detailTemp', accountController.getDetail)
 router.use('/accounts/:id', accountController.getAccount)
 router.use('/accounts', accountController.getAccounts)
 

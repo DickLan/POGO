@@ -1,5 +1,6 @@
 const { Account } = require('../models')
 const accountsHelper = require('../helpers/accounts-helper')
+const { ne } = require('faker/lib/locales')
 
 const accountController = {
   getAccounts: (req, res, next) => {
@@ -28,8 +29,22 @@ const accountController = {
       .catch(err => next(err))
   },
   getAccount: (req, res, next) => {
-    res.render('admin/detail')
+    const id = req.params.id
+    // console.log(id)
+    Account.findByPk(id, { raw: true })
+      .then(account => {
+        let data = account
+        data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
+        console.log('data=', data)
+        res.render('admin/detail', { account: data })
+      })
+      .catch(err => next(err))
   },
+
+
+
+
+  // getAccount 改view 測試用 之後要刪
   getDetail: (req, res, next) => {
     res.render('admin/detail')
   }
