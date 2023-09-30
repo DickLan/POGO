@@ -11,10 +11,23 @@ img {
   height: auto;
 }
 
-td,
+.inner-table td,
 tr {
   text-align: start;
 }
+
+.promises span {
+  color: gray;
+}
+
+.inner-table th {
+  background-color: rgb(107, 141, 141);
+}
+
+.inner-table td {
+  background-color: rgb(52, 65, 65);
+}
+
 
 .account {
   /* padding: 0 20px; */
@@ -123,4 +136,3 @@ tr {
   width: 18px;
   display: inline;
 }
-
