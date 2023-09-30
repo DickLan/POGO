@@ -34,7 +34,10 @@ const accountController = {
     Account.findByPk(id, { raw: true })
       .then(account => {
         let data = account
+        // 從字串轉Iv100寶可夢為對應英文名稱之陣列
         data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
+        // 從字串轉Legend寶可夢為對應英文名稱之陣列
+        data.contentsLegendArray = accountsHelper.cToE(data.contentsLegend)
         console.log('data=', data)
         res.render('admin/detail', { account: data })
       })
