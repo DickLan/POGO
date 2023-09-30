@@ -29,6 +29,9 @@ const accountController = {
   },
   getAccount: (req, res, next) => {
     res.render('admin/detail')
+  },
+  getDetail: (req, res, next) => {
+    res.render('admin/detail')
   }
 }
 
