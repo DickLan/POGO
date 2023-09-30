@@ -11,6 +11,11 @@ img {
   height: auto;
 }
 
+td,
+tr {
+  text-align: start;
+}
+
 .account {
   /* padding: 0 20px; */
   display: flex;
