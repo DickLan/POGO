@@ -15,7 +15,7 @@ module.exports = {
         description: '留空',
         created_at: new Date(),
         updated_at: new Date(),
-        youtube: 'https://www.youtube.com/watch?v=fUNIR1GANHA'
+        youtube: 'https://www.youtube.com/watch?v=MuWxK1_L1U8'
 
       })
       )
