@@ -39,7 +39,7 @@ const accountController = {
         // 從字串轉Legend寶可夢為對應英文名稱之陣列
         data.contentsLegendArray = accountsHelper.cToE(data.contentsLegend)
         console.log('data=', data)
-        res.render('admin/detail', { account: data })
+        res.render('admin/account-Iv100', { account: data })
       })
       .catch(err => next(err))
   },
@@ -49,7 +49,7 @@ const accountController = {
 
   // getAccount 改view 測試用 之後要刪
   getDetail: (req, res, next) => {
-    res.render('admin/detail')
+    res.render('admin/account-Iv100')
   }
 }
 
