@@ -11,6 +11,9 @@ router.use('/accounts', accountController.getAccounts)
 
 // ========= user ==========
 router.use('/cart', userController.getCart)
+router.use('/login', userController.getLogin)
+router.use('/register', userController.getRegister)
+
 
 // router.get('/accounts', (req, res) => {
 //   res.render('admin/accounts')

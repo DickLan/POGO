@@ -17,6 +17,12 @@ module.exports = {
   lookup: function (array, index) {
     // return hbs array[index]
     return array[index]
+  },
+  ifInclude: function (a, b, options) {
+    if ((typeof a) === String) {
+      return a.includes(b) ? options.fn(this) : options.inverse(this)
+
+    }
   }
 
 }
