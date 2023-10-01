@@ -167,7 +167,9 @@
           <ul class="nav nav-tabs card-header-tabs row my-auto">
             <li class="nav-item col-6 ">
               <div class="d-flex justify-content-between">
-                <a class="nav-link active" aria-current="true" href="">IV100 Pokemons </a>
+                <a class="nav-link {{#ifCond route 'index'}}active{{/ifCond}}" aria-current="true" href="">IV100
+                  Pokemons </a>
+                <span>{{route}}</span>
 
 
               </div>
@@ -179,7 +181,10 @@
             </li>
           </ul>
         </div>
+
+
         <div class="acct-iv100 card-body">
+
 
           {{!-- row 1 --}}
           <div class="row mb-3">
@@ -190,7 +195,7 @@
             </div>
             {{/each}}
 
-            
+
           </div>
 
 
