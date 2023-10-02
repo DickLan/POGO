@@ -3,6 +3,7 @@ const router = express.Router()
 const accountController = require('../../controllers/account-controller')
 const userController = require('../../controllers/user-controller')
 const passport = require('passport');
+const { authenticated } = require('../../middleware/auth')
 
 // ========= account ==========
 // 測試用 之後要刪
@@ -15,7 +16,7 @@ router.get('/accounts/:id/Legend', accountController.getAccount)
 router.get('/accounts', accountController.getAccounts)
 
 // ========= user ==========
-router.get('/cart', userController.getCart)
+router.get('/cart', authenticated, userController.getCart)
 
 router.get('/login', userController.getLogin)
 router.post('/login', passport.authenticate('local', {
@@ -23,7 +24,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login'
 }))
 
-router.get('/logout', (req, res) => {
+router.get('/logout', authenticated, (req, res) => {
   req.logout()
   res.redirect('/login')
 })
