@@ -29,6 +29,11 @@ app.use(session({
 // 載入 passport 設定檔，要在express-session 之後
 // 呼叫 passport 函式並傳入app 要寫在路由之前
 usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  // req.locals.user = req.user
+  next()
+})
 
 app.use(routes)
 
