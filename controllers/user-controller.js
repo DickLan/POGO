@@ -11,7 +11,7 @@ const userController = {
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
-    
+
   },
 
   getRegister: (req, res, next) => {
@@ -29,7 +29,7 @@ const userController = {
         return User.create({
           name,
           email,
-          password: hash,
+          password,
           confirmPassword
         })
       })
