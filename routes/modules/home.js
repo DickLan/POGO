@@ -5,14 +5,19 @@ const userController = require('../../controllers/user-controller')
 
 // ========= account ==========
 // 測試用 之後要刪
-router.use('/accounts/detailTemp', accountController.getDetail)
-router.use('/accounts/:id', accountController.getAccount)
-router.use('/accounts', accountController.getAccounts)
+router.get('/accounts/detailTemp', accountController.getDetail)
+
+// 下兩行也可以寫成 
+router.get('/accounts/:id', accountController.getAccount)
+router.get('/accounts/:id/Legend', accountController.getAccount)
+
+router.get('/accounts', accountController.getAccounts)
 
 // ========= user ==========
-router.use('/cart', userController.getCart)
-router.use('/login', userController.getLogin)
-router.use('/register', userController.getRegister)
+router.get('/cart', userController.getCart)
+router.get('/login', userController.getLogin)
+router.get('/register', userController.getRegister)
+router.post('/register', userController.postRegister)
 
 
 // router.get('/accounts', (req, res) => {
