@@ -11,6 +11,16 @@ img {
   height: auto;
 }
 
+.flash-message {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  /* 確保它在最上層 */
+  width: 70%;
+}
+
 .inner-table td,
 tr {
   text-align: start;

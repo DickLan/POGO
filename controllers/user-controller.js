@@ -18,8 +18,19 @@ const userController = {
     res.render('users/register')
   },
   postRegister: (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { name, email, password, confirmPassword } = req.body
+    const errors = []
+    if (!name || !email || !password || !confirmPassword) {
+      errors.push({ message: 'All fields are required.' })
+    }
+    if (password !== confirmPassword) {
+      errors.push({ message: 'password not same.' })
+    }
+
+    if (errors.length) {
+      return res.render('users/register', { errors, name, email, password, confirmPassword })
+    }
     User.findOne({ where: { email } })
       .then(user => {
         if (user) throw new Error('this email already exist')
@@ -27,6 +38,7 @@ const userController = {
       })
       .then(hash => {
         return User.create({
+          errors,
           name,
           email,
           password,

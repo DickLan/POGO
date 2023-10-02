@@ -1,3 +1,4 @@
+{{> message}}
 <!-- Section: Design Block -->
 <section class="text-center">
   <!-- Background image -->
@@ -21,25 +22,26 @@
 
             <!-- Names -->
             <div class="form-outline mb-4">
-              <input type="text" id="name" name="name" class="form-control" />
+              <input type="text" id="name" name="name" class="form-control" value="{{name}}" />
               <label class="form-label" for="name">Name</label>
             </div>
 
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="email" name="email" class="form-control" />
+              <input type="email" id="email" name="email" class="form-control" value={{email}}>
               <label class="form-label" for="email">Email address</label>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="password" name="password" class="form-control" />
+              <input type="password" id="password" name="password" class="form-control" value={{password}}>
               <label class="form-label" for="password">Password</label>
             </div>
 
             <!-- Confirm Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" />
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                value={{confirmPassword}}>
               <label class="form-label" for="confirmPassword">Confirm Password</label>
             </div>
 
