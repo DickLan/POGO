@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const bcryptjs = require('bcryptjs')
 
 const userController = {
   // cart
@@ -9,6 +10,10 @@ const userController = {
   getLogin: (req, res, next) => {
     res.render('users/login')
   },
+  postLogin: (req, res, next) => {
+    
+  },
+
   getRegister: (req, res, next) => {
     res.render('users/register')
   },
@@ -18,9 +23,18 @@ const userController = {
     User.findOne({ where: { email } })
       .then(user => {
         if (user) throw new Error('this email already exist')
+        return bcryptjs.hash(password, 10)
+      })
+      .then(hash => {
         return User.create({
-          name, email, password, confirmPassword
+          name,
+          email,
+          password: hash,
+          confirmPassword
         })
+      })
+      .then(() => {
+        return res.redirect('/login')
       })
       .catch(err => next(err))
   }
