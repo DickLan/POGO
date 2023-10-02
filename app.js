@@ -7,6 +7,7 @@ const handlebarsHelpers = require('./helpers/handlebars-helper')
 const methodOverride = require('method-override')
 const bcrypt = require('bcryptjs')
 const sequelize = require('sequelize')
+const session = require('express-session')
 
 // require('./associations')
 // if (process.env.NODE_ENV !== 'production') {
@@ -19,6 +20,12 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(routes)
 

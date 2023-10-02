@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const accountController = require('../../controllers/account-controller')
 const userController = require('../../controllers/user-controller')
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var crypto = require('crypto');
 
 // ========= account ==========
 // 測試用 之後要刪
