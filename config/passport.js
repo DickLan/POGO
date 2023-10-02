@@ -19,6 +19,7 @@ module.exports = app => {
         if (user.password !== password) {
           return cb(null, false, { message: 'Email or Password incorrect.' })
         }
+        
         return cb(null, user)
       })
       .catch(err => cb(err, false))
