@@ -1,7 +1,7 @@
 const { Account } = require('../models')
 const accountsHelper = require('../helpers/accounts-helper')
 
-const accountController = {
+const adminController = {
   getAccounts: (req, res, next) => {
     Account.findAll({
       raw: true,
@@ -27,36 +27,11 @@ const accountController = {
         // 共有1035筆 但實際上 圖庫的檔案只有907張 且部分名稱會有差異
         // 若遇到 再手動改pokeDictionary.js 的英文名稱就好
         // 英文名稱只要和圖庫檔案名稱相同 就可以正確顯示
+        // console.log(data)
         return res.render('public/accounts', { accounts: data })
       })
       .catch(err => next(err))
-  },
-  getAccount: (req, res, next) => {
-    const id = req.params.id
-    // console.log('req', req.originalUrl)
-    Account.findByPk(id, { raw: true })
-      .then(account => {
-        let data = account
-        // 從字串轉Iv100寶可夢為對應英文名稱之陣列
-        data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
-        // 從字串轉Legend寶可夢為對應英文名稱之陣列
-        data.contentsLegendArray = accountsHelper.cToE(data.contentsLegend)
-        // console.log('data=', data)
-        if (req.originalUrl.includes('Legend')) {
-          return res.render('public/account-Legend', { account: data })
-        }
-        return res.render('public/account-Iv100', { account: data })
-      })
-      .catch(err => next(err))
-  },
-
-
-
-
-  // getAccount 改view 測試用 之後要刪
-  getDetail: (req, res, next) => {
-    res.render('public/account-Iv100')
   }
 }
 
-module.exports = accountController
+module.exports = adminController
