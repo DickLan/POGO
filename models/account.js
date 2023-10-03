@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       // console.log(models)
       // 問題出在這 
       Account.belongsToMany(models.User, {
-        through: models.Pending,
+        through: models.Cart,
         foreignKey: 'accountId',
-        as: 'PendingUsers'
+        as: 'CartUsers'
       })
     }
   }

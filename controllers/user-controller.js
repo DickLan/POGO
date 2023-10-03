@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Cart, Account } = require('../models')
 const bcryptjs = require('bcryptjs')
 
 const userController = {
@@ -12,7 +12,7 @@ const userController = {
   },
   postLogin: (req, res, next) => {
     req.flash('success_msg', 'success login')
-    res.redirect('/')
+    res.redirect('/accounts')
   },
 
   getRegister: (req, res, next) => {
@@ -52,6 +52,31 @@ const userController = {
         res.redirect('/login')
       })
       .catch(err => next(err))
+  },
+  // 新增購物車的項目
+  postCart: (req, res, next) => {
+    const accountId = req.params.id
+    const userId = req.user.id
+    Promise.all([
+      Account.findByPk(accountId),
+      Cart.findOne({ where: { userId, accountId } })
+    ])
+      .then(([account, cart]) => {
+        if (!account) throw new Error('no this POGO account')
+        if (cart) throw new Error('this already added in cart')
+
+        return Cart.create({
+          accountId,
+          userId
+        })
+      })
+      .then(() => {
+        req.flash('success_msg', 'added to cart!')
+        res.redirect('back')
+      })
+      .catch(err => next(err))
+
+
   }
 
 

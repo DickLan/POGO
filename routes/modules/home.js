@@ -16,8 +16,11 @@ router.get('/accounts/:id/Legend', accountController.getAccount)
 router.get('/accounts', accountController.getAccounts)
 
 // ========= user ==========
+// cart
 router.get('/cart', authenticated, userController.getCart)
+router.post('/cart/:id', authenticated, userController.postCart)
 
+// auth
 router.get('/login', userController.getLogin)
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login', failureFlash: true
@@ -34,6 +37,7 @@ router.get('/register', userController.getRegister)
 router.post('/register', userController.postRegister)
 
 
+
 // router.get('/accounts', (req, res) => {
 //   res.render('admin/accounts')
 // })
@@ -48,3 +52,7 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 module.exports = router
+
+
+
+
