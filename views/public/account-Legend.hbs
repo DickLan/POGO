@@ -1,0 +1,43 @@
+{{> account-view-account}}
+
+
+{{!-- iv100 & legend --}}
+<h4 class="text-center text-uppercase">POKÉMONS LIST</h4>
+<div class="down-info-container row mx-auto">
+  {{!-- this account --}}
+  <div class="detail-account pad mx-auto col-lg-8 col-12 card text-center">
+    {{> account-pokemon-list-tab route='legend'}}
+
+    <div class="acct-iv100 card-body">
+
+      {{!-- row 1 --}}
+      <div class="row mb-3">
+        {{#each account.contentsLegendArray}}
+        <div class="col-2">
+          <img class="card-img" src="/images/PokemonDataset/{{this}}.png" alt="">
+          <span>{{this}}</span>
+        </div>
+        {{/each}}
+
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
