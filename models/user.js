@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.belongsToMany(models.Account, {
-        through: models.Pending,
+        through: models.Cart,
         foreignKey: 'userId',
-        as: 'PendingAccounts'
+        as: 'CartAccounts'
       })
     }
   }
