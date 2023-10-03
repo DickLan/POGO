@@ -1,6 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const { User } = require('../models')
+const { User, Account } = require('../models')
 const bcryptjs = require('bcryptjs')
 const { use } = require('chai')
 
@@ -25,8 +25,6 @@ module.exports = app => {
             }
             return cb(null, user)
           })
-
-
       })
       .catch(err => cb(err, false))
   }))
@@ -37,7 +35,11 @@ module.exports = app => {
   })
   passport.deserializeUser((id, cb) => {
     console.log(666)
-    User.findByPk(id)
+    User.findByPk(id, {
+      include: [{
+        model: Account, as: 'CartAccounts'
+      }]
+    })
       // lean是mongodb ; toJSON是 sequelize
       .then(user => cb(null, user.toJSON()))
       .catch(err => cb(err, null))
