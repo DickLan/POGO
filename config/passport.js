@@ -30,11 +30,11 @@ module.exports = app => {
   }))
   // 序列化與反序列化
   passport.serializeUser((user, cb) => {
-    console.log(666)
+    // console.log(666)
     cb(null, user.id)
   })
   passport.deserializeUser((id, cb) => {
-    console.log(666)
+    // console.log(666)
     User.findByPk(id, {
       include: [{
         model: Account, as: 'CartAccounts'
