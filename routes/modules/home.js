@@ -20,9 +20,8 @@ router.get('/cart', authenticated, userController.getCart)
 
 router.get('/login', userController.getLogin)
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/cart',
-  failureRedirect: '/login'
-}))
+  failureRedirect: '/login', failureFlash: true
+}), userController.postLogin)
 
 router.get('/logout', authenticated, (req, res) => {
   req.logout()

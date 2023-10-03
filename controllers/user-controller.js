@@ -11,7 +11,8 @@ const userController = {
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
-
+    req.flash('success_msg', 'success login')
+    res.redirect('/')
   },
 
   getRegister: (req, res, next) => {
@@ -46,7 +47,9 @@ const userController = {
         })
       })
       .then(() => {
-        return res.redirect('/login')
+        // console.log(77777)
+        req.flash('success_msg', '成功註冊帳號！')
+        res.redirect('/login')
       })
       .catch(err => next(err))
   }
