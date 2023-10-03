@@ -82,8 +82,10 @@
 {{!-- second small navbar --}}
 <nav class="navbar navbar-expand-sm bg-light p-0 d-flex justify-content-between">
   {{!-- left promocode --}}
+
   <div class="ms-2">
-    promocode
+    <span style="font-weight: 1000; color:aqua">{{#if user.name}} Hi {{user.name}}! What's up! {{/if}}</span>
+    <span>promocode:</span>
   </div>
 
   {{!-- right cart --}}
