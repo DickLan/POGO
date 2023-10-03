@@ -1,11 +1,9 @@
+const { raw } = require('express')
 const { User, Cart, Account } = require('../models')
 const bcryptjs = require('bcryptjs')
 
 const userController = {
-  // cart
-  getCart: (req, res, next) => {
-    res.render('users/cart')
-  },
+
   // login & register
   getLogin: (req, res, next) => {
     res.render('users/login')
@@ -54,7 +52,7 @@ const userController = {
       .catch(err => next(err))
   },
   // 新增購物車的項目
-  postCart: (req, res, next) => {
+  addCartItem: (req, res, next) => {
     const accountId = req.params.id
     const userId = req.user.id
     Promise.all([
@@ -75,9 +73,31 @@ const userController = {
         res.redirect('back')
       })
       .catch(err => next(err))
-
-
+  },
+  // remove one cart item once
+  removeCartItem: (req, res, next) => {
+    const cartItemId = req.params.id
+    // 從 db Cart 尋找 是否有 accountId = req.params傳來的id相符
+    Cart.findOne({ where: { accountId: cartItemId } })
+      .then(cartItem => {
+        if (!cartItem) throw new Error('no this Item')
+        return cartItem.destroy()
+      })
+      .then(() => {
+        res.redirect('back')
+      })
+      .catch(err => next(err))
   }
+  ,
+  // 進入購物車
+  getCart: (req, res, next) => {
+
+    const userId = req.user.id
+    let data = req.user.CartAccounts
+    // console.log('================')
+    // console.log(data)
+    res.render('users/cart', { cartItems: data })
+  },
 
 
 

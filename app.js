@@ -1,7 +1,10 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
-const port = 3000
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+const port = process.env.PORT || 3001
 const routes = require('./routes')
 const handlebarsHelpers = require('./helpers/handlebars-helper')
 const methodOverride = require('method-override')
@@ -11,9 +14,6 @@ const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
 // require('./associations')
-// if (process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config()
-// }
 
 // helpers ssss別忘
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: handlebarsHelpers }))

@@ -17,9 +17,10 @@ router.get('/accounts', accountController.getAccounts)
 
 // ========= user ==========
 // cart
+// getCart:進入Cart頁面  
 router.get('/cart', authenticated, userController.getCart)
-router.post('/cart/:id', authenticated, userController.postCart)
-
+router.post('/cart/:id', authenticated, userController.addCartItem)
+router.delete('/cart/:id', authenticated, userController.removeCartItem)
 // auth
 router.get('/login', userController.getLogin)
 router.post('/login', passport.authenticate('local', {
