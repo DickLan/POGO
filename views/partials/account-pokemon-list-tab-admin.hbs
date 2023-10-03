@@ -1,0 +1,19 @@
+<div class="card-header switchHeader mx-n3">
+  <ul class="nav nav-tabs card-header-tabs row my-auto">
+    <li class="nav-item col-6 ">
+      <div class="d-flex justify-content-center align-items-center">
+        <a class="nav-link {{#ifCond route 'iv100'}}active{{/ifCond}} border border-success-subtle" id="tab-iv100"
+          aria-current="true" href="/accounts/{{account.id}}#tab-iv100">IV100 Pokemons </a>
+
+        {{!-- {{#ifCond route 'index'}}{{/ifCond}} --}}
+      </div>
+    </li>
+    <li class="nav-item col-6 ">
+      <div class="d-flex justify-content-center align-items-center">
+        <a class="nav-link {{#ifCond route 'legend'}}active{{/ifCond}} border border-success-subtle " id="tab-legend"
+          href="/accounts/{{account.id}}/Legend#tab-legend">Legend
+          Pokemons</a>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -40,13 +40,13 @@ router.post('/register', userController.postRegister)
 
 
 // router.get('/accounts', (req, res) => {
-//   res.render('admin/accounts')
+//   res.render('public/accounts')
 // })
 router.get('/search', (req, res) => {
-  res.render('admin/search')
+  res.render('public/search')
 })
 router.get('/contact', (req, res) => {
-  res.render('admin/contact')
+  res.render('public/contact')
 })
 
 router.get('/', (req, res) => {

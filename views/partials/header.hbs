@@ -34,6 +34,10 @@
         </ul>
       </div>
     </div>
+
+    {{#if user.isAdmin}}
+    <a href="/admin/accounts" class="bg-light">Admin Go edit</a>
+    {{/if}}
     {{!--right --}}
     <div class="right">
 
