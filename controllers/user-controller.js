@@ -42,7 +42,7 @@ const userController = {
           errors,
           name,
           email,
-          password,
+          password: hash,
           confirmPassword
         })
       })
