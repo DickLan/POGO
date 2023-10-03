@@ -1,6 +1,8 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const { User } = require('../models')
+const bcryptjs = require('bcryptjs')
+const { use } = require('chai')
 
 module.exports = app => {
   // 初始化模組
@@ -8,19 +10,23 @@ module.exports = app => {
   app.use(passport.session())
   // 設定本地登入策略
   passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, cb) => {
-    console.log(666)
-    console.log(User)
+    // console.log(666)
+    // console.log(User)
     User.findOne({ where: { email } })
       .then(user => {
         console.log('user=', user)
         if (!user) {
           return cb(null, false, { message: 'That email is not registered!' })
         }
-        if (user.password !== password) {
-          return cb(null, false, { message: 'Email or Password incorrect.' })
-        }
-        
-        return cb(null, user)
+        return bcryptjs.compare(password, user.password)
+          .then(isMatch => {
+            if (!isMatch) {
+              return cb(null, false, { message: "Email or Pw incorrect" })
+            }
+            return cb(null, user)
+          })
+
+
       })
       .catch(err => cb(err, false))
   }))
