@@ -223,11 +223,23 @@
               </div>
 
               <div class="addToCart border accountAddToCart col-6 d-inline-flex align-items-center  ">
+
+                {{#if this.isAddedToCart}}
+                <form action="/cart/{{this.id}}?_method=delete" class="" method="post">
+                  {{!-- add to cart --}}
+                  <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
+                  <button class="addToCartButton bg-dark" type="submit">CancelAdded</button>
+                </form>
+                {{else}}
                 <form action="/cart/{{this.id}}" class="" method="post">
                   {{!-- add to cart --}}
                   <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
-                  <button class="addToCartButton bg-dark" type="submit">AddToCart</button>
+                  <button class="addToCartButton bg-warning" type="submit">AddToCart</button>
+
+
                 </form>
+                {{/if}}
+
               </div>
             </div>
           </div>

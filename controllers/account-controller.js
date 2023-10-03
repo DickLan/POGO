@@ -16,7 +16,11 @@ const accountController = {
           ...act,
           // 見一個新的array 辨認圖片用
           // 只傳前９個item作為展示用 到detail時再全部顯示
-          contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9)
+          contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
+          // 檢查是否有 req.user 有的話才進行下一步動作
+          // 將 CartAccounts依序拿出 每次都會查出一個cartAccount
+          // 並將拿出的cartAccount變為cartAccount.id 再做include檢查
+          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id)
         }))
         // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
@@ -30,7 +34,7 @@ const accountController = {
   },
   getAccount: (req, res, next) => {
     const id = req.params.id
-    console.log('req', req.originalUrl)
+    // console.log('req', req.originalUrl)
     Account.findByPk(id, { raw: true })
       .then(account => {
         let data = account
@@ -38,7 +42,7 @@ const accountController = {
         data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
         // 從字串轉Legend寶可夢為對應英文名稱之陣列
         data.contentsLegendArray = accountsHelper.cToE(data.contentsLegend)
-        console.log('data=', data)
+        // console.log('data=', data)
         if (req.originalUrl.includes('Legend')) {
           return res.render('admin/account-Legend', { account: data })
         }

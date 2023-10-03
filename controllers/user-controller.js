@@ -84,6 +84,7 @@ const userController = {
         return cartItem.destroy()
       })
       .then(() => {
+        req.flash('success_msg', 'Cancel added!')
         res.redirect('back')
       })
       .catch(err => next(err))
