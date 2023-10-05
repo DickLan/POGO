@@ -88,6 +88,7 @@
       </tr>
 
       {{#each accounts}}
+      <span>深黃色的this={{this}}</span>
       {{!-- each account --}}
       <tr>
         {{!-- account id --}}
@@ -125,18 +126,67 @@
           </span>
         </td>
         <td>
-          <button type="button" class="btn btn-link btn-sm btn-rounded">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-link btn-sm btn-rounded" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
             Edit
           </button>
+          <span>{{this.id}}</span>
           <span>|</span>
           <button type="button" class="btn btn-link btn-sm btn-rounded">
             Delete
           </button>
         </td>
       </tr>
+
       {{/each}}
+
+
+
+
+
+
+
+
+
+
+
+
 
     </tbody>
 
   </table>
 </div>
+
+
+
+{{#each accounts}}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modify account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/accounts/{{this.id}}?_method=PUT" method="post">
+
+          {{!-- the account be edited --}}
+          <div class="mb-3 d-flex">
+            <label for="accountId" class="form-label-sm form-control-sm inline-flex me-5">Account
+              Id:</label>
+            <input type="email" class="form-control-sm inline-flex" id="accountId">
+          </div>
+
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{{/each}}
