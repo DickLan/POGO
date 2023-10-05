@@ -23,6 +23,9 @@ module.exports = {
       return a.includes(b) ? options.fn(this) : options.inverse(this)
 
     }
+  },
+  subString: function (string, start, end) {
+    return string.length >= end ? string.substring(start, end) : string
   }
 
 }
