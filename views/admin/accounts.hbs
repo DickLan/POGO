@@ -10,7 +10,7 @@
   </form>
 
   <form action="" class=" inline-flex me-3">
-    <Button type="submit">Filter</Button>
+    <Button type="submit">New account</Button>
   </form>
 
   <form action="" class="inline-flex ms-5">
@@ -18,6 +18,10 @@
     <input type="text">
     <Button type="submit">search</Button>
   </form>
+
+  {{!-- addNewAccountModal Popup --}}
+  <Button type="button" data-bs-toggle="modal" data-bs-target="#newAccountModal">New account</Button>
+
 
 
 </div>
@@ -148,7 +152,7 @@
 
 
 {{#each accounts}}
-<!-- Modal -->
+<!--edit account modal -->
 <div class="modal fade" id="editModal{{this.id}}" tabindex="-1" aria-labelledby="editModal{{this.id}}Label"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -161,63 +165,7 @@
         {{!-- form start here --}}
         <form action="/admin/accounts/{{this.id}}?_method=PUT" method="post">
 
-          {{!-- the account be edited --}}
-          <div class="container">
-
-            {{!-- this.id 方便辨認用 --}}
-            <div class="mb-3 d-flex">
-              <span>辨認用
-                Id： {{this.id}}</span>
-            </div>
-            {{!-- acct id --}}
-            <div class="mb-3 d-flex">
-              <label for="accountId" class="form-label-sm form-control-sm inline-flex me-5">Account
-                Id:</label>
-              <input type="text" class="form-control-sm inline-flex" value="{{accountId}}" id="accountId"
-                name="accountId">
-            </div>
-            {{!-- team --}}
-            <div class="mb-3 d-flex">
-              <label for="team" class="form-label-sm form-control-sm inline-flex me-5">Team:</label>
-              <input type="text" class="form-control-sm inline-flex" value="{{this.team}}" name="team" id="team">
-            </div>
-            {{!-- level --}}
-            <div class="mb-3 d-flex">
-              <label for="level" class="form-label-sm form-control-sm inline-flex me-5">Level:</label>
-              <input type="text" class="form-control-sm inline-flex" value="{{this.level}}" name="level" id="level">
-            </div>
-
-            {{!-- price --}}
-            <div class="mb-3 d-flex">
-              <label for="price" class="form-label-sm form-control-sm inline-flex me-5">Price:</label>
-              <input type="text" class="form-control-sm inline-flex" value="{{this.price}}" name="price" id="price">
-            </div>
-            {{!-- iv100 pokemons --}}
-            <div class="mb-3 d-flex">
-              <label for="contensIv100" class="form-label-sm form-control-sm inline-flex me-5">Iv100 pokemons:</label>
-              <textarea class="form-control-sm inline-flex" name="contensIv100" id="contensIv100" cols="40"
-                rows="7">{{this.contentsIv100}}</textarea>
-
-            </div>
-            {{!-- legend pokemons --}}
-            <div class="mb-3 d-flex">
-              <label for="contensLegend" class="form-label-sm form-control-sm inline-flex me-5">ContensLegend:</label>
-              <textarea class="form-control-sm inline-flex" name="contensLegend" id="contensLegend" cols="40"
-                rows="7">{{this.contentsLegend}}</textarea>
-            </div>
-            {{!-- youtube --}}
-            <div class="mb-3 d-flex">
-              <label for="youtube" class="form-label-sm form-control-sm inline-flex me-5">Youtube:</label>
-              <input type="textarea" class="form-control-sm inline-flex" value="{{this.youtube}}" name="youtube"
-                id="youtube">
-            </div>
-
-
-
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-
-          </div>
+          {{> adminAccountModalForm}}
 
         </form>
 
@@ -227,3 +175,26 @@
   </div>
 </div>
 {{/each}}
+
+
+<!--add account modal -->
+<div class="modal fade" id="newAccountModal" tabindex="-1" aria-labelledby="newAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="newAccountModalLabel">Modify account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{!-- form start here --}}
+        <form action="/admin/accounts" method="post">
+
+          {{> adminAccountModalForm}}
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

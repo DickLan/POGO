@@ -27,14 +27,29 @@ const adminController = {
         if (!acct) throw new Error('no this acct admin')
 
         return acct.update({
-
-          accountId, level, startdust, price, contentsIv100, contentsLegend
+          accountId, level, startdust, price, contentsIv100, contentsLegend, youtube
         })
       })
       .then(() => {
         req.flash('success_msg', 'update success!')
         res.redirect('/admin/accounts')
       })
+      .catch(err => next(err))
+  },
+  postAccount: (req, res, next) => {
+    const { accountId, level, startdust, price, contentsIv100, contentsLegend, youtube } = req.body
+    console.log(req.body)
+    if (!accountId) throw new Error('accountId is required!')
+    Account.create({
+      accountId,
+      level: parseInt(level),
+      startdust: parseInt(startdust),
+      price: parseInt(price),
+      contentsIv100,
+      contentsLegend,
+      youtube
+    })
+      .then(() => res.redirect('/admin/accounts'))
       .catch(err => next(err))
   }
 }
