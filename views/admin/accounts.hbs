@@ -137,9 +137,11 @@
           </button>
           <span>{{this.id}}</span>
           <span>|</span>
-          <button type="button" class="btn btn-link btn-sm btn-rounded">
-            Delete
-          </button>
+          <form action="/admin/accounts/{{this.id}}?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-link btn-sm btn-rounded">
+              Delete
+            </button>
+          </form>
         </td>
       </tr>
       {{/each}}
@@ -150,7 +152,7 @@
 </div>
 
 
-
+{{!-- ============ modal ============== --}}
 {{#each accounts}}
 <!--edit account modal -->
 <div class="modal fade" id="editModal{{this.id}}" tabindex="-1" aria-labelledby="editModal{{this.id}}Label"
