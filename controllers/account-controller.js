@@ -56,9 +56,9 @@ const accountController = {
 
 
   // getAccount 改view 測試用 之後要刪
-  getDetail: (req, res, next) => {
-    res.render('public/account-Iv100')
-  }
+  // getDetail: (req, res, next) => {
+  //   res.render('public/account-Iv100')
+  // }
 }
 
 module.exports = accountController

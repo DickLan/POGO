@@ -7,7 +7,7 @@ const { authenticated } = require('../../middleware/auth')
 
 // ========= account ==========
 // 測試用 之後要刪
-router.get('/accounts/detailTemp', accountController.getDetail)
+// router.get('/accounts/detailTemp', accountController.getDetail)
 
 // 下兩行也可以寫成 
 router.get('/accounts/:id', accountController.getAccount)
