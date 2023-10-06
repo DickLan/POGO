@@ -25,7 +25,7 @@ module.exports = {
     }
   },
   subString: function (string, start, end) {
-    console.log('================', string)
+    // console.log('================', string)
     return string.length ? string.substring(start, end) : string
   }
 
