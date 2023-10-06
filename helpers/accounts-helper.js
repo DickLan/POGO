@@ -14,6 +14,9 @@ module.exports = {
   // 將該字串轉為 [a,b,c...]正確英文名稱陣列
   cToE: function (input) {
     // terms:變量名稱
+    if (!input) throw new Error('no input on accounts-helper')
+    // if (input.length)
+    console.log('ahelpr', input)
     const terms = input.split('／')
     const translatedTerms = terms.map(term => {
       // console.log(term)

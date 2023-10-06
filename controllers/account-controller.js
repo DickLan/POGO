@@ -11,10 +11,12 @@ const accountController = {
         // 透過自訂的cToE 
         // 把excel的iv100寶可夢 從word字串轉成英文名稱陣列
         // 圓陸鯊／過動員／噴火龍... => [aa,bbb,ccc,]
+
         let data = accounts.map(act => ({
           ...act,
           // 見一個新的array 辨認圖片用
           // 只傳前９個item作為展示用 到detail時再全部顯示
+
           contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
           // 檢查是否有 req.user 有的話才進行下一步動作
           // 將 CartAccounts依序拿出 每次都會查出一個cartAccount

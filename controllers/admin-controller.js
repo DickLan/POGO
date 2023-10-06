@@ -37,9 +37,13 @@ const adminController = {
       .catch(err => next(err))
   },
   postAccount: (req, res, next) => {
-    const { accountId, level, startdust, price, contentsIv100, contentsLegend, youtube } = req.body
-    console.log(req.body)
-    if (!accountId) throw new Error('accountId is required!')
+
+    const { accountId, level, startdust, price, contentsIv100, youtube } = req.body
+    let contentsLegend = req.body.contentsLegend || ('Null／無')
+    console.log('============', accountId, level, price, contentsIv100)
+
+    // 檢查項目 星砂移除 因為有時沒記錄到
+    if (!accountId || !level || !price || !contentsIv100 || !contentsLegend) throw new Error('All fields is required! (except U2)')
     Account.create({
       accountId,
       level: parseInt(level),
