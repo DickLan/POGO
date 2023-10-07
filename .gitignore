@@ -19,3 +19,9 @@ node_modules
 # img
 temp/
 upload/
+
+# test
+test.js
+tesgenger.js
+backup
+developTools
