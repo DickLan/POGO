@@ -16,8 +16,15 @@ module.exports = {
     // terms:變量名稱
     if (!input) throw new Error('no input on accounts-helper')
     // if (input.length)
-    console.log('ahelpr', input)
-    const terms = input.split('／')
+    // console.log('ahelpr', input)
+
+    // input = input.replace('／', '∕')
+    // 透過正則表達式 把input內所有全形／轉為半形/
+    input = input.replace(/／/g, '∕')
+    const terms = input.split('∕');
+
+    // console.log('ahelpr input', input)
+    // console.log('ahelpr tems', terms)
     const translatedTerms = terms.map(term => {
       // console.log(term)
       // replace:正則表達式將空格變為空字串
