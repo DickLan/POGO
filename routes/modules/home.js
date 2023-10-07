@@ -9,7 +9,8 @@ const { authenticated } = require('../../middleware/auth')
 // 測試用 之後要刪
 // router.get('/accounts/detailTemp', accountController.getDetail)
 
-// 下兩行也可以寫成 
+
+router.get('/accounts/search', accountController.getSearchedAccounts)
 router.get('/accounts/:id', accountController.getAccount)
 router.get('/accounts/:id/Legend', accountController.getAccount)
 
@@ -42,9 +43,10 @@ router.post('/register', userController.postRegister)
 // router.get('/accounts', (req, res) => {
 //   res.render('public/accounts')
 // })
-router.get('/search', (req, res) => {
-  res.render('public/search')
-})
+// router.get('/search', (req, res) => {
+//   res.render('public/search')
+// })
+
 router.get('/contact', (req, res) => {
   res.render('public/contact')
 })

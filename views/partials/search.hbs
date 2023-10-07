@@ -1,0 +1,123 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-link btn-sm btn-rounded" data-bs-toggle="modal" data-bs-target="#searchModal">
+  Search
+</button>
+
+<!--search account modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="searchModalLabel">Search account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{!-- form start here --}}
+        <form action="/accounts/search" method="get">
+          {{!-- the account be edited --}}
+          <div class="container">
+            {{!-- this.id 方便辨認用 --}}
+            <div class="mb-3 d-flex">
+              <span>辨認用
+                Id： </span>
+            </div>
+            {{!-- acct id --}}
+            <div class="mb-3 d-flex">
+              <label for="accountId" class="form-label-sm form-control-sm inline-flex me-5">Account
+                Id:</label>
+              <input type="text" class="form-control-sm inline-flex" value="{{accountId}}" id="accountId"
+                name="accountId">
+            </div>
+            {{!-- team --}}
+            <div class="mb-3 d-flex">
+              <label for="team" class="form-label-sm form-control-sm inline-flex me-5">Team:</label>
+              <div>
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll">Select All</label>
+              </div>
+              <div>
+                <input type="checkbox" value="red" name="team" id="red">
+                <label for="red">Red</label>
+              </div>
+              <div>
+                <input type="checkbox" value="blue" name="team" id="blue">
+                <label for="blue">Blue</label>
+              </div>
+              <div>
+                <input type="checkbox" value="yellow" name="team" id="yellow">
+                <label for="yellow">Yellow</label>
+              </div>
+              <div>
+                <input type="checkbox" value="yet" name="team" id="yet">
+                <label for="yet">Yet</label>
+              </div>
+            </div>
+
+            {{!-- level --}}
+            <div class="mb-3 d-flex">
+              <label for="level" class="form-label-sm form-control-sm inline-flex me-5">Min Level:</label>
+              <select class="form-select form-select-sm inline-flex" name="level" id="level">
+                {{#each options }}
+                <option value="{{this}}" {{#ifCond this ../this.level}} selected {{/ifCond}}>{{this}}</option>
+                {{/each}}
+              </select>
+            </div>
+            {{!-- stardust --}}
+            <div class="mb-3 d-flex">
+              <label for="stardust" class="form-label-sm form-control-sm inline-flex me-5">Stardust:
+                <br>(unit:10 kilo)
+              </label>
+              <input type="text" class="form-control-sm inline-flex" value="{{this.stardust}}" name="stardust"
+                id="stardust">
+            </div>
+
+            {{!-- price --}}
+            <div class="mb-3 d-flex">
+              <label for="price" class="form-label-sm form-control-sm inline-flex me-5">Price:
+                <br>Unit : NT
+              </label>
+              <div>
+                <input type="checkbox" value="2000" name="price" id="0to2k">
+                <label for="0to2k">0~2000</label>
+              </div>
+              <div>
+                <input type="checkbox" value="4000" name="price" id="2kto4k">
+                <label for="2kto4k">2001~4000</label>
+              </div>
+              <div>
+                <input type="checkbox" value="6000" name="price" id="4kto6k">
+                <label for="4kto6k">4001~6000</label>
+              </div>
+              <div>
+                <input type="checkbox" value="6001" name="price" id="6kup">
+                <label for="6kup">6000up</label>
+              </div>
+            </div>
+          </div>
+          {{!-- iv100 pokemons --}}
+          <div class="mb-3 d-flex">
+            <label for="contensIv100" class="form-label-sm form-control-sm inline-flex me-5">Iv100 pokemons:</label>
+            <textarea class="form-control-sm inline-flex" name="contentsIv100" id="contentsIv100" cols="40"
+              rows="7">{{this.contentsIv100}}</textarea>
+
+          </div>
+          {{!-- legend pokemons --}}
+          {{!-- <div class="mb-3 d-flex">
+            <label for="contentsLegend" class="form-label-sm form-control-sm inline-flex me-5">ContentsLegend:</label>
+            <textarea class="form-control-sm inline-flex" name="contentsLegend" id="contentsLegend" cols="40"
+              rows="7">{{this.contentsLegend}}</textarea>
+          </div> --}}
+
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Search</button>
+
+      </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+</div>
