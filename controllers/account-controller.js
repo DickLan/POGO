@@ -51,6 +51,41 @@ const accountController = {
       })
       .catch(err => next(err))
   },
+  getSearchedAccounts: (req, res, next) => {
+    console.log('========================')
+    // req.body 是 post  req.query 是 get 
+    console.log(req.query)
+    Account.findAll({
+      raw: true,
+      // nest: true
+    })
+      .then(accounts => {
+        // 透過自訂的cToE 
+        // 把excel的iv100寶可夢 從word字串轉成英文名稱陣列
+        // 圓陸鯊／過動員／噴火龍... => [aa,bbb,ccc,]
+
+        let data = accounts.map(act => ({
+          ...act,
+          // 見一個新的array 辨認圖片用
+          // 只傳前９個item作為展示用 到detail時再全部顯示
+
+          contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
+          // 檢查是否有 req.user 有的話才進行下一步動作
+          // 將 CartAccounts依序拿出 每次都會查出一個cartAccount
+          // 並將拿出的cartAccount變為cartAccount.id 再做include檢查
+          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id)
+        }))
+        // console.log(data)
+        // accounts.contents_iv100 = accounts.contents_iv100.split('／')
+        // 因為對照用的dict來源 中英文是excel表 來自網路上
+        // 共有1035筆 但實際上 圖庫的檔案只有907張 且部分名稱會有差異
+        // 若遇到 再手動改pokeDictionary.js 的英文名稱就好
+        // 英文名稱只要和圖庫檔案名稱相同 就可以正確顯示
+        return res.render('public/accounts', { accounts: data })
+      })
+      .catch(err => next(err))
+  }
+
 
 
 

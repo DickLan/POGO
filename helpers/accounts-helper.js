@@ -23,8 +23,8 @@ module.exports = {
     input = input.replace(/／/g, '∕')
     const terms = input.split('∕');
 
-    console.log('ahelpr input', input)
-    console.log('ahelpr tems', terms)
+    // console.log('ahelpr input', input)
+    // console.log('ahelpr tems', terms)
     const translatedTerms = terms.map(term => {
       // console.log(term)
       // replace:正則表達式將空格變為空字串

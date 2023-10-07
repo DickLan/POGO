@@ -39,6 +39,8 @@ app.use((req, res, next) => {
   res.locals.warning_msg = req.flash('warning_msg')
   res.locals.error_msg = req.flash('error_msg')
   res.locals.user = getUser(req)
+  // for search level 1~50
+  res.locals.options = Array.from(Array(50).keys()).map(i => i + 1)
   next()
 })
 
