@@ -19,5 +19,7 @@ let g = f.filter(teamName => {
   return validTeams.includes(teamName)
 
 })
+let h = g.map(teamName => ({ team: teamName }))
 // .map(teamName => (console.log(teamName)))
 console.log(g)
+console.log(h)
