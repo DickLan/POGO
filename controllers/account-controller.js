@@ -56,11 +56,11 @@ const accountController = {
     // req.body 是 post  req.query 是 get 
     // console.log(req.query)
 
-    const { accountId, level, stardust, contentsIv100 } = req.query
+    const { accountId, level, stardust } = req.query
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
-    let { team, price } = req.query
-    console.log('{accountId,team,level,stardust,price,contentsIv100}', { accountId, team, level, stardust, price, contentsIv100 })
+    let { team, price, pokemonContains } = req.query
+    console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
     const whereCondition = {}
     // for checkboxes
     whereCondition[Sequelize.Op.and] = []
@@ -105,7 +105,7 @@ const accountController = {
     if (stardust) {
       whereCondition.stardust = { [Sequelize.Op.gt]: stardust }
     }
-    // price lowerthan
+    // price 
     // =================Correct==========
     if (price) {
       const validPrice = ['0to1k', '0to2k', '2kto4k', '4kto6k', '6kUp'];
@@ -162,6 +162,28 @@ const accountController = {
         }
       });
       whereCondition[Sequelize.Op.and].push(priceConditions)
+    }
+    // contains pokemon
+    if (pokemonContains) {
+      const pokemonContainsConditions = []
+      // pokemonContains=字串 'aa/bb/cc'
+      // 防呆 trim前後空格與空行
+      trimPokemonContains = pokemonContains.trim()
+      containsArray = trimPokemonContains.split('/')
+      console.log(containsArray)
+
+      // 開始邏輯運算
+      containsArray.forEach(searchPokemon => {
+        pokemonContainsConditions.push({
+          contentsIv100: {
+            [Sequelize.Op.like]: `%${searchPokemon}%`
+          }
+        })
+      })
+      // 因為 pokemonContainsConditions是一個包含搜尋條件的陣列
+      // 所以用展開運算子搭配push 將每個元素作為獨立元素，增加到whereCond之中
+      whereCondition[Sequelize.Op.and].push(...pokemonContainsConditions)
+
     }
 
 

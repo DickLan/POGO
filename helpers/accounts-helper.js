@@ -21,6 +21,7 @@ module.exports = {
     // input = input.replace('／', '∕')
     // 透過正則表達式 把input內所有全形／轉為半形/
     input = input.replace(/／/g, '∕')
+    input = input.replace(/_/g, '∕')
     const terms = input.split('∕');
 
     // console.log('ahelpr input', input)

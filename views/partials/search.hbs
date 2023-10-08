@@ -103,11 +103,14 @@
 
             </div>
           </div>
-          {{!-- iv100 pokemons --}}
+          {{!-- contains pokemons --}}
           <div class="mb-3 d-flex">
-            <label for="contensIv100" class="form-label-sm form-control-sm inline-flex me-5">Iv100 pokemons:</label>
-            <textarea class="form-control-sm inline-flex" name="contentsIv100" id="contentsIv100" cols="40"
-              rows="7">{{this.contentsIv100}}</textarea>
+            <label for="contensIv100" class="form-label-sm form-control-sm inline-flex me-5"> pokemons' name:
+              <br>
+              請用"/"斜線分隔寶可夢名，例如：噴火龍/烈焰馬
+            </label>
+            <textarea class="form-control-sm inline-flex" name="pokemonContains" id="pokemonContains" cols="40" rows="7"
+              placeholder="寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...">{{this.pokemonContains}}</textarea>
 
           </div>
           {{!-- legend pokemons --}}
