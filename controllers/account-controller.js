@@ -57,12 +57,18 @@ const accountController = {
     // console.log(req.query)
 
     const { accountId, level, stardust, contentsIv100 } = req.query
+    // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
+
     let { team, price } = req.query
     console.log('{accountId,team,level,stardust,price,contentsIv100}', { accountId, team, level, stardust, price, contentsIv100 })
     const whereCondition = {}
+    // for checkboxes
+    whereCondition[Sequelize.Op.and] = []
+    // accountId
     if (accountId) {
       whereCondition.accountId = { [Sequelize.Op.like]: `%${accountId}%` }
     }
+    // team
     if (team) {
       const teamConditions = {
         [Sequelize.Op.or]: []
@@ -72,36 +78,56 @@ const accountController = {
         console.log('L=1')
         team = [team]
       }
-      whereCondition[Sequelize.Op.and] = []
-      console.log('========================')
-      console.log(team)
 
-      team.map(team => {
-        console.log('team=', team)
-        if (team.includes('red')) {
-          teamConditions[Sequelize.Op.or].push({ team: 'red' })
-        }
-        if (team.includes('blue')) {
-          teamConditions[Sequelize.Op.or].push({ team: 'blue' });
-        }
+      // console.log('========================')
+      // console.log(team)
+      const validTeams = ['red', 'blue', 'yellow', 'yet']
+      teamConditions[Sequelize.Op.or] = team
+        .filter(teamName => validTeams.includes(teamName))
+        .map(teamName => ({ team: teamName }))
+      // team.map(team => {
+      //   console.log('team=', team)
+      //   if (team.includes('red')) {
+      //     teamConditions[Sequelize.Op.or].push({ team: 'red' })
+      //   }
+      //   if (team.includes('blue')) {
+      //     teamConditions[Sequelize.Op.or].push({ team: 'blue' });
+      //   }
 
-        if (team.includes('yellow')) {
-          teamConditions[Sequelize.Op.or].push({ team: 'yellow' });
-        }
+      //   if (team.includes('yellow')) {
+      //     teamConditions[Sequelize.Op.or].push({ team: 'yellow' });
+      //   }
 
-        if (team.includes('yet')) {
-          teamConditions[Sequelize.Op.or].push({ team: 'yet' });
-        }
+      //   if (team.includes('yet')) {
+      //     teamConditions[Sequelize.Op.or].push({ team: 'yet' });
+      //   }
 
-      })
-
-      console.log('teamConditions', teamConditions)
-
+      // })
+      // console.log('teamConditions', teamConditions)
       whereCondition[Sequelize.Op.and].push(teamConditions)
     }
-
+    // level
     if (level) {
       whereCondition.level = { [Sequelize.Op.gt]: level }
+    }
+    // startdust
+    if (stardust) {
+      whereCondition.stardust = { [Sequelize.Op.gt]: stardust }
+    }
+    // price lowerthan
+    if (price) {
+      // whereCondition.price = { [Sequelize.Op.lt]:price}
+      const priceConditions = {
+        [Sequelize.Op.or]: []
+      }
+      if (typeof price === 'string') {
+        price = [price]
+      }
+
+
+
+
+      whereCondition[Sequelize.Op.and].push(priceConditions)
     }
 
     Account.findAll({
