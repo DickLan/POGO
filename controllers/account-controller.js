@@ -84,26 +84,17 @@ const accountController = {
       const validTeams = ['red', 'blue', 'yellow', 'yet']
       teamConditions[Sequelize.Op.or] = team
         .filter(teamName => validTeams.includes(teamName))
+        // map把[ 'red', 'blue' ]轉為[{ team: 'red' }, { team: 'blue' }]
+        // 對每一個teamName創建一個物件team，team的屬性設為teamName
         .map(teamName => ({ team: teamName }))
+      // 原先的寫法如下
       // team.map(team => {
       //   console.log('team=', team)
       //   if (team.includes('red')) {
       //     teamConditions[Sequelize.Op.or].push({ team: 'red' })
-      //   }
-      //   if (team.includes('blue')) {
-      //     teamConditions[Sequelize.Op.or].push({ team: 'blue' });
-      //   }
+      console.log('========================')
+      console.log('teamConditions', teamConditions)
 
-      //   if (team.includes('yellow')) {
-      //     teamConditions[Sequelize.Op.or].push({ team: 'yellow' });
-      //   }
-
-      //   if (team.includes('yet')) {
-      //     teamConditions[Sequelize.Op.or].push({ team: 'yet' });
-      //   }
-
-      // })
-      // console.log('teamConditions', teamConditions)
       whereCondition[Sequelize.Op.and].push(teamConditions)
     }
     // level
@@ -115,20 +106,64 @@ const accountController = {
       whereCondition.stardust = { [Sequelize.Op.gt]: stardust }
     }
     // price lowerthan
+    // =================Correct==========
     if (price) {
-      // whereCondition.price = { [Sequelize.Op.lt]:price}
+      const validPrice = ['0to1k', '0to2k', '2kto4k', '4kto6k', '6kUp'];
       const priceConditions = {
         [Sequelize.Op.or]: []
-      }
+      };
+
       if (typeof price === 'string') {
-        price = [price]
+        price = [price];
       }
 
-
-
-
+      price.forEach(selectedPriceRange => {
+        if (validPrice.includes(selectedPriceRange)) {
+          switch (selectedPriceRange) {
+            case '0to1k':
+              priceConditions[Sequelize.Op.or].push({
+                price: {
+                  [Sequelize.Op.between]: [0, 1000]
+                }
+              });
+              break;
+            case '0to2k':
+              priceConditions[Sequelize.Op.or].push({
+                price: {
+                  [Sequelize.Op.between]: [0, 2000]
+                }
+              });
+              break;
+            case '2kto4k':
+              priceConditions[Sequelize.Op.or].push({
+                price: {
+                  [Sequelize.Op.between]: [2000, 4000]
+                }
+              });
+              break;
+            case '4kto6k':
+              priceConditions[Sequelize.Op.or].push({
+                price: {
+                  [Sequelize.Op.between]: [4000, 6000]
+                }
+              });
+              break;
+            case '6kUp':
+              priceConditions[Sequelize.Op.or].push({
+                price: {
+                  [Sequelize.Op.gte]: 6000
+                }
+              });
+              break;
+            // 如果上面都沒執行到 就執行default
+            default:
+              break;
+          }
+        }
+      });
       whereCondition[Sequelize.Op.and].push(priceConditions)
     }
+
 
     Account.findAll({
       raw: true,
