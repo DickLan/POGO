@@ -12,3 +12,12 @@ if (typeof (b) === 'string') {
   console.log('L=1')
 
 }
+
+const validTeams = ['red', 'blue', 'yellow', 'yet']
+const f = ['red', 'blue', 'green']
+let g = f.filter(teamName => {
+  return validTeams.includes(teamName)
+
+})
+// .map(teamName => (console.log(teamName)))
+console.log(g)
