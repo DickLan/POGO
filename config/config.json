@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": "rootMaster07",
+    "username": "admin",
+    "password": "StrongPassword123@",
     "database": "pogo",
     "host": "127.0.0.1",
     "dialect": "mysql"
