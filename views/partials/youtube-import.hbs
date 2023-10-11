@@ -1,0 +1,22 @@
+<h4 class="text-center text-uppercase">Youtube</h4>
+
+{{#ifCond account.youtube 'noYoutube' }}
+<div style="font-size: 30px;">
+  <span>My apologies, this account doesn't have a YouTube link yet</span> <br>
+  <span>Welcome to our channel to check the other accounts.</span><br>
+  <a href="https://www.youtube.com/@GO-vy7rz">Click here for LittleSheng's youtube!</a>
+</div>
+{{else}}
+<div class="row">
+  <div class="col-12">
+    <iframe width="90%" height="705" src="https://www.youtube.com/embed/{{account.youtube}}"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MuWxK1_L1U8?si=uogQh9AIyVSDcaYr"
+  title="YouTube video player" frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen></iframe>
+{{/ifCond }}

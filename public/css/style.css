@@ -1,8 +1,5 @@
 /* 在你的 CSS 檔案中添加這段代碼 */
-body {
-  /* background-color: green; */
-  /* 將整個背景設為黑色 */
-}
+
 
 /* 最好每一次專案都設這個 會讓img自動適應視窗大小 */
 img {
@@ -111,7 +108,7 @@ tr {
 }
 
 .accountId {
-  font-size: 10px;
+  font-size: 16px;
   color: rgb(37, 193, 37);
 }
 

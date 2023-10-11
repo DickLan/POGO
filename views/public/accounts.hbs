@@ -7,6 +7,16 @@
   {{!-- high-class --}}
   <div class="small-margin-top">
     <div id="high-box">
+
+      <div class="info-explain mx-auto my-3 col-12 col-lg-6 text-center">
+        <div>
+          <img class="img-fluid" width="36px" src="/images/PokeTeams/yet.png" alt="">
+        </div>
+        <span>This means the account doesn't choose team yet.</span> <br>
+        <span>Buyer could decide your team after purchased.</span> <br>
+        <span>Just visit any gym then you could change it!</span>
+      </div>
+
       <div class="row high-column row  align-items-center justify-content-cente mx-auto">
 
         {{!-- left load more --}}
@@ -16,118 +26,22 @@
         {{!-- 不知道為什麼他要分兩個寫，先留著 right也有 但為了方便閱讀 先刪掉
         https://pokegoaccount.com/ 之後有需要再來抄 --}}
 
+
+
         {{!-- middle MAIN accts display --}}
         {{!-- 如果你想要確保在所有螢幕大小上都保持相同的佈局，可以使用 col-4。如果你想在不同大小的螢幕上呈現不同的佈局，可以使用 col-md-4。 --}}
-        <div class="accounts col-10 row mx-auto ">
+        <div class="accounts col-10 mt-3 row mx-auto ">
 
           {{!-- bs 是 mobile優先 所以col-12會設定所有設備
           包含電腦和手機
           為了讓電腦正常顯示 用col-lg-3維持原本的三張card --}}
 
-          {{!-- 每一個account --}}
-          <div class="account pad mx-auto col-lg-4 col-12 card text-center ">
-            <div class="acct-up card-header">
-              <div class="card-info row">
-                {{!-- team --}}
-                <div class="team-info col-3">
-                  <img class="img-fluid" src="/images/PokeTeams/red.png" alt="">
-                </div>
-                {{!-- Level & Stardust --}}
-                <div class="card-text levelStardust col-6 mx-auto ">
-                  <div class="d-flex justify-content-between">
-                    <span class="accountLevel">Level:401</span> <br>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <span class="accountStardust">Stardust:100</span> <br>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <span class="accountStardustUnit">&lpar;Unit: 10 kilo&rpar;</span>
-                  </div>
-                </div>
-                {{!-- price & acct_id --}}
-                {{!-- align-items-center justify-content-center --}}
-                <div class="card-text priceAccountId col-3 d-flex flex-column justify-content-between  ">
-                  <span class="accountPrice  align-self-start">$5,000NT</span> <br>
-                  <span class="accountId ml-auto align-self-end">#B01</span>
-                </div>
 
-              </div>
-            </div>
-
-            <div class="card-header switchHeader ">
-              <ul class="nav nav-tabs card-header-tabs row my-auto">
-                <li class="nav-item col-6 ">
-                  <div class="d-flex justify-content-between ">
-                    <a class="nav-link active" aria-current="true" href="">IV100 Pokemons </a>
-                  </div>
-                </li>
-                <li class="nav-item col-6 ">
-                  <div class="d-flex justify-content-center align-items-center">
-                    <a class="nav-link " href="">Legend Pokemons</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="acct-mid card-body">
-              {{!-- row 1 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-              {{!-- row 2 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-              {{!-- row 3 --}}
-              <div class="row mb-3">
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-                <div class="col-4">
-                  <img class="card-img" src="/images/PokemonDataset/abra.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="acct-down card-footer row">
-
-              <div class="detail border col-6   accountDetail d-inline-flex align-items-center ">
-                {{!-- text-decoration-none 去掉button底線 --}}
-                <a href="/accounts/2" class=" text-light text-decoration-none"><img class="me-2"
-                    src="/images/someIcon/eye.png" alt="">Detail</a>
-              </div>
-
-              <div class="addToCart border accountAddToCart col-6 d-inline-flex align-items-center  ">
-                <form action="" class="" method="post">
-                  {{!-- add to cart --}}
-                  <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
-                  <button class="addToCartButton bg-dark" type="submit">AddToCart</button>
-                </form>
-              </div>
-            </div>
-          </div>
 
           {{!-- 每一個account --}}
           {{#each accounts}}
           {{!-- {{this.}} --}}
-          <div class="account pad mx-auto col-lg-4 col-12 card text-center ">
+          <div class="account pad mx-auto mb-3 col-lg-4 col-12 card text-center ">
             <div class="acct-up card-header">
               <div class="card-info row">
                 {{!-- team --}}
@@ -149,7 +63,8 @@
                 {{!-- price & acct_id --}}
                 {{!-- align-items-center justify-content-center --}}
                 <div class="card-text priceAccountId col-3 d-flex flex-column justify-content-between  ">
-                  <span class="accountPrice px-0 py-0 align-self-start">$ {{this.price}} NT</span> <br>
+                  <span class="accountPrice px-0 py-0 align-self-center">$ {{this.price}} </span>
+                  <span class="accountPrice px-0 py-0 align-self-center"> NT</span><br>
                   <span class="accountId ml-auto align-self-end">#{{this.accountId}}</span>
                 </div>
 
@@ -242,6 +157,8 @@
 
               </div>
             </div>
+
+
           </div>
           {{/each}}
 
