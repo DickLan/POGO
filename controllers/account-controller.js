@@ -21,7 +21,8 @@ const accountController = {
           // 檢查是否有 req.user 有的話才進行下一步動作
           // 將 CartAccounts依序拿出 每次都會查出一個cartAccount
           // 並將拿出的cartAccount變為cartAccount.id 再做include檢查
-          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id)
+          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id),
+          accountId: act.accountId.toUpperCase()
         }))
         // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
@@ -202,7 +203,8 @@ const accountController = {
           ...act,
           contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
           // 檢查是否有 req.user 有的話才進行下一步動作
-          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id)
+          isAddedToCart: req.user && req.user.CartAccounts.map(cartAccount => cartAccount.id).includes(act.id),
+          accountId: act.accountId.toUpperCase()
         }))
         // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
