@@ -43,6 +43,11 @@ const accountController = {
         data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
         // 從字串轉Legend寶可夢為對應英文名稱之陣列
         data.contentsLegendArray = accountsHelper.cToE(data.contentsLegend)
+        if (data.youtube.length > 10) {
+          data.youtube = data.youtube.replace('https://www.youtube.com/watch?v=', '')
+        } else {
+          data.youtube = 'noYoutube'
+        }
         // console.log('data=', data)
         if (req.originalUrl.includes('Legend')) {
           return res.render('public/account-Legend', { account: data })
