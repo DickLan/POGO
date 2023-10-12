@@ -44,7 +44,7 @@
   ],
   "accountLevel": "Level",
   "accountStardust": "Stardust",
-  "accountUnit": "(Unit: 10 kilo)",
+  "accountUnit": "Stardust Unit: 10 kilo",
   "accountCurrency": "NT",
   "accountDetail": "Detail",
   "accountCartAdd": "AddToCart",
