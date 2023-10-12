@@ -8,6 +8,15 @@ img {
   height: auto;
 }
 
+.indented-text {
+  display: block;
+  text-indent: 20px;
+}
+
+.span-container {
+  white-space: pre-line;
+}
+
 .flash-message {
   position: fixed;
   top: 15%;
