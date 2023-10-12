@@ -12,10 +12,13 @@
         <div>
           <img class="img-fluid" width="36px" src="/images/PokeTeams/yet.png" alt="">
         </div>
-        <span>這個意思是還未選隊，可以自行在任意道館換隊.</span> <br>
-        <span>This means the account doesn't choose team yet.</span> <br>
-        <span>Buyer could decide your team after purchased.</span> <br>
-        <span>Just visit any gym then you could change it!</span>
+        {{#each lang.accountsInfo1}}
+        <span>{{this}}</span><br>
+        {{/each}}
+        <br>
+        {{#each lang.accountsInfo2}}
+        <span>{{this}}</span><br>
+        {{/each}}
       </div>
 
       <div class="row high-column row  align-items-center justify-content-cente mx-auto">
@@ -52,13 +55,13 @@
                 {{!-- Level & Stardust --}}
                 <div class="card-text levelStardust col-6 mx-auto ">
                   <div class="d-flex justify-content-between">
-                    <span class="accountLevel">Level: {{this.level}}</span> <br>
+                    <span class="accountLevel">{{../lang.accountLevel}}: {{this.level}}</span> <br>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <span class="accountStardust">Stardust:{{this.stardust}}</span> <br>
+                    <span class="accountStardust">{{../lang.accountStardust}}:{{this.stardust}}</span> <br>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <span class="accountStardustUnit">&lpar;Unit: 10 kilo&rpar;</span>
+                    <span class="accountStardustUnit">{{../lang.accountUnit}}</span>
                   </div>
                 </div>
                 {{!-- price & acct_id --}}
@@ -134,8 +137,9 @@
 
               <div class="detail border col-6   accountDetail d-inline-flex align-items-center ">
                 {{!-- text-decoration-none 去掉button底線 --}}
+                {{!-- 因為在eahc迴圈內 若要調用res.locals要../跳出回圈 --}}
                 <a href="/accounts/{{this.id}}" class=" text-light text-decoration-none"><img class="me-2"
-                    src="/images/someIcon/eye.png" alt="">Detail</a>
+                    src="/images/someIcon/eye.png" alt="">{{../lang.accountDetail}}</a>
               </div>
 
               <div class="addToCart border accountAddToCart col-6 d-inline-flex align-items-center  ">
@@ -144,13 +148,13 @@
                 <form action="/cart/{{this.id}}?_method=delete" class="" method="post">
                   {{!-- add to cart --}}
                   <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
-                  <button class="addToCartButton bg-dark" type="submit">CancelAdded</button>
+                  <button class="addToCartButton bg-dark" type="submit">{{../lang.accountCartCancel}}</button>
                 </form>
                 {{else}}
                 <form action="/cart/{{this.id}}" class="" method="post">
                   {{!-- add to cart --}}
                   <img class="col-4 cart-img" src="/images/someIcon/cart.png" alt="">
-                  <button class="addToCartButton bg-warning" type="submit">AddToCart</button>
+                  <button class="addToCartButton bg-warning" type="submit">{{../lang.accountCartAdd}}</button>
 
 
                 </form>
