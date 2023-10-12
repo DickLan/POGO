@@ -51,6 +51,11 @@ router.get('/contact', (req, res) => {
   res.render('public/contact')
 })
 
+router.get('/feedback', (req, res) => {
+  res.render('public/feedback')
+})
+
+
 router.get('/', (req, res) => {
   res.render('index')
 })

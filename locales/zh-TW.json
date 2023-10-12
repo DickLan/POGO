@@ -4,8 +4,9 @@
   "headerViceTitle": "小盛專賣",
   "headerHome": "首頁",
   "headerBuyAccounts": "瀏覽帳號",
-  "headerSearch": "搜尋",
   "headerContact": "聯絡我",
+  "headerFeedback": "買家回饋",
+  "headerSearch": "搜尋",
   "headerLogin": "登入",
   "headerLogout": "登出",
   "headerRegister": "註冊",
@@ -14,11 +15,12 @@
   "indexGreeting": "歡迎來到Iv100俱樂部",
   "indexSlogan": "千萬別嘗試便宜卻有風險的帳號",
   "indexImg": "zh",
+  "indexBrowseButton": "看看帳號",
   "indexIntro1": [
     "最好尋找有誠信的賣家，例如小盛專賣"
   ],
   "indexIntro2": [
-    "從2019年完成第一筆寶可夢交易，至今已有四個年頭，成交紀錄數百筆如圖，持續增加中．",
+    "從2019年完成第一筆8591寶可夢交易，至今已有四個年頭，成交紀錄數百筆如圖，持續增加中．",
     "佳評如潮，正評率99%的小盛專賣致力於提供最優質，最安全的帳號",
     "如果您正打算入坑或是回鍋寶可夢Go，找小盛，就對了！"
   ],
@@ -41,5 +43,7 @@
   "accountCurrency": "NT",
   "accountDetail": "詳細資訊",
   "accountCartAdd": "加入購物車",
-  "accountCartCancel": "移除購物車"
+  "accountCartCancel": "移除購物車",
+  "_commentOthers": "=========== Others ==============.",
+  "feedbackLang": "zh"
 }
