@@ -6,7 +6,7 @@ const userController = {
 
   // login & register
   getLogin: (req, res, next) => {
-    // console.log(req)
+    console.log(req.cookies.lang)
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
