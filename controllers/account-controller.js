@@ -98,8 +98,8 @@ const accountController = {
       //   console.log('team=', team)
       //   if (team.includes('red')) {
       //     teamConditions[Sequelize.Op.or].push({ team: 'red' })
-      console.log('========================')
-      console.log('teamConditions', teamConditions)
+      // console.log('========================')
+      // console.log('teamConditions', teamConditions)
 
       whereCondition[Sequelize.Op.and].push(teamConditions)
     }
