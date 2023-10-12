@@ -4,8 +4,9 @@
   "headerViceTitle": "Little Sheng POGO store",
   "headerHome": "Home",
   "headerBuyAccounts": "Buy Accounts",
-  "headerSearch": "Search",
   "headerContact": "Contact",
+  "headerFeedback": "Feedback",
+  "headerSearch": "Search",
   "headerLogin": "Login",
   "headerLogout": "Logout",
   "headerRegister": "Register",
@@ -14,6 +15,7 @@
   "indexGreeting": "Welcome to Iv100 club",
   "indexSlogan": "Never try cheap but risky accounts!",
   "indexImg": "en",
+  "indexBrowseButton": "Browse all accounts",
   "indexIntro1": [
     "It's best to look for trustworthy sellers, like Little Sheng Store.",
     "Here's our sales record in Taiwan's famous game accounts platforms."
@@ -46,5 +48,7 @@
   "accountCurrency": "NT",
   "accountDetail": "Detail",
   "accountCartAdd": "AddToCart",
-  "accountCartCancel": "CancelAdded"
+  "accountCartCancel": "CancelAdded",
+  "_commentOthers": "=========== Others ==============.",
+  "feedbackLang": "en"
 }
