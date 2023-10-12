@@ -6,6 +6,7 @@ const userController = {
 
   // login & register
   getLogin: (req, res, next) => {
+    // console.log(req)
     res.render('users/login')
   },
   postLogin: (req, res, next) => {

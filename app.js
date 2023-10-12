@@ -15,6 +15,8 @@ const { getUser } = require('./helpers/auth-helper')
 const flash = require('connect-flash')
 
 // require('./associations')
+const en = require('./locales/en-US.json')
+const zh = require('./locales/zh-TW.json')
 
 // helpers ssss別忘
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: handlebarsHelpers }))
@@ -41,6 +43,14 @@ app.use((req, res, next) => {
   res.locals.user = getUser(req)
   // for search level 1~50
   res.locals.options = Array.from(Array(50).keys()).map(i => i + 1)
+  // 增加全局語言包
+  const reqLang = req.acceptsLanguages('zh-TW', 'en-US') || 'en-US'
+  if (reqLang === 'en-US') {
+    res.locals.lang = en
+  } else if (reqLang === 'zh-TW') {
+    res.locals.lang = zh
+  }
+
   next()
 })
 
