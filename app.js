@@ -14,8 +14,6 @@ const usePassport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helper')
 const flash = require('connect-flash')
 
-const helmet = require('helmet')
-
 // require('./associations')
 const en = require('./locales/en-US.json')
 const zh = require('./locales/zh-TW.json')
@@ -34,15 +32,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "example.com"],  // 根據需要添加其他源
-    styleSrc: ["'self'", "unsafe-inline"], // 根據需要添加其他源
-    imgSrc: ["'self'", "img.com"],         // 根據需要添加其他源
-    frameSrc: ["'self'", "www.youtube.com"], // 允許YouTube的iframe
-  }
-}))
+
 
 // 載入 passport 設定檔，要在express-session 之後
 // 呼叫 passport 函式並傳入app 要寫在路由之前
