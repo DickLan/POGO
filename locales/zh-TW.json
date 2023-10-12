@@ -1,4 +1,45 @@
 {
-  "welcome": "歡迎",
-  "greeting": "歡迎來到Iv100俱樂部"
+  "name": "zt-TW",
+  "_commentHeader": "=========== Header ==============.",
+  "headerViceTitle": "小盛專賣",
+  "headerHome": "首頁",
+  "headerBuyAccounts": "瀏覽帳號",
+  "headerSearch": "搜尋",
+  "headerContact": "聯絡我",
+  "headerLogin": "登入",
+  "headerLogout": "登出",
+  "headerRegister": "註冊",
+  "_commentIndex": "=========== Index ==============.",
+  "indexWelcome": "歡迎",
+  "indexGreeting": "歡迎來到Iv100俱樂部",
+  "indexSlogan": "千萬別嘗試便宜卻有風險的帳號",
+  "indexImg": "zh",
+  "indexIntro1": [
+    "最好尋找有誠信的賣家，例如小盛專賣"
+  ],
+  "indexIntro2": [
+    "從2019年完成第一筆寶可夢交易，至今已有四個年頭，成交紀錄數百筆如圖，持續增加中．",
+    "佳評如潮，正評率99%的小盛專賣致力於提供最優質，最安全的帳號",
+    "如果您正打算入坑或是回鍋寶可夢Go，找小盛，就對了！"
+  ],
+  "indexDescription": [
+    "由於 POGO API已經不再運作，我們只能手動逐一輸入賬戶信息。我們會盡力避免任何錯誤，但仍有可能存在賬戶詳細信息（例如等級、擁有的寶可夢、星塵數量等）的錯誤。",
+    "如果您害怕這種狀況，最好不要在這裡購買。對於任何不便，我們深感抱歉，並感謝您的耐心與支持^_^",
+    "如果您知道更聰明的方式來獲取賬戶信息，例如使用不同的 API 或其他方法，請告知我們。萬分感謝！ <3"
+  ],
+  "_commentAccounts": "=========== Accounts ==============.",
+  "accountsInfo1": [
+    "這個意思是還未選隊，可以自行在任意道館選隊."
+  ],
+  "accountsInfo2": [
+    "Iv100 庫存中的所有寶可夢都是 IV100。這裡是 Iv100 俱樂部，所以只列出了IV100的寶可夢。",
+    "通常帳號內還有非IV100寶可夢，或異色的寶可夢，但由於技術問題，我現在無法列出它們全部。"
+  ],
+  "accountLevel": "等級",
+  "accountStardust": "星砂",
+  "accountUnit": "(單位: 萬)",
+  "accountCurrency": "NT",
+  "accountDetail": "詳細資訊",
+  "accountCartAdd": "加入購物車",
+  "accountCartCancel": "移除購物車"
 }

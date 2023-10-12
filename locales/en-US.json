@@ -1,4 +1,50 @@
 {
-  "welcome": "Welcome",
-  "greeting": "Welcome to Iv100 club."
+  "name": "en-US",
+  "_commentHeader": "=========== Header ==============.",
+  "headerViceTitle": "Little Sheng POGO store",
+  "headerHome": "Home",
+  "headerBuyAccounts": "Buy Accounts",
+  "headerSearch": "Search",
+  "headerContact": "Contact",
+  "headerLogin": "Login",
+  "headerLogout": "Logout",
+  "headerRegister": "Register",
+  "_commentIndex": "=========== Index ==============.",
+  "indexWelcome": "歡迎",
+  "indexGreeting": "Welcome to Iv100 club",
+  "indexSlogan": "Never try cheap but risky accounts!",
+  "indexImg": "en",
+  "indexIntro1": [
+    "It's best to look for trustworthy sellers, like Little Sheng Store.",
+    "Here's our sales record in Taiwan's famous game accounts platforms."
+  ],
+  "indexIntro2": [
+    "Since completing our first Pokémon trade in 2019, we've been in business for over four years, with hundreds of transactions on record and counting.",
+    "We have received overwhelmingly positive reviews with a 99% positive rating. Little Sheng Exclusive is committed to offering the highest quality and safest accounts.",
+    "If you're thinking of diving into or returning to the world of Pokémon Go, choosing Little Sheng is a decision you won't regret!"
+  ],
+  "indexDescription": [
+    "Since the POGO API is no longer functional, we can only manually input account information one by one.",
+    "We do our best to avoid any errors, but there is still a chance that typos may exist in the account details, such as the level, Pokémon, inventory, or stardust amount, etc.",
+    "If you're not comfortable taking this risk, it's better not to purchase here.",
+    "We apologize for any inconvenience and appreciate your patience. ^_^",
+    "If you know of a smarter way to obtain account information, like using a different API or some other method, please let us know. Thank you! <3"
+  ],
+  "_commentAccounts": "=========== Accounts ==============.",
+  "accountsInfo1": [
+    "This means the account hasn't chosen a team yet.",
+    "The buyer can decide on their team after purchase.",
+    "Simply visit any gym, and you can change it!"
+  ],
+  "accountsInfo2": [
+    "All Pokémon in the Iv100 inventory are IV100. Here's the Iv100 Pokémon club, so I only list down the IV100 ones.",
+    "Usually there are other Pokémon that are not IV100 or shiny, but due to technical issues, I can't list them all now."
+  ],
+  "accountLevel": "Level",
+  "accountStardust": "Stardust",
+  "accountUnit": "(Unit: 10 kilo)",
+  "accountCurrency": "NT",
+  "accountDetail": "Detail",
+  "accountCartAdd": "AddToCart",
+  "accountCartCancel": "CancelAdded"
 }

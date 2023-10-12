@@ -9,12 +9,19 @@ img {
 }
 
 .indented-text {
-  display: block;
-  text-indent: 20px;
+  /* display: block; */
+  /* text-indent: 20px; */
 }
 
 .span-container {
-  white-space: pre-line;
+  /* white-space: pre-line; */
+}
+
+.index-vice-title {
+  margin-left: 50%;
+  margin-top: 0%;
+  font-size: 14px;
+  color: rgb(255, 218, 7);
 }
 
 .flash-message {

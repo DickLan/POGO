@@ -1,16 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info  ">
   <div class="container-fluid">
     {{!-- left --}}
-    <div class="left">
+    <div class="left d-flex align-items-end ">
       <div class="navbar-brand">
-        <a class="navbar-brand text-white" href="/">
+        <a class="navbar-brand text-white d-flex align-items-center " href="/">
           <img src="/images/pokeball.png" class="me-3  " alt="Icon" width="34" height="34">
           PoGo Accounts Sale</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <span class="index-vice-title ">{{lang.headerViceTitle}}</span>
       </div>
+
     </div>
     {{!-- middle --}}
     <div class="middle">
@@ -20,10 +22,10 @@
             <a class="nav-link" href="/accounts/detailTemp">Temp detail</a>
           </li> --}}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">{{lang.headerHome}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/accounts">Buy Accounts</a>
+            <a class="nav-link" href="/accounts">{{lang.headerBuyAccounts}}</a>
           </li>
 
           {{!-- <li class="nav-item">
@@ -32,11 +34,11 @@
 
           <button type="button" class="btn btn-link btn-sm btn-rounded" data-bs-toggle="modal"
             data-bs-target="#searchModal">
-            Search
+            {{lang.headerSearch}}
           </button>
 
           <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact</a>
+            <a class="nav-link" href="/contact">{{lang.headerContact}}</a>
           </li>
         </ul>
       </div>
@@ -53,10 +55,15 @@
         <div class="btn-group">
           <button class="btn btn-secondary btn-sm dropdown-toggle mb-1" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            選擇語言
+
+            {{#ifCond lang.name 'en-US' }}
+            Engish
+            {{else}}
+            中文
+            {{/ifCond}}
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/change-lang/zh-tw">中文</a></li>
+            <li><a class="dropdown-item" href="/change-lang/zh-TW">中文</a></li>
             <li><a class="dropdown-item" href="/change-lang/en-US">English</a></li>
           </ul>
         </div>
@@ -69,15 +76,15 @@
         <ul class="navbar-nav">
           <li class="nav-item me-2">
             {{#if isAuthenticated}}
-            <a class="nav-link btn btn-dark" href="/logout">Log Out</a>
+            <a class="nav-link btn btn-dark" href="/logout">{{lang.headerLogout}}</a>
             {{else}}
-            <a class="nav-link btn btn-primary" href="/login">Log In</a>
+            <a class="nav-link btn btn-primary" href="/login">{{lang.headerLogin}}</a>
             {{/if}}
 
 
           </li>
           <li class="nav-item">
-            <a class="nav-link btn btn-success" href="/register">Register</a>
+            <a class="nav-link btn btn-success" href="/register">{{lang.headerRegister}}</a>
           </li>
         </ul>
       </div>

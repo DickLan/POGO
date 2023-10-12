@@ -48,6 +48,8 @@ app.use((req, res, next) => {
   res.locals.options = Array.from(Array(50).keys()).map(i => i + 1)
   // 增加全局語言包
   const reqLang = req.cookies.lang || req.acceptsLanguages('zh-TW', 'en-US') || 'en-US'
+  res.locals.choosenLang = reqLang || 'zh-TW'
+  // console.log('req.lang', req.choosenLang)
   if (reqLang === 'en-US') {
     res.locals.lang = en
   } else if (reqLang === 'zh-TW') {
