@@ -84,7 +84,7 @@
   "searchPrice": "價格範圍",
   "searchCurrency": "幣別",
   "searchPokemons": "擁有的寶可夢",
-  "searchPokemonsPlaceHolder": "寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...",
+  "searchPokemonsPlaceHolder": "寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...只能是半形斜線/",
   "_commentOthers": "=========== Others ==============.",
   "feedbackLang": "zh"
 }

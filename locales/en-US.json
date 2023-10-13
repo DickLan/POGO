@@ -89,7 +89,7 @@
   "searchPrice": "Price Range",
   "searchCurrency":"Currency",
   "searchPokemons": "Contains Pokemon",
-  "searchPokemonsPlaceHolder": "PokeName1/PokeName2/PokeName3...",
+  "searchPokemonsPlaceHolder": "PokeName1/PokeName2/PokeName3...it could only be sepeated by this / symbol",
   "_commentOthers": "=========== Others ==============.",
   "feedbackLang": "en"
 }
