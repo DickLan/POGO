@@ -4,6 +4,7 @@ const dictForAccountDetail = require('../pokeDictionary')
 
 const accountController = {
   getAccounts: (req, res, next) => {
+
     let sortRule = ['id', 'ASC']
     const selectedSortRule = req.query.sort
     if (selectedSortRule === "Price-low-to-high") {
@@ -65,11 +66,13 @@ const accountController = {
       })
       .catch(err => next(err))
   },
-  getSearchedAccounts: (req, res, next) => {
+  postSearchedAccounts: (req, res, next) => {
     // console.log(req.cookies)
     // req.body 是 post  req.query 是 get 
     // console.log(req.query)
-
+    const searchInput = req.body
+    console.log('searchValue', searchInput)
+    // View 裏設定的 href ?sort=xxxx  xxxx就是query
     const { accountId, level, stardust } = req.query
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
