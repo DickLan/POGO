@@ -21,6 +21,44 @@
         {{/each}}
       </div>
 
+      <div class="filter-sort col-12  d-flex justify-content-center ">
+        {{!-- filter --}}
+        <div class=" text-center">
+
+          <button type="button" class="btn btn-link btn-sm btn-rounded" style="font-weight: 1000; font-size:26px;"
+            data-bs-toggle="modal" data-bs-target="#searchModal">
+
+            <img src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
+            Filter
+          </button>
+
+          {{!-- sort --}}
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle mb-1" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Sort
+              {{!-- {{#ifCond lang.name 'en-US' }}
+              Engish
+              {{else}}
+              中文
+              {{/ifCond}} --}}
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/accounts/sort?sort=Price-low-to-high">Price low to high</a></li>
+              <li><a class="dropdown-item" href="/accounts/sort?sort=Price-high-to-low">Price high to low</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+      </div>
+
       <div class="row high-column row  align-items-center justify-content-cente mx-auto">
 
         {{!-- left load more --}}
@@ -45,10 +83,12 @@
           {{!-- 每一個account --}}
           {{#each accounts}}
           {{!-- {{this.}} --}}
+
           <div class="account pad mx-auto mb-3 col-lg-4 col-12 card text-center ">
             <div class="acct-up card-header">
               <div class="card-info row">
                 {{!-- team --}}
+                {{!-- <span>db ID {{this.id}}</span> --}}
                 <div class="team-info col-3">
                   <img class="img-fluid" src="/images/PokeTeams/{{this.team}}.png" alt="">
                 </div>

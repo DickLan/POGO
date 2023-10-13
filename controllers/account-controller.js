@@ -3,21 +3,28 @@ const accountsHelper = require('../helpers/accounts-helper')
 
 const accountController = {
   getAccounts: (req, res, next) => {
+    let sortRule = ['id', 'ASC']
+    const selectedSortRule = req.query.sort
+    if (selectedSortRule === "Price-low-to-high") {
+      sortRule = ['price', 'ASC']
+    } else if (selectedSortRule === "Price-high-to-low") {
+      sortRule = ['price', 'DESC']
+    }
     Account.findAll({
       raw: true,
+      order: [sortRule]
       // nest: true
     })
       .then(accounts => {
+
         // 透過自訂的cToE 
         // 把excel的iv100寶可夢 從word字串轉成英文名稱陣列
         // 圓陸鯊／過動員／噴火龍... => [aa,bbb,ccc,]
-
         let data = accounts.map(act => ({
           ...act,
           // 見一個新的array 辨認圖片用
           // 只傳前９個item作為展示用 到detail時再全部顯示
-
-          contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
+          contentsIv100Array: act.contentsIv100.length > 2 ? accountsHelper.cToE(act.contentsIv100).slice(0, 9) : [],
           // 檢查是否有 req.user 有的話才進行下一步動作
           // 將 CartAccounts依序拿出 每次都會查出一個cartAccount
           // 並將拿出的cartAccount變為cartAccount.id 再做include檢查

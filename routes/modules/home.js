@@ -11,6 +11,7 @@ const { authenticated } = require('../../middleware/auth')
 
 
 router.get('/accounts/search', accountController.getSearchedAccounts)
+router.get('/accounts/sort', accountController.getAccounts)
 router.get('/accounts/:id', accountController.getAccount)
 router.get('/accounts/:id/Legend', accountController.getAccount)
 
