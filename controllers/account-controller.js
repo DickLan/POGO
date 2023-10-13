@@ -67,24 +67,29 @@ const accountController = {
       .catch(err => next(err))
   },
   postSearchedAccounts: (req, res, next) => {
-    // console.log(req.cookies)
+
     // req.body 是 post  req.query 是 get 
 
+    // console.log(res.locals.options)
+    // 這部分是傳給 view 讓 search 表單保持使用者的選擇
     const searchedValues = {
       searchedAccountId: req.body.accountId,
       searchedTeam: (req.body.team) ? (typeof (req.body.team) === 'string' ? [req.body.team] : req.body.team) : [],
-      searchedLevel: req.body.level,
+      searchedLevel: parseInt(req.body.level, 10),
       searchedStardust: req.body.stardust,
       searchedPriceRange: (req.body.price) ? (typeof (req.body.price) === 'string' ? [req.body.price] : req.body.price) : [],
       searchedPokemons: req.body.searchedPokemons
     };
-    console.log(searchedValues)
+    // console.log(searchedValues)
 
-    // View 裏設定的 href ?sort=xxxx  xxxx就是query
-    const { accountId, level, stardust } = req.query
+    // View 裏設定的 href ?sort=xxxx  xxxx就是query, get的時候用query
+    // post用body
+    console.log('req.body', req.body)
+    const { accountId, level, stardust } = req.body
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
-    let { team, price, pokemonContains } = req.query
+    let { team, price } = req.body
+    let pokemonContains = req.body.searchedPokemons
     // console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
     const whereCondition = {}
     // for checkboxes
