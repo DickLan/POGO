@@ -1,6 +1,7 @@
 const { pinyin } = require('pinyin-pro')
 // 目前圖片素材庫有1~8世代 缺９
 
+// a:中文名稱字串
 const a = `
 妙蛙種子
 妙蛙草
@@ -1031,7 +1032,7 @@ const a = `
 猛雷鼓
 鐵頭殼
 太樂巴戈斯`
-
+// b:中文名稱陣列
 const b = a.split('\n')
 // console.log(b)
 // bb 拼音陣列
@@ -1041,7 +1042,7 @@ const bb = b.map(item => {
 })
 
 // console.log('bb=', bb)
-
+// c:英文名稱字串
 const c = `
 Bulbasaur
 Ivysaur
@@ -2083,5 +2084,8 @@ for (let i = 0; i < bb.length; i++) {
 // console.log(dict)
 // console.log(bb.length)
 // console.log(bb[1])
-
-module.exports = dict
+const dictForAccountDetail = {}
+for (let i = 0; i < bb.length; i++) {
+  dict[d[i]] = b[i]
+}
+module.exports = dict, dictForAccountDetail 

@@ -1,6 +1,7 @@
 const dayjs = require('dayjs')
 const relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
+const dictForNameTrans = require('../pokeDictionary')
 
 module.exports = {
   // 獲得當前年份
@@ -27,6 +28,10 @@ module.exports = {
   subString: function (string, start, end) {
     // console.log('================', string)
     return string.length ? string.substring(start, end) : string
+  },
+  // pokemon english name transfer to Chinese
+  toChinese: function (string) {
+    return dictForNameTrans[this]
   }
 
 }

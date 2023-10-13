@@ -17,7 +17,13 @@
         {{#each account.contentsIv100Array}}
         <div class="col-2">
           <img class="card-img" src="/images/PokemonDataset/{{this}}.png" alt="">
+          {{#ifCond ../lang.name "en-US"}}
           <span>{{this}}</span>
+          {{else}}
+          <span>{{toChinese this}}</span>
+          {{/ifCond}}
+
+
         </div>
         {{/each}}
 
