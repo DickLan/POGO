@@ -30,7 +30,7 @@
               <div class="w-75 d-flex">
                 <div class="mx-1">
                   {{!-- 有name="team" 才讀到checkbox是否勾選，而勾選時代表的值，由value決定 --}}
-                  <input type="checkbox" id="selectAllTeam" name="team" {{#arrayCount searchedTeam 4 }} checked
+                  <input type="checkbox" id="selectAllTeam" name="team" {{#arrayCount searchedTeam 5 }} checked
                     {{/arrayCount}}>
                   <label for="selectAllTeam">Select All</label>
                 </div>
@@ -63,7 +63,9 @@
                 class="form-label-sm form-control-sm inline-flex w-25 me-2">{{lang.searchLevel}}:</label>
               <select class="form-select form-select-sm inline-flex w-75 " name="level" id="level">
                 {{#each options }}
-                <option class="" value="{{this}}" {{#ifCond this ../this.level}} selected {{/ifCond}}>{{this}}</option>
+                {{!-- 記得包在回圈內的 非this變數要../ --}}
+                <option class="" value="{{this}}" {{#ifCond this ../searchedLevel}} selected {{/ifCond}}>{{this}}
+                </option>
                 {{/each}}
               </select>
             </div>
