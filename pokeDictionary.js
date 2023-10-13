@@ -2084,6 +2084,7 @@ for (let i = 0; i < bb.length; i++) {
 // console.log(dict)
 // console.log(bb.length)
 // console.log(bb[1])
+// English name transfer to Traditional Chinese Name, not pinyin
 const dictForAccountDetail = {}
 for (let i = 0; i < bb.length; i++) {
   dict[d[i]] = b[i]

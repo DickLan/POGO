@@ -1,5 +1,6 @@
 const { Account, Sequelize } = require('../models')
 const accountsHelper = require('../helpers/accounts-helper')
+const dictForAccountDetail = require('../pokeDictionary')
 
 const accountController = {
   getAccounts: (req, res, next) => {
@@ -65,7 +66,7 @@ const accountController = {
       .catch(err => next(err))
   },
   getSearchedAccounts: (req, res, next) => {
-
+    // console.log(req.cookies)
     // req.body 是 post  req.query 是 get 
     // console.log(req.query)
 
@@ -73,7 +74,7 @@ const accountController = {
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
     let { team, price, pokemonContains } = req.query
-    console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
+    // console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
     const whereCondition = {}
     // for checkboxes
     whereCondition[Sequelize.Op.and] = []
@@ -88,7 +89,7 @@ const accountController = {
       }
       // 單的變數通常不加括號 typeof === 'string' 比較的項目要用''包起來
       if (typeof (team) === 'string') {
-        console.log('L=1')
+        // console.log('L=1')
         team = [team]
       }
 
@@ -186,13 +187,16 @@ const accountController = {
       console.log(containsArray)
 
       // 開始邏輯運算
+
       containsArray.forEach(searchPokemon => {
         pokemonContainsConditions.push({
           contentsIv100: {
-            [Sequelize.Op.like]: `%${searchPokemon}%`
+            [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
           }
         })
       })
+
+
       // 因為 pokemonContainsConditions是一個包含搜尋條件的陣列
       // 所以用展開運算子搭配push 將每個元素作為獨立元素，增加到whereCond之中
       whereCondition[Sequelize.Op.and].push(...pokemonContainsConditions)
