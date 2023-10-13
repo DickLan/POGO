@@ -32,6 +32,18 @@ module.exports = {
   // pokemon english name transfer to Chinese
   toChinese: function (string) {
     return dictForNameTrans[this]
+  },
+  ifInclude2: function (a, b, options) {
+    if (a) {
+      return a.includes(b) ? options.fn(this) : options.inverse(this)
+    }
+  },
+  arrayCount: function (array, counts, options) {
+    // array不用type of ，要用Array.isArray(arrayPara)
+    if (Array.isArray(array)) {
+      // console.log('array', array)
+      return array.length === parseInt(counts, 10) ? options.fn(this) : options.inverse(this)
+    }
   }
 
 }

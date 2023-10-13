@@ -69,9 +69,17 @@ const accountController = {
   postSearchedAccounts: (req, res, next) => {
     // console.log(req.cookies)
     // req.body 是 post  req.query 是 get 
-    // console.log(req.query)
-    const searchInput = req.body
-    console.log('searchValue', searchInput)
+
+    const searchedValues = {
+      searchedAccountId: req.body.accountId,
+      searchedTeam: (req.body.team) ? (typeof (req.body.team) === 'string' ? [req.body.team] : req.body.team) : [],
+      searchedLevel: req.body.level,
+      searchedStardust: req.body.stardust,
+      searchedPriceRange: (req.body.price) ? (typeof (req.body.price) === 'string' ? [req.body.price] : req.body.price) : [],
+      searchedPokemons: req.body.searchedPokemons
+    };
+    console.log(searchedValues)
+
     // View 裏設定的 href ?sort=xxxx  xxxx就是query
     const { accountId, level, stardust } = req.query
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
@@ -222,7 +230,7 @@ const accountController = {
         }))
         // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
-        return res.render('public/accounts', { accounts: data })
+        return res.render('public/accounts', { accounts: data, ...searchedValues })
       })
       .catch(err => next(err))
   }
