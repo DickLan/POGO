@@ -75,10 +75,13 @@ const adminController = {
     // get client IP for counter
     // 宣告 clientIP，使其在整個函數範圍內都可見，若是const在if else裡面，就只能在判斷區域中使用
     let clientIP
-    clientIP = req.header['x-forwarder-for'] || '127.0.0.1'
+    // console.log(`req.header['x-forwarder-for']`, req.header['x-forwarder-for'])
+    // console.log(`req`, req)
+    // IP在rawHeader 裡面的'x-forwarder-for'之後
+    clientIP = req.rawHeaders[7] || '127.0.0.1'
     // 之後搞清楚怎麼用 production 運行後 再改回下面這段
     // if (process.env.NODE_ENV === 'production') {
-    //   console.log('pro')
+
     //   clientIP = req.header['x-forwarder-for'] || '127.0.0.1'
     // } else {
     //   // 開發環境 設一個固定ＩＰ
