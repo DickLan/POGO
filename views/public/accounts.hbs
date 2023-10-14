@@ -8,45 +8,45 @@
   <div class="small-margin-top">
     <div id="high-box">
 
-      <div class="info-explain mx-auto my-3 col-12 col-lg-6 text-center">
-        <div>
+      <div class="info-explain mx-auto my-3 col-12 col-lg-8 ">
+        <div class="text-center">
           <img class="img-fluid" width="36px" src="/images/PokeTeams/yet.png" alt="">
         </div>
-        {{#each lang.accountsInfo1}}
-        <span>{{this}}</span><br>
-        {{/each}}
+        <div class="text-center mt-2">
+          {{#each lang.accountsInfo1}}
+          <span>{{this}}</span><br>
+          {{/each}}
+        </div>
         <br>
-        {{#each lang.accountsInfo2}}
-        <span>{{this}}</span><br>
-        {{/each}}
+        <div class="accountsInfo2 text-left">
+          {{#each lang.accountsInfo2}}
+          <span>{{this}}</span><br>
+          {{/each}}
+        </div>
       </div>
 
-      <div class="filter-sort col-12  d-flex justify-content-center ">
+      <div class=" col-12  d-flex justify-content-center ">
         {{!-- filter --}}
-        <div class=" text-center me-5">
+        <div class="accountsFilterSort text-center me-5">
 
-          <button type="button" class="btn btn-link btn-sm btn-rounded" style="font-weight: 1000; font-size:26px;"
-            data-bs-toggle="modal" data-bs-target="#searchModal">
+          <button type="button" class="accountsFilter btn btn-secondary  btn-sm btn-rounded" data-bs-toggle="modal"
+            data-bs-target="#searchModal">
 
-            <img src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
-            Filter
+            <img src="/images/someIcon/search.png" style="transform: scale(1);" alt="search button">
+            {{lang.accountsFilter}}
           </button>
 
           {{!-- sort --}}
           <div class="btn-group ms-5">
-            <button class="btn btn-secondary btn-sm dropdown-toggle mb-1" style="transform: scale(1.2);" type="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Sort
-              {{!-- {{#ifCond lang.name 'en-US' }}
-              Engish
-              {{else}}
-              中文
-              {{/ifCond}} --}}
-            </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/accounts/sort?sort=Price-low-to-high">Price low to high</a></li>
               <li><a class="dropdown-item" href="/accounts/sort?sort=Price-high-to-low">Price high to low</a></li>
             </ul>
+            <button class="accountsSort btn btn-secondary btn-sm dropdown-toggle mb-1" style="transform: scale(1);"
+              type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{lang.accountSort}}
+            </button>
+
           </div>
 
         </div>

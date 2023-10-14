@@ -5,7 +5,7 @@
   {{!-- L --}}
   <div class="upLeft row col-md-6 ms-2 d-flex justify-content-center">
     <span>{{lang.indexGreeting}}</span>
-    <span class="text-success"><b>{{lang.indexSlogan}}</span></b>
+    <span class="text-success indexSlogan"><b>{{lang.indexSlogan}}</span></b>
     {{#each lang.indexIntro1}}
     <span>{{this}}</span> <br>
     {{/each}}
@@ -25,7 +25,7 @@
         </div>
         <br>
 
-      </span>
+      </span class="indexDescription">
       {{#each lang.indexDescription}}
       <span>{{this}}</span> <br>
       {{/each}}
