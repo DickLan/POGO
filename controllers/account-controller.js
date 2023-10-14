@@ -4,7 +4,7 @@ const dictForAccountDetail = require('../pokeDictionary')
 
 const accountController = {
   getAccounts: (req, res, next) => {
-
+    // sort 選擇
     let sortRule = ['id', 'ASC']
     const selectedSortRule = req.query.sort
     if (selectedSortRule === "Price-low-to-high") {
@@ -12,6 +12,7 @@ const accountController = {
     } else if (selectedSortRule === "Price-high-to-low") {
       sortRule = ['price', 'DESC']
     }
+
     Account.findAll({
       raw: true,
       order: [sortRule]

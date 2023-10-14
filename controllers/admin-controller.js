@@ -1,4 +1,4 @@
-const { Account } = require('../models')
+const { Account, Counter } = require('../models')
 const accountsHelper = require('../helpers/accounts-helper')
 
 const adminController = {
@@ -69,8 +69,64 @@ const adminController = {
         res.redirect('/admin/accounts')
       })
       .catch(err => next(err))
+  },
+  postCounts: (req, res, next) => {
+
+    // get client IP for counter
+    // 宣告 clientIP，使其在整個函數範圍內都可見，若是const在if else裡面，就只能在判斷區域中使用
+    let clientIP
+    if (process.env.NODE_ENV === 'production') {
+      console.log('pro')
+      clientIP = req.header['x-forwarder-for'] || '127.0.0.1'
+    } else {
+      // 開發環境 設一個固定ＩＰ
+      console.log('dev')
+      clientIP = '127.0.0.5'
+    }
+    Promise.all([
+      Counter.findOne({ where: { name: 'counterNoLimit' } }),
+      Counter.findOne({ where: { name: 'counterCheckIP' } })
+    ])
+      .then(async ([counterNoLimit, counterCheckIP]) => {
+        // 增加無限制 counter ，只要進入 accounts page 就加一
+        if (!counterNoLimit) throw new Error('no this Counter')
+        await counterNoLimit.increment('counts1')
+        // 增加 IP 檢查的counter ， 訪客 IP 不同 瀏覽計數才加一
+        if (!counterCheckIP) throw new Error('no this counterCheckIP')
+        // console.log('counterCheckIP', counterCheckIP)
+        let ipSet = counterCheckIP.ipSet || []
+        // console.log('counterCheckIP', counterCheckIP)
+        // console.log('ipSet', ipSet)
+        // console.log('clientIP', clientIP)
+
+        if (!ipSet.includes(clientIP)) {
+          // console.log('clientIP', clientIP)
+          // console.log('123')
+          counterCheckIP.increment('counts1')
+          // ipSet.push(clientIP)
+          // console.log('ipSet', ipSet)
+          ipSet = [...ipSet, clientIP]
+          // console.log('ipSet', ipSet)
+          await counterCheckIP.update({
+            ipSet: ipSet,
+            counts2: 111
+          })
+            .then(() => {
+              console.log('保存成功');
+            })
+            .catch(err => {
+              console.log('保存失敗：', err);
+            });
+        }
+
+      })
+      .then(() => next())
+      .catch(err => console.log(err))
 
   }
+
+
+
 }
 
 module.exports = adminController
