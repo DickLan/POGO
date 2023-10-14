@@ -17,6 +17,14 @@ img {
   /* white-space: pre-line; */
 }
 
+/* 定義header active樣式 */
+.main-header .nav-link.active {
+  color: rgb(42, 187, 88) !important;
+  background-color: rgb(89, 47, 130);
+  border-radius: 50%;
+  /* 使用 !important 來確保這個規則優先 */
+}
+
 .index-vice-title {
   margin-left: 50%;
   margin-top: 0%;

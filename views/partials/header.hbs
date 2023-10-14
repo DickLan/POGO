@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-info  ">
+<nav class="navbar main-header navbar-expand-lg navbar-light bg-info  ">
   <div class="container-fluid">
     {{!-- left --}}
     <div class="left d-flex align-items-end ">
@@ -22,29 +22,29 @@
             <a class="nav-link" href="/accounts/detailTemp">Temp detail</a>
           </li> --}}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">{{lang.headerHome}}</a>
+            <a class="nav-link {{#ifCond activeRoute 'home'}} active {{/ifCond}}" aria-current="page"
+              href="/">{{lang.headerHome}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/accounts">{{lang.headerBuyAccounts}}</a>
-          </li>
-
-          {{!-- <li class="nav-item">
-            <a class="nav-link" href="/search">Search</a>
-          </li> --}}
-
-          <li class="nav-item">
-            <a class="nav-link" href="/contact">{{lang.headerContact}}</a>
+            <a class="nav-link {{#ifCond activeRoute 'accounts'}} active {{/ifCond}}"
+              href="/accounts">{{lang.headerBuyAccounts}}</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/feedback">{{lang.headerFeedback}}</a>
+            <a class="nav-link {{#ifCond activeRoute 'contact'}} active {{/ifCond}} "
+              href="/contact">{{lang.headerContact}}</a>
           </li>
 
-          <button type="button" class="btn btn-link btn-sm btn-rounded" style="font-weight: 1000; font-size:26px;"
-            data-bs-toggle="modal" data-bs-target="#searchModal">
+          <li class="nav-item">
+            <a class="nav-link {{#ifCond activeRoute 'feedback'}} active {{/ifCond}}"
+              href="/feedback">{{lang.headerFeedback}}</a>
+          </li>
 
-            <img src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
-            {{lang.headerSearch}}
+          <button type="button" class="btn btn-sm btn-rounded"
+            style="font-weight: 100; font-size:26px; color:rgb(60, 164, 164)" data-bs-toggle="modal"
+            data-bs-target="#searchModal">
+            <img class="me-0" src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
+            <span class="ms-0">{{lang.headerSearch}}</span>
           </button>
 
         </ul>

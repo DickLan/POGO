@@ -56,6 +56,9 @@ app.use((req, res, next) => {
   } else if (reqLang === 'zh-TW') {
     res.locals.lang = zh
   }
+  // 
+  // console.log(req.path)
+
 
   next()
 })

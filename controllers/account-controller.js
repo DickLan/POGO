@@ -39,7 +39,7 @@ const accountController = {
         // 共有1035筆 但實際上 圖庫的檔案只有907張 且部分名稱會有差異
         // 若遇到 再手動改pokeDictionary.js 的英文名稱就好
         // 英文名稱只要和圖庫檔案名稱相同 就可以正確顯示
-        return res.render('public/accounts', { accounts: data })
+        return res.render('public/accounts', { accounts: data, activeRoute: 'accounts' })
       })
       .catch(err => next(err))
   },
@@ -84,11 +84,11 @@ const accountController = {
 
     // View 裏設定的 href ?sort=xxxx  xxxx就是query, get的時候用query
     // post用body
-    console.log('req.body', req.body)
-    const { accountId, level, stardust } = req.body
+    // console.log('req.body', req.body)
+    // const { accountId, level, stardust } = req.body
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
-    let { team, price } = req.body
+    let { accountId, team, level, stardust, price } = req.body
     let pokemonContains = req.body.searchedPokemons
     // console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
     const whereCondition = {}
@@ -203,7 +203,6 @@ const accountController = {
       console.log(containsArray)
 
       // 開始邏輯運算
-
       containsArray.forEach(searchPokemon => {
         pokemonContainsConditions.push({
           contentsIv100: {
@@ -211,18 +210,14 @@ const accountController = {
           }
         })
       })
-
-
       // 因為 pokemonContainsConditions是一個包含搜尋條件的陣列
       // 所以用展開運算子搭配push 將每個元素作為獨立元素，增加到whereCond之中
       whereCondition[Sequelize.Op.and].push(...pokemonContainsConditions)
 
     }
-
-
     Account.findAll({
       raw: true,
-      where: whereCondition
+      where: whereCondition,
       // nest: true
     })
       .then(accounts => {
