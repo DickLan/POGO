@@ -49,16 +49,16 @@ router.post('/register', userController.postRegister)
 // })
 
 router.get('/contact', (req, res) => {
-  res.render('public/contact')
+  res.render('public/contact', { activeRoute: 'contact' })
 })
 
 router.get('/feedback', (req, res) => {
-  res.render('public/feedback')
+  res.render('public/feedback', { activeRoute: 'feedback' })
 })
 
 
 router.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { activeRoute: "home" })
 })
 module.exports = router
 

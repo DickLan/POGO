@@ -26,11 +26,11 @@
     "If you're thinking of diving into or returning to the world of Pokémon Go, choosing Little Sheng is a decision you won't regret!"
   ],
   "indexDescription": [
-    "Since the POGO API is no longer functional, we can only manually input account information one by one.",
-    "We do our best to avoid any errors, but there is still a chance that typos may exist in the account details, such as the level, Pokémon, inventory, or stardust amount, etc.",
+    "Due to the fact that POGO API is no longer functional, we can only manually input account information one by one.",
+    "We do our best to avoid any errors, but there is still a chance that typos may be present in the account details, such as the level, Pokémon, inventory, or stardust amount, etc.",
     "If you're not comfortable taking this risk, it's better not to purchase here.",
     "We apologize for any inconvenience and appreciate your patience. ^_^",
-    "If you know of a smarter way to obtain account information, like using a different API or some other method, please let us know. Thank you! <3"
+    "If you know of a smarter way to obtain account information, such as using a different API or some other method, please let us know. Thank you! <3"
   ],
   "_commentAccounts": "=========== Accounts ==============.",
   "accountsInfo1": [
@@ -42,7 +42,8 @@
     "All Pokémon in the Iv100 inventory are IV100. Here's the Iv100 Pokémon club, so I only list down the IV100 ones.",
     "Usually there are other Pokémon that are not IV100 or shiny, but due to technical issues, I can't list them all now."
   ],
-  "accountsFilter": "Filter", 
+  "accountsFilter": "Filter",
+  "accountSort": "Sort",
   "accountsLevel": "Level",
   "accountsStardust": "Stardust",
   "accountsUnit": "Stardust Unit: 10 kilo",
