@@ -73,6 +73,46 @@ tr {
   }
 }
 
+.upLeft {
+  font-size: 20px;
+}
+
+.indexSlogan {
+  font-size: xx-large;
+
+}
+
+.indexDescription {
+  color: rgb(130, 130, 39);
+
+}
+
+.accountsInfo2 {
+  color: rgb(225, 190, 147);
+  font-size: 18px;
+}
+
+.accountsFilterSort {
+  color: rgb(178, 110, 26);
+  font-size: 36px;
+  /* border: solid 3px tomato; */
+}
+
+.accountsFilter {
+  color: rgb(178, 110, 26);
+  font-size: 26px;
+  border: solid 3px rgb(67, 99, 85);
+  /* border-radius: 25%; */
+}
+
+.accountsSort {
+  color: rgb(178, 110, 26);
+  font-size: 26px;
+  border: solid 3px rgb(67, 99, 85);
+  /* border-radius: 50%; */
+}
+
+
 .nav-link2 {
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);

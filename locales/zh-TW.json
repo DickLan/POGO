@@ -4,7 +4,7 @@
   "headerViceTitle": "小盛專賣",
   "headerHome": "首頁",
   "headerBuyAccounts": "瀏覽帳號",
-  "headerContact": "聯絡我",
+  "headerContact": "聯絡方式",
   "headerFeedback": "買家回饋",
   "headerSearch": "搜尋",
   "headerLogin": "登入",
@@ -12,7 +12,7 @@
   "headerRegister": "註冊",
   "_commentIndex": "=========== Index ==============.",
   "indexWelcome": "歡迎",
-  "indexGreeting": "歡迎來到Iv100俱樂部",
+  "indexGreeting": "歡迎來到小盛專賣 Iv100 俱樂部",
   "indexSlogan": "千萬別嘗試便宜卻有風險的帳號",
   "indexImg": "zh",
   "indexBrowseButton": "看看帳號",
@@ -31,12 +31,14 @@
   ],
   "_commentAccounts": "=========== Accounts ==============.",
   "accountsInfo1": [
-    "這個意思是還未選隊，可以自行在任意道館選隊."
+    "這個圖示代表還未選隊，可以自行在任意道館選隊."
   ],
   "accountsInfo2": [
-    "Iv100 Pokemons 中的所有寶可夢都是 IV100。這裡是 Iv100 俱樂部，所以只列出了IV100的寶可夢。",
-    "通常帳號內還有非IV100寶可夢，或異色的寶可夢，但由於技術問題，我現在無法列出它們全部。"
+    "Iv100 Pokemons 中的所有寶可夢都是 IV100。這裡是 Iv100 俱樂部，所以只列出了 IV100 的寶可夢。",
+    "通常帳號內還有其他隨機非 IV100 寶可夢，或異色的寶可夢，但由於技術問題，現在無法列出它們全部。"
   ],
+  "accountsFilter": "搜尋",
+  "accountSort": "排序",
   "accountsLevel": "等級",
   "accountsStardust": "星砂",
   "accountsUnit": "星砂單位: 萬",
