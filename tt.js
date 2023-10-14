@@ -23,3 +23,9 @@ let h = g.map(teamName => ({ team: teamName }))
 // .map(teamName => (console.log(teamName)))
 console.log(g)
 console.log(h)
+
+
+let q = ['127.0.0.3']
+let w = '127.0.0.4'
+q.push(w)
+console.log(q)

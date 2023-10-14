@@ -3,7 +3,8 @@ const router = express.Router()
 const accountController = require('../../controllers/account-controller')
 const userController = require('../../controllers/user-controller')
 const passport = require('passport');
-const { authenticated } = require('../../middleware/auth')
+const { authenticated } = require('../../middleware/auth');
+const adminController = require('../../controllers/admin-controller');
 
 // ========= account ==========
 // 測試用 之後要刪
@@ -15,7 +16,7 @@ router.get('/accounts/sort', accountController.getAccounts)
 router.get('/accounts/:id', accountController.getAccount)
 router.get('/accounts/:id/Legend', accountController.getAccount)
 
-router.get('/accounts', accountController.getAccounts)
+router.get('/accounts', adminController.postCounts, accountController.getAccounts)
 
 // ========= user ==========
 // cart

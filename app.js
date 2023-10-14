@@ -17,6 +17,9 @@ const flash = require('connect-flash')
 // require('./associations')
 const en = require('./locales/en-US.json')
 const zh = require('./locales/zh-TW.json')
+// counters
+
+
 // 改變顯示語言
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
@@ -58,10 +61,7 @@ app.use((req, res, next) => {
   }
   // 
   // console.log(req.path)
-  console.log('headers', req.headers)
-
-
-
+  // console.log('headers', req.headrs)
   next()
 })
 
