@@ -58,6 +58,8 @@ app.use((req, res, next) => {
   }
   // 
   // console.log(req.path)
+  console.log('headers', req.headers)
+
 
 
   next()
