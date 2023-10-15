@@ -8,4 +8,7 @@ router.delete('/accounts/:id', adminController.deleteAccount)
 router.get('/accounts', adminController.getAccounts)
 router.post('/accounts', adminController.postAccount)
 
+// chat
+router.get('/chat', adminController.getChats)
+
 module.exports = router

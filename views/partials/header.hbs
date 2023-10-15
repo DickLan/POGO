@@ -41,7 +41,7 @@
           </li>
 
           <button type="button" class="btn btn-sm btn-rounded"
-            style="font-weight: 100; font-size:26px; color:rgb(60, 164, 164)" data-bs-toggle="modal"
+            style="font-weight: 400; font-size:26px; color:rgb(60, 164, 164)" data-bs-toggle="modal"
             data-bs-target="#searchModal">
             <img class="me-0" src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
             <span class="ms-0">{{lang.headerSearch}}</span>
@@ -52,7 +52,9 @@
     </div>
 
     {{#if user.isAdmin}}
-    <a href="/admin/accounts" class="bg-light">Admin Go edit</a>
+    <a href="/admin/accounts" class="bg-light">Admin Edit</a>
+
+    <a href="/admin/chat" class="bg-light">Admin Chat</a>
     {{/if}}
     {{!--right --}}
     <div class="right">

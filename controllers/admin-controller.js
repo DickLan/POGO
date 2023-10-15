@@ -128,6 +128,9 @@ const adminController = {
       .then(() => next())
       .catch(err => console.log(err))
 
+  },
+  getChats: (req, res, next) => {
+    res.render('admin/chat')
   }
 
 
