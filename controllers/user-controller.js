@@ -99,8 +99,7 @@ const userController = {
     // console.log('================')
     // console.log(data)
     res.render('users/cart', { cartItems: data })
-  },
-
+  }
 
 
 
