@@ -216,11 +216,11 @@ tr {
 
 /* chat */
 
-#chat2 .form-control {
+#chat-window .form-control {
   border-color: transparent;
 }
 
-#chat2 .form-control:focus {
+#chat-window .form-control:focus {
   border-color: transparent;
   box-shadow: inset 0px 0px 0px 1px transparent;
 }
@@ -234,7 +234,7 @@ tr {
 }
 
 /* 整個彈窗 */
-#chat2 {
+#chat-window {
   display: none;
   /* 初始隱藏 */
   position: fixed;

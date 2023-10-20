@@ -1,6 +1,7 @@
+// 定義畫面 按鈕被點擊時的行為
 document.addEventListener("DOMContentLoaded", function () {
   const chatIcon = document.getElementById('chat-icon');
-  const chatWindow = document.getElementById('chat2');
+  const chatWindow = document.getElementById('chat-window');
 
   chatIcon.addEventListener('click', function () {
     if (chatWindow.style.display === 'none' || !chatWindow.style.display) {

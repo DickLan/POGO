@@ -9,6 +9,6 @@ router.get('/accounts', adminController.getAccounts)
 router.post('/accounts', adminController.postAccount)
 
 // chat
-router.get('/chat', adminController.getChats)
+router.get('/chatbox', adminController.getChats)
 
 module.exports = router
