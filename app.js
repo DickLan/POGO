@@ -18,7 +18,28 @@ const flash = require('connect-flash')
 const en = require('./locales/en-US.json')
 const zh = require('./locales/zh-TW.json')
 // counters
+// socket.io
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const httpServer = createServer(app);  // 將 app 作為參數傳入
+const io = new Server(httpServer, { /* options */ });
 
+
+io.on("connection", (socket) => {
+  console.log('New client connected');
+  // 其他 socket 事件 ...
+  socket.on('chat message', (msg) => {
+    // test
+    console.log('server receive chat msg:', msg)
+    // 1.  檢查此userId在db是否已經有過對話
+    // 2-1 有的話 撈出來 update or save
+    // 2-2 沒有的話 創建新的對話 並將本次訊息儲存到db
+    // 3   將對話轉發？到admin對話視窗
+    // 
+
+
+  })
+});
 
 // 改變顯示語言
 const cookieParser = require('cookie-parser')
@@ -67,6 +88,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log('listening now')
 })

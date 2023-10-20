@@ -31,14 +31,12 @@
   {{{body}}}
 
 
-  {{> chat}}
+  {{> chatbox}}
   {{> footer}}
+
+
+  {{> search}}
 </body>
-
-<script src="/js/checkboxSelectAll.js"></script>
-<script src="/js/chatbox.js"></script>
-
-{{> search}}
 
 
 {{!--
@@ -57,6 +55,12 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/383a0e49af.js" crossorigin="anonymous"></script>
 
+<script src="/js/checkboxSelectAll.js"></script>
+<script src="/js/chatbox.js"></script>
 
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/js/socket.js"></script>
 
 </html>

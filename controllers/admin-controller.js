@@ -130,7 +130,7 @@ const adminController = {
 
   },
   getChats: (req, res, next) => {
-    res.render('admin/chat')
+    res.render('admin/chatbox')
   }
 
 
