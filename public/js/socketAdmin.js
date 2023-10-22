@@ -40,19 +40,20 @@ socketAdmin.on('updateMyself', (data) => {
   const newLine = document.createElement('li')
   newLine.classList.add('d-flex', 'each-message', 'justify-content-between', 'mb-4')
   newLine.innerHTML = `
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-              class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-            <div class="card">
+            <div class="card w-100">
               <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0">Brad Pitt</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
+                <p class="fw-bold mb-0">Me admin</p>
+                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
               </div>
               <div class="card-body">
                 <p class="mb-0">
-                 updateMyself ${message}
+                  ${message}
                 </p>
               </div>
-            </div>           `
+            </div>
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+              class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+          `
 
   messagesAdmin.append(newLine)
 })
@@ -63,19 +64,21 @@ socketAdmin.on('updateAimTalker', (data) => {
   const newLine = document.createElement('li')
   newLine.classList.add('d-flex', 'each-message', 'justify-content-between', 'mb-4')
   newLine.innerHTML = `
+            
             <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
               class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-            <div class="card">
+            <div class="card w-100">
               <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0">Brad Pitt</p>
+                <p class="fw-bold mb-0">Aim talker</p>
                 <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
               </div>
               <div class="card-body">
                 <p class="mb-0">
-                  updateAimTalker${message}
+                  ${message}
                 </p>
               </div>
-            </div>           `
+            </div>
+          `
 
   messagesAdmin.append(newLine)
 })

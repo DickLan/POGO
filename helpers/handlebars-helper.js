@@ -7,7 +7,8 @@ module.exports = {
   // 獲得當前年份
   currentYear: () => dayjs().year(),
   // 計算一個日期到當前時間 已經過了多久
-  relativeTimeFromNow: a => dayjs(a).fromNow(),
+  relativeTimeFromNow: () => dayjs().fromNow(),
+  relativeTimeFromA: a => dayjs(a).fromNow(),
   ifCond: function (a, b, options) {
     // hbs {{#if}} {{else}}
     // options.fn(this)代表
