@@ -31,7 +31,7 @@ socketUser.on('updateMyself', (data) => {
   newLine.innerHTML = ` 
         <div class="d-flex flex-row justify-content-end mb-4">
           <div>
-            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">updateMyself${message}</p>
+            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">${message}</p>
             <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
           </div>
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"
@@ -48,16 +48,14 @@ socketUser.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   console.log('user client receive data=======', data)
   const newLine = document.createElement('div')
+  newLine.classList.add('d-flex', 'flex-row', 'justify-content-start', 'mb-4')
   newLine.innerHTML = ` 
-        <div class="d-flex flex-row justify-content-end mb-4">
-          <div>
-            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">updateAimTalker${message}</p>
-            <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
-          </div>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"
-            style="width: 45px; height: 100%;">
-        </div>
-              `
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
+                  style="width: 45px; height: 100%;">
+                <div>
+                  <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${message}</p>
+                  <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
+                </div>`
   chatWindowBody.append(newLine)
   input.value = ''
   chatWindowBody.scrollTo(0, document.body.scrollHeight)
