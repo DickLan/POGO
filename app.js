@@ -23,19 +23,53 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const httpServer = createServer(app);  // 將 app 作為參數傳入
 const io = new Server(httpServer, { /* options */ });
+// 新增Namespace來管理不同用戶行為
+const adminNamespace = io.of('/admin')
+const userNamespace = io.of('/user')
+
+// ========= admin =================
+adminNamespace.on('connection', (socket) => {
+  // 這裡只影響連接到 /admin的客戶端 就是adminChat page
+  console.log('Admin connected');
+  // 發送確認訊息
+  adminNamespace.emit('message', 'Welcome admin')
+
+  // join room
+  socket.on('joinRoom', (roomId) => {
+    console.log(`Admin User ${socket.id} has join the room ${roomId}`);
+    socket.join(roomId)
+    adminNamespace.to(roomId).emit('message', `Admin User ${socket.id} has join the room ${roomId}`)
+  })
+
+  // test room
+  socket.on('message', (data) => {
+    // 收到從 client 來的訊息
+    const { roomId, message } = data
+    // 進行處理後，將要 update view 的訊息傳回給 client 前端
+    adminNamespace.to(roomId).emit('updateMyself', data)
+    // admin 發的訊息 顯示在 user client 前端
+    userNamespace.to(data.roomId).emit('updateAimTalker', data)
+  })
+})
 
 
-io.on("connection", (socket) => {
-  console.log('New client connected');
-  // 其他 socket 事件 ...
-  socket.on('chat message', (msg) => {
-    // test
-    console.log('server receive chat msg:', msg)
-    // 1.  檢查此userId在db是否已經有過對話
-    // 2-1 有的話 撈出來 update or save
-    // 2-2 沒有的話 創建新的對話 並將本次訊息儲存到db
-    // 3   將對話轉發？到admin對話視窗
-    // 
+// ========= user =================
+// 如果是io.on則會對所有 非namespace的用戶作用
+userNamespace.on("connection", (socket) => {
+  // client send to Admin
+  console.log('New user client connected');
+
+  // join room
+  socket.on('joinRoom', (roomId) => {
+    console.log(`Normal User ${socket.id} has join the room ${roomId}`);
+    socket.join(roomId)
+    userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
+  })
+  // 
+  socket.on('message', (data) => {
+    userNamespace.to(data.roomId).emit('updateMyself', data)
+    // user 發的訊息 顯示在 admin client 前端
+    adminNamespace.to(data.roomId).emit('updateAimTalker', data)
 
 
   })
@@ -43,6 +77,7 @@ io.on("connection", (socket) => {
 
 // 改變顯示語言
 const cookieParser = require('cookie-parser')
+const { ro } = require('faker/lib/locales')
 app.use(cookieParser())
 // helpers ssss別忘
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: handlebarsHelpers }))
