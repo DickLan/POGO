@@ -1,7 +1,6 @@
 // socket.js是讓view 載入使用的script
 // socket 定義好後 要到app.js去接他
 
-const User = require('../../models')
 
 // 定義 socketAdmin client 端的相關設定
 // socket 這個 instance 會建立一個 webSocket 並連接到與伺服器關聯的socket.io伺服器
@@ -18,6 +17,37 @@ socketAdmin.emit('joinRoom', roomId)
 socketAdmin.on('message', msg => {
   console.log('message from AdminNamespace=', msg, '123');
 })
+// load admin msg
+async function loadMessageAdmin(userId) {
+  try {
+    // console.log('user=========321===========', user)
+    // console.log('loadM run')
+    const response = await fetch(`/messages/${userId}`)
+    const messages = await response.json()
+    await console.log('response=', response)
+    await console.log('messages=', messages)
+    messagesAdmin.innerHTML = ''
+
+    messages.forEach(msg => {
+      // if senderId = 1 => + admin
+      if (msg.senderId === 1) {
+        messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(msg.message)
+        // if not 1 => + user
+      } else {
+        messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
+
+      }
+
+    })
+    messagesAdmin.scrollTo(0, document.body.scrollHeight)
+
+  } catch (error) {
+    console.error('Failed to load messages', error);
+  }
+}
+console.log('userAdmin=========123===========', user)
+loadMessageAdmin(user.id)
+
 
 // const messagesAdmin = document.getElementById('messagesAdmin')
 // clientAdmin 在chatbox enter => 發訊息給 server
@@ -28,11 +58,15 @@ formAdmin.addEventListener('submit', (e) => {
     // console.log('client inputAdmin.value', inputAdmin.value)
     // 在 adminChatbox中 sender固定為admin id為１
     const senderId = "1"
+    const receiverId = 2
 
     // admin 發消息到伺服器 並指定roomId
-    socketAdmin.emit('message', { 
-      roomId: roomId, 
-      message: inputAdmin.value })
+    socketAdmin.emit('message', {
+      roomId: roomId,
+      message: inputAdmin.value,
+      receiverId: receiverId,
+      senderId: parseInt(senderId)
+    })
 
     // 初始化輸入
     inputAdmin.value = ''
@@ -43,48 +77,42 @@ formAdmin.addEventListener('submit', (e) => {
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
   console.log('admin client receive data=======', data)
-  const newLine = document.createElement('li')
-  newLine.classList.add('d-flex', 'each-message', 'justify-content-between', 'mb-4')
-  newLine.innerHTML = `
-            <div class="card w-100">
-              <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0">Me admin</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-              </div>
-              <div class="card-body">
-                <p class="mb-0">
-                  ${message}
-                </p>
-              </div>
-            </div>
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-              class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
-          `
+  messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(message)
 
-  messagesAdmin.append(newLine)
 })
 // 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   console.log('admin client receive data=======', data)
-  const newLine = document.createElement('li')
-  newLine.classList.add('d-flex', 'each-message', 'justify-content-between', 'mb-4')
-  newLine.innerHTML = `
-            
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-              class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-            <div class="card w-100">
-              <div class="card-header d-flex justify-content-between p-3">
-                <p class="fw-bold mb-0">Aim talker</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
-              </div>
-              <div class="card-body">
-                <p class="mb-0">
-                  ${message}
-                </p>
-              </div>
-            </div>
-          `
-
-  messagesAdmin.append(newLine)
+  messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(message)
 })
+
+
+// fun 區
+
+
+
+function generateChatMsgUserSocketAdmin(msg) {
+  return ` 
+  <div class="d-flex flex-row justify-content-start mb-4">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
+                  style="width: 45px; height: 100%;">
+          <div>
+            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${msg}</p>
+            <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
+          </div>
+                
+  </div>`
+}
+
+function generateChatMsgAdminSocketAdmin(msg) {
+  return `
+                <div class="d-flex flex-row justify-content-end mb-4">
+          <div>
+            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">${msg}</p>
+            <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
+          </div>
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"
+            style="width: 45px; height: 100%;">
+        </div>`
+}

@@ -115,7 +115,7 @@ const userController = {
         },
         order: [['createdAt', 'ASC']]
       })
-      console.log('Getmessages=============', messages)
+      // console.log('Getmessages=============', messages)
       return res.json(messages)
     } catch (error) {
       console.log(error)
