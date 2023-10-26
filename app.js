@@ -26,6 +26,7 @@ const io = new Server(httpServer, { /* options */ });
 // 新增Namespace來管理不同用戶行為
 const adminNamespace = io.of('/admin')
 const userNamespace = io.of('/user')
+const { User, Message } = require('./models/')
 
 // ========= admin =================
 adminNamespace.on('connection', (socket) => {
