@@ -1,6 +1,8 @@
 // socket.js是讓view 載入使用的script
 // socket 定義好後 要到app.js去接他
 
+const User = require('../../models')
+
 // 定義 socketAdmin client 端的相關設定
 // socket 這個 instance 會建立一個 webSocket 並連接到與伺服器關聯的socket.io伺服器
 // 加上 namespace
@@ -24,16 +26,20 @@ formAdmin.addEventListener('submit', (e) => {
   if (inputAdmin.value) {
     // client send to server
     // console.log('client inputAdmin.value', inputAdmin.value)
+    // 在 adminChatbox中 sender固定為admin id為１
+    const senderId = "1"
 
     // admin 發消息到伺服器 並指定roomId
-    socketAdmin.emit('message', { roomId: roomId, message: inputAdmin.value })
+    socketAdmin.emit('message', { 
+      roomId: roomId, 
+      message: inputAdmin.value })
 
     // 初始化輸入
     inputAdmin.value = ''
     messagesAdmin.scrollTo(0, document.body.scrollHeight)
   }
 })
-
+// 新增一條 chatbox 中 admin使用者的發言
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
   console.log('admin client receive data=======', data)
@@ -57,7 +63,7 @@ socketAdmin.on('updateMyself', (data) => {
 
   messagesAdmin.append(newLine)
 })
-
+// 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   console.log('admin client receive data=======', data)

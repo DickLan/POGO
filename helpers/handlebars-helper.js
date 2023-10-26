@@ -45,6 +45,9 @@ module.exports = {
       // console.log('array', array)
       return array.length === parseInt(counts, 10) ? options.fn(this) : options.inverse(this)
     }
+  },
+  jsonfy: function (context) {
+    return JSON.stringify(context) || null
   }
 
 }

@@ -1,5 +1,5 @@
 const { raw } = require('express')
-const { User, Cart, Account } = require('../models')
+const { User, Cart, Account, Message, Sequelize } = require('../models')
 const bcryptjs = require('bcryptjs')
 
 const userController = {
@@ -99,6 +99,28 @@ const userController = {
     // console.log('================')
     // console.log(data)
     res.render('users/cart', { cartItems: data })
+  },
+  getMessages: async (req, res, next) => {
+    // res.locals.user 是給 view 使用的，在這裡若要使用user
+    // 需要從 passport 裡面調用 => req.user
+    const user = req.user || null
+    // console.log('getMessages user=============', user);
+    try {
+      const messages = await Message.findAll({
+        where: {
+          [Sequelize.Op.or]: [
+            { senderId: user.id, receiverId: 1 },
+            { senderId: 1, receiverId: user.id }
+          ]
+        },
+        order: [['createdAt', 'ASC']]
+      })
+      console.log('Getmessages=============', messages)
+      return res.json(messages)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ error: 'Error load messages' })
+    }
   }
 
 

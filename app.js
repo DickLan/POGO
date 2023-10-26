@@ -67,10 +67,30 @@ userNamespace.on("connection", (socket) => {
     userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
   })
   // 
-  socket.on('message', (data) => {
+  socket.on('message', async (data) => {
+    const { roomId, message, receiverId, senderId } = data
+    // 將收到的 message 存到 db
+    console.log('server receive data=', data)
+    try {
+      await Message.create({
+        userId: senderId,
+        message, receiverId, senderId
+      })
+      console.log('message saved to db!')
+    } catch (error) {
+      console.log(error)
+      console.error('Failed to save message to db')
+    }
+
+
+    // 要順便加上 sender and receiver
+
+    // 存完後，才丟回給前端 
     userNamespace.to(data.roomId).emit('updateMyself', data)
     // user 發的訊息 顯示在 admin client 前端
     adminNamespace.to(data.roomId).emit('updateAimTalker', data)
+
+
 
 
   })

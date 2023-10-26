@@ -5,6 +5,7 @@ const userController = require('../../controllers/user-controller')
 const passport = require('passport');
 const { authenticated } = require('../../middleware/auth');
 const adminController = require('../../controllers/admin-controller');
+const { use } = require('chai');
 
 // ========= account ==========
 // 測試用 之後要刪
@@ -24,6 +25,10 @@ router.get('/accounts', adminController.postCounts, accountController.getAccount
 router.get('/cart', authenticated, userController.getCart)
 router.post('/cart/:id', authenticated, userController.addCartItem)
 router.delete('/cart/:id', authenticated, userController.removeCartItem)
+
+// messages
+router.get('/messages/:userId', userController.getMessages)
+
 // auth
 router.get('/login', userController.getLogin)
 router.post('/login', passport.authenticate('local', {
