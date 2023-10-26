@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   Message.init({
     userId: DataTypes.INTEGER,
     message: DataTypes.TEXT,
-    senderID: DataTypes.INTEGER,
-    receiverID: DataTypes.INTEGER
+    senderId: DataTypes.INTEGER,
+    receiverId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Message',

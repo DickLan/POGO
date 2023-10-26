@@ -59,10 +59,15 @@
 <script src="/js/chatbox.js"></script>
 
 
+
+{{!--
+<script src="/js/getFirstTime.js"></script> --}}
+<script>
+  const user = {{{ jsonfy user }}}
+</script>
+{{!-- 因為socket.js 需要用到上方定義的 user 所以移動位置到下方 --}}
 <script src="/socket.io/socket.io.js"></script>
 
 <script src="/js/socket.js"></script>
-{{!--
-<script src="/js/getFirstTime.js"></script> --}}
 
 </html>
