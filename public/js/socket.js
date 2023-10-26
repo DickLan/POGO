@@ -14,11 +14,10 @@ const certainRoomId = 2
 // 加入一個房間
 socketUser.emit('joinRoom', certainRoomId)
 // 載入歷史訊息
-
 async function loadMessage(userId) {
   try {
-    console.log('user=========321===========', user)
-    console.log('loadM run')
+    // console.log('user=========321===========', user)
+    // console.log('loadM run')
     const response = await fetch(`/messages/${userId}`)
     const messages = await response.json()
     await console.log('response=', response)
@@ -27,17 +26,23 @@ async function loadMessage(userId) {
 
     messages.forEach(msg => {
       // 確認可以讀到再加上完整樣板
-      // if senderId = 1 + admin
-      // if not 1 => + user
-      chatWindowBody.innerHTML += generateChatMsgUser(msg.message)
+      // if senderId = 1 => + admin
+      if (msg.senderId === 1) {
+        chatWindowBody.innerHTML += generateChatMsgAdmin(msg.message)
+        // if not 1 => + user
+      } else {
+        chatWindowBody.innerHTML += generateChatMsgUser(msg.message)
+
+      }
 
     })
+    chatWindowBody.scrollTo(0, document.body.scrollHeight)
 
   } catch (error) {
     console.error('Failed to load messages', error);
   }
 }
-console.log('user=========123===========', user)
+// console.log('user=========123===========', user)
 loadMessage(user.id)
 
 
@@ -49,7 +54,7 @@ form.addEventListener('submit', (e) => {
     // 在 normal user Chatbox中 receiver固定為admin id為１
     const receiverId = "1"
     const senderId = user.id
-    console.log('user====================', user)
+    // console.log('user====================', user)
 
     // client send to server
     // console.log('client input.value', input.value)
@@ -80,14 +85,8 @@ socketUser.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   // console.log('user client receive data=======', data)
   const newLine = document.createElement('div')
-  newLine.classList.add('d-flex', 'flex-row', 'justify-content-start', 'mb-4')
-  newLine.innerHTML = ` 
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
-                  style="width: 45px; height: 100%;">
-                <div>
-                  <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${message}</p>
-                  <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
-                </div>`
+  // newLine.classList.add('d-flex', 'flex-row', 'justify-content-start', 'mb-4')
+  newLine.innerHTML = generateChatMsgAdmin(message)
   chatWindowBody.append(newLine)
   input.value = ''
   chatWindowBody.scrollTo(0, document.body.scrollHeight)
@@ -107,4 +106,17 @@ function generateChatMsgUser(msg) {
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"
             style="width: 45px; height: 100%;">
         </div>`
+}
+
+function generateChatMsgAdmin(msg) {
+  return ` 
+  <div class="d-flex flex-row justify-content-start mb-4">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
+                  style="width: 45px; height: 100%;">
+          <div>
+            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${msg}</p>
+            <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
+          </div>
+                
+  </div>`
 }

@@ -43,9 +43,24 @@ adminNamespace.on('connection', (socket) => {
   })
 
   // test room
-  socket.on('message', (data) => {
+  socket.on('message', async (data) => {
     // 收到從 client 來的訊息
-    const { roomId, message } = data
+    const { roomId, message, receiverId, senderId } = data
+
+    // 將收到的 message 存到 db
+    console.log('server AdminNamespace receive data=', data)
+    try {
+      await Message.create({
+        userId: senderId,
+        message, receiverId, senderId
+      })
+      console.log('admin message saved to db!')
+    } catch (error) {
+      console.log(error)
+      console.error('Failed to save message to db')
+    }
+
+
     // 進行處理後，將要 update view 的訊息傳回給 client 前端
     adminNamespace.to(roomId).emit('updateMyself', data)
     // admin 發的訊息 顯示在 user client 前端
@@ -70,20 +85,17 @@ userNamespace.on("connection", (socket) => {
   socket.on('message', async (data) => {
     const { roomId, message, receiverId, senderId } = data
     // 將收到的 message 存到 db
-    console.log('server receive data=', data)
+    console.log('server UserNamespace receive data=', data)
     try {
       await Message.create({
         userId: senderId,
         message, receiverId, senderId
       })
-      console.log('message saved to db!')
+      console.log('user message saved to db!')
     } catch (error) {
       console.log(error)
       console.error('Failed to save message to db')
     }
-
-
-    // 要順便加上 sender and receiver
 
     // 存完後，才丟回給前端 
     userNamespace.to(data.roomId).emit('updateMyself', data)

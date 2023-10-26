@@ -123,7 +123,10 @@
 
   </div>
 </section>
-
+{{!-- 載入全局 admin user 方便 socket 使用 --}}
+<script>
+  const user = {{{ jsonfy user }}}
+</script>
 {{!-- 加上這一行才能載入 =io() --}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/socketAdmin.js"></script>
