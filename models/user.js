@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         through: models.Cart,
         foreignKey: 'userId',
         as: 'CartAccounts'
-      })
+      }),
+        User.hasMany(models.Message, { foreignKey: 'userId' })
     }
   }
   User.init({
