@@ -1,5 +1,5 @@
 const { raw } = require('express')
-const { User, Cart, Account, Message, Sequelize } = require('../models')
+const { User, Cart, Account, Message, Sequelize, sequelize } = require('../models')
 const bcryptjs = require('bcryptjs')
 
 const userController = {
@@ -121,7 +121,36 @@ const userController = {
       console.log(error)
       return res.status(500).json({ error: 'Error load messages' })
     }
-  }
+  },
+  // 給 admin message member list 使用的
+  getUsers: (async (req, res, next) => {
+    try {
+      const userIds = await Message.findAll({
+        attributes: ['userId'], // 只選取該屬性
+        group: ['userId'], // 進行分組，確保每個用戶只被計算一次
+        having: sequelize.where(sequelize.fn('COUNT', sequelize.col('message')), '>', 0) //僅選擇消息數量大於０的用戶
+      })
+
+      const usersWithMsg = await User.findAll({
+        where: {
+          id: {
+            [Sequelize.Op.in]: userIds.map(user => user.userId)
+            // in 用來查詢 id是否符合任何map到的userId
+          }
+        },
+        include: [{
+          model: Message,
+          seperate: true, // 使子查詢成立，才可以分別獲取每個用戶的最新訊息
+          order: [['created_at', 'DESC']],
+          limit: 1
+        }]
+      })
+      return res.json(usersWithMsg)
+    } catch (error) {
+      console.log(error)
+    }
+
+  })
 
 
 

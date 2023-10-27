@@ -12,41 +12,20 @@ const inputAdmin = document.getElementById('chatbox-inputAdmin')
 // admin和每一個用戶的對話
 const messagesAdmin = document.getElementById('messagesAdmin')
 
+// member
+const memberUl = document.getElementById('memberUl')
+
+
 const roomId = 2
 socketAdmin.emit('joinRoom', roomId)
 socketAdmin.on('message', msg => {
   console.log('message from AdminNamespace=', msg, '123');
 })
-// load admin msg
-async function loadMessageAdmin(userId) {
-  try {
-    // console.log('user=========321===========', user)
-    // console.log('loadM run')
-    const response = await fetch(`/messages/${userId}`)
-    const messages = await response.json()
-    await console.log('response=', response)
-    await console.log('messages=', messages)
-    messagesAdmin.innerHTML = ''
 
-    messages.forEach(msg => {
-      // if senderId = 1 => + admin
-      if (msg.senderId === 1) {
-        messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(msg.message)
-        // if not 1 => + user
-      } else {
-        messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
-
-      }
-
-    })
-    messagesAdmin.scrollTo(0, document.body.scrollHeight)
-
-  } catch (error) {
-    console.error('Failed to load messages', error);
-  }
-}
-console.log('userAdmin=========123===========', user)
+// console.log('userAdmin=========123===========', user)
 loadMessageAdmin(user.id)
+
+
 
 
 // const messagesAdmin = document.getElementById('messagesAdmin')
@@ -98,7 +77,7 @@ function generateChatMsgUserSocketAdmin(msg) {
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
                   style="width: 45px; height: 100%;">
           <div>
-            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">${msg}</p>
+            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7; font-size: 20px">${msg}</p>
             <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
           </div>
                 
@@ -109,10 +88,94 @@ function generateChatMsgAdminSocketAdmin(msg) {
   return `
                 <div class="d-flex flex-row justify-content-end mb-4">
           <div>
-            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">${msg}</p>
+            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary" style="background-color: #f5f6f7; font-size: 20px">${msg}</p>
             <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
           </div>
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1"
             style="width: 45px; height: 100%;">
         </div>`
+}
+
+
+function generateMemberHTML(user) {
+  return `
+    <li class="p-2 border-bottom">
+                <a href="#!" class="d-flex justify-content-between">
+                  <div class="d-flex flex-row">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
+                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                    <div class="pt-1">
+                      <p class="fw-bold mb-0">${user.name}</p>
+                      <p class="small text-muted">${user.Messages[0].message}</p>
+                    </div>
+                  </div>
+                  <div class="pt-1">
+                    <p class="small text-muted mb-1">5 mins ago</p>
+                  </div>
+                </a>
+              </li>
+    `
+}
+
+
+// load admin msg
+async function loadMessageAdmin(userId) {
+  try {
+    // console.log('user=========321===========', user)
+    // console.log('loadM run')
+    const response = await fetch(`/messages/${userId}`)
+    const messages = await response.json()
+    await console.log('response=', response)
+    await console.log('messages=', messages)
+    messagesAdmin.innerHTML = ''
+
+    messages.forEach(msg => {
+      // if senderId = 1 => + admin
+      if (msg.senderId === 1) {
+        messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(msg.message)
+        // if not 1 => + user
+      } else {
+        messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
+
+      }
+
+    })
+    messagesAdmin.scrollTo(0, document.body.scrollHeight)
+
+  } catch (error) {
+    console.error('Failed to load messages', error);
+  }
+}
+
+// load admin chatbox member list 左側顯示有歷史訊息的對話
+async function fetchDataAndLoadMembers() {
+  try {
+    const memberResponse = await fetch(`/messages/allUsers`)
+    const usersWithMsg = await memberResponse.json()
+    await console.log('memberResponse=', memberResponse)
+    await console.log('usersWithMsg=', usersWithMsg)
+    loadMember(usersWithMsg)
+  } catch (error) {
+    console.log('發生錯誤：', error);
+  }
+}
+fetchDataAndLoadMembers()
+// 
+
+async function loadMember(users) {
+  memberUl.innerHTML = ''
+  // forEach載入每一個user 
+  users.forEach(user => {
+    memberUl.innerHTML += generateMemberHTML(user)
+    // console.log('user=============', user)
+  })
+  // 渲染 用戶名 ＆ 最新訊息在 member list
+  // member list order by time
+  // 點擊member可以在右側顯示完整對話
+
+
+  // 但這功能是進入 admin chat page時執行一次
+  // 若已經在admin chat page時，有新用戶發訊息來
+  // 該如何渲染新用戶？
+  // １ 靠socket監聽，有新用戶發送訊息時，再loadMessage一次
 }
