@@ -10,9 +10,10 @@ const chatWindowBody = document.getElementById('chat-window-body')
 // 抓 server 來的 msg
 const messages = document.getElementById('messages')
 
-const certainRoomId = 2
+const currentRoomId = user.id
 // 加入一個房間
-socketUser.emit('joinRoom', certainRoomId)
+socketUser.emit('joinRoom', currentRoomId)
+console.log(`socket.js roomId1: ${currentRoomId}`);
 // 載入歷史訊息
 async function loadMessage(userId) {
   try {
@@ -48,7 +49,7 @@ loadMessage(user.id)
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   if (input.value) {
-
+    console.log(`socket.js roomId2: ${currentRoomId}`);
     // 在 normal user Chatbox中 receiver固定為admin id為１
     const receiverId = "1"
     const senderId = user.id
@@ -60,7 +61,7 @@ form.addEventListener('submit', (e) => {
 
     // 發送消息到服務器
     socketUser.emit('message', {
-      roomId: certainRoomId,
+      roomId: currentRoomId,
       message: input.value,
       receiverId: parseInt(receiverId),
       senderId: senderId
@@ -70,7 +71,7 @@ form.addEventListener('submit', (e) => {
 // 新增一條 chatbox 中 一般使用者的發言
 socketUser.on('updateMyself', (data) => {
   const { roomId, message } = data
-  // console.log('user client receive data=======', data)
+  console.log('user client receive data=======', data)
   const newLine = document.createElement('div')
   newLine.innerHTML = generateChatMsgUser(message)
   chatWindowBody.append(newLine)
@@ -81,7 +82,7 @@ socketUser.on('updateMyself', (data) => {
 // 新增一條 chatbox 中 admin使用者的發言
 socketUser.on('updateAimTalker', (data) => {
   const { roomId, message } = data
-  // console.log('user client receive data=======', data)
+  console.log('666666666666666666666666666666666666666666user client receive data=======', data)
   const newLine = document.createElement('div')
   // newLine.classList.add('d-flex', 'flex-row', 'justify-content-start', 'mb-4')
   newLine.innerHTML = generateChatMsgAdmin(message)

@@ -17,7 +17,7 @@ const memberUl = document.getElementById('memberUl')
 
 let currentUserId = 0
 
-const roomId = 2
+const roomId = 0
 socketAdmin.emit('joinRoom', roomId)
 socketAdmin.on('message', msg => {
   console.log('message from AdminNamespace=', msg, '123');
@@ -42,7 +42,7 @@ formAdmin.addEventListener('submit', (e) => {
 
     // admin 發消息到伺服器 並指定roomId
     socketAdmin.emit('message', {
-      roomId: roomId,
+      roomId: receiverId,
       message: inputAdmin.value,
       receiverId: receiverId,
       senderId: parseInt(senderId)
@@ -56,14 +56,14 @@ formAdmin.addEventListener('submit', (e) => {
 // 新增一條 chatbox 中 admin使用者的發言
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
-  console.log('admin client receive data=======', data)
+  // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(message)
 
 })
 // 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', (data) => {
   const { roomId, message } = data
-  console.log('admin client receive data=======', data)
+  // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(message)
 })
 
@@ -127,8 +127,8 @@ async function loadMessageAdmin(userId) {
 
     const response = await fetch(`/messages/${userId}`)
     const messages = await response.json()
-    await console.log('response=', response)
-    await console.log('messages=', messages)
+    // await console.log('response=', response)
+    // await console.log('messages=', messages)
     messagesAdmin.innerHTML = ''
 
     messages.forEach(msg => {
@@ -154,8 +154,8 @@ async function fetchDataAndLoadMembers() {
   try {
     const memberResponse = await fetch(`/messages/allUsers`)
     const usersWithMsg = await memberResponse.json()
-    await console.log('memberResponse=', memberResponse)
-    await console.log('usersWithMsg=', usersWithMsg)
+    // await console.log('memberResponse=', memberResponse)
+    // await console.log('usersWithMsg=', usersWithMsg)
     loadMember(usersWithMsg)
   } catch (error) {
     console.log('發生錯誤：', error);
@@ -198,13 +198,16 @@ async function loadMember(users) {
 }
 
 socketAdmin.on('receive-user-messages', (messages) => {
-  console.log('receive-user-messages receive')
+  // console.log('receive-user-messages receive')
   displayMessages(messages)
 
 })
 
 function displayMessages(messages) {
-  console.log('receive-user-messages', messages)
+  const roomId = currentUserId
+  socketAdmin.emit('joinRoom', roomId)
+
+  // console.log('receive-user-messages', messages)
   messagesAdmin.innerHTML = ''
 
   messages.forEach(msg => {
