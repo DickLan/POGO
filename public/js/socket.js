@@ -32,9 +32,7 @@ async function loadMessage(userId) {
         // if not 1 => + user
       } else {
         chatWindowBody.innerHTML += generateChatMsgUser(msg.message)
-
       }
-
     })
     chatWindowBody.scrollTo(0, document.body.scrollHeight)
 

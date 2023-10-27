@@ -27,7 +27,9 @@ router.post('/cart/:id', authenticated, userController.addCartItem)
 router.delete('/cart/:id', authenticated, userController.removeCartItem)
 
 // messages
+router.get('/messages/allUsers', userController.getUsers)
 router.get('/messages/:userId', userController.getMessages)
+
 
 // auth
 router.get('/login', userController.getLogin)
