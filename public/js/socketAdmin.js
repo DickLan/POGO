@@ -15,6 +15,7 @@ const messagesAdmin = document.getElementById('messagesAdmin')
 // member
 const memberUl = document.getElementById('memberUl')
 
+let currentUserId = 0
 
 const roomId = 2
 socketAdmin.emit('joinRoom', roomId)
@@ -37,7 +38,7 @@ formAdmin.addEventListener('submit', (e) => {
     // console.log('client inputAdmin.value', inputAdmin.value)
     // 在 adminChatbox中 sender固定為admin id為１
     const senderId = "1"
-    const receiverId = 2
+    const receiverId = currentUserId
 
     // admin 發消息到伺服器 並指定roomId
     socketAdmin.emit('message', {
@@ -99,8 +100,8 @@ function generateChatMsgAdminSocketAdmin(msg) {
 
 function generateMemberHTML(user) {
   return `
-    <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
+    <li class="p-2 border-bottom" data-user-id="${user.id}">
+                <div class="d-flex justify-content-between">
                   <div class="d-flex flex-row">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
                       class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
@@ -112,7 +113,7 @@ function generateMemberHTML(user) {
                   <div class="pt-1">
                     <p class="small text-muted mb-1">5 mins ago</p>
                   </div>
-                </a>
+                </div>
               </li>
     `
 }
@@ -123,6 +124,7 @@ async function loadMessageAdmin(userId) {
   try {
     // console.log('user=========321===========', user)
     // console.log('loadM run')
+
     const response = await fetch(`/messages/${userId}`)
     const messages = await response.json()
     await console.log('response=', response)
@@ -159,8 +161,11 @@ async function fetchDataAndLoadMembers() {
     console.log('發生錯誤：', error);
   }
 }
+
+
 fetchDataAndLoadMembers()
-// 
+
+
 
 async function loadMember(users) {
   memberUl.innerHTML = ''
@@ -174,8 +179,44 @@ async function loadMember(users) {
   // 點擊member可以在右側顯示完整對話
 
 
+  // 定義點擊 member li時的行為
+  document.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', function () {
+
+      const userId = li.getAttribute('data-user-id')
+      currentUserId = userId
+      socketAdmin.emit('request-user-messages', userId)
+      // console.log('request-user-messages sent')
+      // console.log('member userId', userId)
+    })
+  })
+
   // 但這功能是進入 admin chat page時執行一次
   // 若已經在admin chat page時，有新用戶發訊息來
   // 該如何渲染新用戶？
   // １ 靠socket監聽，有新用戶發送訊息時，再loadMessage一次
+}
+
+socketAdmin.on('receive-user-messages', (messages) => {
+  console.log('receive-user-messages receive')
+  displayMessages(messages)
+
+})
+
+function displayMessages(messages) {
+  console.log('receive-user-messages', messages)
+  messagesAdmin.innerHTML = ''
+
+  messages.forEach(msg => {
+    // if senderId = 1 => + admin
+    if (msg.senderId === 1) {
+      messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(msg.message)
+      // if not 1 => + user
+    } else {
+      messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
+
+    }
+
+  })
+  messagesAdmin.scrollTo(0, document.body.scrollHeight)
 }
