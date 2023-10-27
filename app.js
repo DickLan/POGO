@@ -45,8 +45,8 @@ adminNamespace.on('connection', (socket) => {
   // test room
   socket.on('message', async (data) => {
     // 收到從 client 來的訊息
-    const { roomId, message, receiverId, senderId } = data
-
+    const { message, receiverId, senderId } = data
+    let roomId = data.roomId
     // 將收到的 message 存到 db
     // console.log('server AdminNamespace receive data=', data)
     try {
@@ -59,7 +59,8 @@ adminNamespace.on('connection', (socket) => {
       console.log(error)
       console.error('Failed to save message to db')
     }
-
+    // !!!!!!!!!!!!非常重要 roomId 必須是Int 不能是string!!!!!!!!!!!!!!
+    roomId = parseInt(roomId)
     console.log('admin NSpace roomId', roomId)
     // 進行處理後，將要 update view 的訊息傳回給 client 前端
     adminNamespace.to(roomId).emit('updateMyself', data)
@@ -75,8 +76,12 @@ adminNamespace.on('connection', (socket) => {
     adminNamespace.emit('receive-user-messages', messages)
     // console.log('receive-user-messages sent')
   })
-
-
+  // leave room
+  socket.on('leaveRoom', async (roomId) => {
+    console.log(`roomId===========`, roomId)
+    console.log(`admin leave room-${roomId.roomId}!`)
+    socket.leave(roomId.roomId)
+  })
 
 })
 
@@ -121,7 +126,8 @@ userNamespace.on("connection", (socket) => {
   })
   // 
   socket.on('message', async (data) => {
-    const { roomId, message, receiverId, senderId } = data
+    const { message, receiverId, senderId } = data
+    let roomId = data.roomId
     // 將收到的 message 存到 db
     // console.log('server UserNamespace receive data=', data)
     try {
@@ -130,20 +136,21 @@ userNamespace.on("connection", (socket) => {
         message, receiverId, senderId
       })
       console.log('user message saved to db!')
+      console.log('user roomId========', roomId)
     } catch (error) {
       console.log(error)
       console.error('Failed to save message to db')
     }
-
+    roomId = parseInt(roomId)
     // 存完後，才丟回給前端 
-    userNamespace.to(data.roomId).emit('updateMyself', data)
+    userNamespace.to(roomId).emit('updateMyself', data)
     // user 發的訊息 顯示在 admin client 前端
-    adminNamespace.to(data.roomId).emit('updateAimTalker', data)
-
-
-
+    adminNamespace.to(roomId).emit('updateAimTalker', data)
 
   })
+
+
+
 });
 
 // 改變顯示語言

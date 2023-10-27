@@ -68,7 +68,7 @@ form.addEventListener('submit', (e) => {
     })
   }
 })
-// 新增一條 chatbox 中 一般使用者的發言
+// 收到新訊息 新增一條 chatbox 中 一般使用者的發言
 socketUser.on('updateMyself', (data) => {
   const { roomId, message } = data
   console.log('user client receive data=======', data)
@@ -79,7 +79,7 @@ socketUser.on('updateMyself', (data) => {
   chatWindowBody.scrollTo(0, document.body.scrollHeight)
 
 })
-// 新增一條 chatbox 中 admin使用者的發言
+// 收到新訊息 新增一條 chatbox 中 admin使用者的發言
 socketUser.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   console.log('666666666666666666666666666666666666666666user client receive data=======', data)

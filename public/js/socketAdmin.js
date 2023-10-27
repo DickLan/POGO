@@ -15,9 +15,9 @@ const messagesAdmin = document.getElementById('messagesAdmin')
 // member
 const memberUl = document.getElementById('memberUl')
 
-let currentUserId = 0
+let currentUserId = 1
 
-const roomId = 0
+const roomId = currentUserId
 socketAdmin.emit('joinRoom', roomId)
 socketAdmin.on('message', msg => {
   console.log('message from AdminNamespace=', msg, '123');
@@ -53,15 +53,16 @@ formAdmin.addEventListener('submit', (e) => {
     messagesAdmin.scrollTo(0, document.body.scrollHeight)
   }
 })
-// 新增一條 chatbox 中 admin使用者的發言
+// 收到新訊息 新增一條 chatbox 中 admin使用者的發言
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(message)
 
 })
-// 新增一條 chatbox 中 一般使用者的發言
+// 收到新訊息 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', (data) => {
+  console.log('updateAimTalker=============data', data)
   const { roomId, message } = data
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(message)
@@ -183,9 +184,18 @@ async function loadMember(users) {
   document.querySelectorAll('li').forEach(li => {
     li.addEventListener('click', function () {
 
-      const userId = li.getAttribute('data-user-id')
+      // getAttribute是string 所以要轉int !!!!!!!!!!!!!!!!
+      const userId = parseInt(li.getAttribute('data-user-id'))
+      console.log('userId=====6=====', userId)
+      console.log(typeof userId)
+      console.log('userId=====6=====', currentUserId)
+      console.log(typeof currentUserId)
+      // 先離開舊房
+      socketAdmin.emit('leaveRoom', { roomId: currentUserId })
       currentUserId = userId
       socketAdmin.emit('request-user-messages', userId)
+      // 再加入新房
+      socketAdmin.emit('joinRoom', { roomId: currentUserId })
       // console.log('request-user-messages sent')
       // console.log('member userId', userId)
     })
@@ -196,7 +206,7 @@ async function loadMember(users) {
   // 該如何渲染新用戶？
   // １ 靠socket監聽，有新用戶發送訊息時，再loadMessage一次
 }
-
+// get history msg
 socketAdmin.on('receive-user-messages', (messages) => {
   // console.log('receive-user-messages receive')
   displayMessages(messages)
