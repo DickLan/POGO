@@ -31,7 +31,7 @@ const { User, Message, Sequelize } = require('./models/')
 // ========= admin =================
 adminNamespace.on('connection', (socket) => {
   // 這裡只影響連接到 /admin的客戶端 就是adminChat page
-  console.log('Admin connected');
+  // console.log('Admin connected');
   // 發送確認訊息
   adminNamespace.emit('message', 'Welcome admin')
 
@@ -48,7 +48,7 @@ adminNamespace.on('connection', (socket) => {
     const { roomId, message, receiverId, senderId } = data
 
     // 將收到的 message 存到 db
-    console.log('server AdminNamespace receive data=', data)
+    // console.log('server AdminNamespace receive data=', data)
     try {
       await Message.create({
         userId: senderId,
@@ -60,11 +60,11 @@ adminNamespace.on('connection', (socket) => {
       console.error('Failed to save message to db')
     }
 
-
+    console.log('admin NSpace roomId', roomId)
     // 進行處理後，將要 update view 的訊息傳回給 client 前端
     adminNamespace.to(roomId).emit('updateMyself', data)
     // admin 發的訊息 顯示在 user client 前端
-    userNamespace.to(data.roomId).emit('updateAimTalker', data)
+    userNamespace.to(roomId).emit('updateAimTalker', data)
 
   });
 
@@ -83,7 +83,7 @@ adminNamespace.on('connection', (socket) => {
 async function getMessagesForUser(userId) {
   try {
     // 使用 Sequelize 查詢所有與指定 userId 有關的消息
-    const messages = Message.findAll({
+    const messages = await Message.findAll({
       where: {
         [Sequelize.Op.or]: [
           { senderId: userId, receiverId: 1 },
@@ -109,11 +109,13 @@ async function getMessagesForUser(userId) {
 // 如果是io.on則會對所有 非namespace的用戶作用
 userNamespace.on("connection", (socket) => {
   // client send to Admin
-  console.log('New user client connected');
+  // console.log('New user client connected');
 
   // join room
   socket.on('joinRoom', (roomId) => {
-    console.log(`Normal User ${socket.id} has join the room ${roomId}`);
+    // console.log(`Normal User ${socket.id} has join the room ${roomId}`);
+    // console.log(`app.js user roomId: ${roomId}`);
+
     socket.join(roomId)
     userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
   })
@@ -121,7 +123,7 @@ userNamespace.on("connection", (socket) => {
   socket.on('message', async (data) => {
     const { roomId, message, receiverId, senderId } = data
     // 將收到的 message 存到 db
-    console.log('server UserNamespace receive data=', data)
+    // console.log('server UserNamespace receive data=', data)
     try {
       await Message.create({
         userId: senderId,
