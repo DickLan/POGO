@@ -26,7 +26,7 @@ const io = new Server(httpServer, { /* options */ });
 // 新增Namespace來管理不同用戶行為
 const adminNamespace = io.of('/admin')
 const userNamespace = io.of('/user')
-const { User, Message } = require('./models/')
+const { User, Message, Sequelize } = require('./models/')
 
 // ========= admin =================
 adminNamespace.on('connection', (socket) => {
@@ -65,9 +65,45 @@ adminNamespace.on('connection', (socket) => {
     adminNamespace.to(roomId).emit('updateMyself', data)
     // admin 發的訊息 顯示在 user client 前端
     userNamespace.to(data.roomId).emit('updateAimTalker', data)
+
+  });
+
+  // member 點擊相關處理
+  socket.on('request-user-messages', async (userId) => {
+    const messages = await getMessagesForUser(userId)
+    // console.log('request-user-messages receive')
+    adminNamespace.emit('receive-user-messages', messages)
+    // console.log('receive-user-messages sent')
   })
+
+
+
 })
 
+async function getMessagesForUser(userId) {
+  try {
+    // 使用 Sequelize 查詢所有與指定 userId 有關的消息
+    const messages = Message.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { senderId: userId, receiverId: 1 },
+          { senderId: 1, receiverId: userId }
+        ]
+      },
+      order: [['createdAt', 'ASC']]
+    });
+
+    // 返回查詢結果
+    return messages;
+
+  } catch (error) {
+    console.error('Error fetching messages for user:', error);
+    return [];
+  }
+
+
+
+}
 
 // ========= user =================
 // 如果是io.on則會對所有 非namespace的用戶作用
@@ -111,6 +147,7 @@ userNamespace.on("connection", (socket) => {
 // 改變顯示語言
 const cookieParser = require('cookie-parser')
 const { ro } = require('faker/lib/locales')
+const { getMessages } = require('./controllers/user-controller')
 app.use(cookieParser())
 // helpers ssss別忘
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: handlebarsHelpers }))

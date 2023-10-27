@@ -105,6 +105,10 @@ const userController = {
     // 需要從 passport 裡面調用 => req.user
     const user = req.user || null
     // console.log('getMessages user=============', user);
+    if (!user) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
     try {
       const messages = await Message.findAll({
         where: {

@@ -258,3 +258,7 @@ tr {
   background: transparent;
   border: transparent;
 }
+
+#memberUl li {
+  cursor: pointer;
+}
