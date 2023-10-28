@@ -262,3 +262,8 @@ tr {
 #memberUl li {
   cursor: pointer;
 }
+
+#messagesAdmin {
+  height: 400px;
+  overflow-y: auto;
+}
