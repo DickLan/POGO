@@ -1,7 +1,5 @@
-// socket.io
-const { createServer } = require("http");
-const { Server } = require("socket.io");
 
+// 這是從app.js移動過來的 是 server side
 // 新增Namespace來管理不同用戶行為
 
 const { Message, Sequelize } = require('../models/')
@@ -12,6 +10,7 @@ const initializeSocket = (io) => {
   const adminNamespace = io.of('/admin')
   const userNamespace = io.of('/user')
 
+  // ========= admin =================
   // ========= admin =================
   adminNamespace.on('connection', (socket) => {
     // 這裡只影響連接到 /admin的客戶端 就是adminChat page
@@ -69,32 +68,9 @@ const initializeSocket = (io) => {
 
   })
 
-  async function getMessagesForUser(userId) {
-    try {
-      // 使用 Sequelize 查詢所有與指定 userId 有關的消息
-      const messages = await Message.findAll({
-        where: {
-          [Sequelize.Op.or]: [
-            { senderId: userId, receiverId: 1 },
-            { senderId: 1, receiverId: userId }
-          ]
-        },
-        order: [['createdAt', 'ASC']]
-      });
 
-      // 返回查詢結果
-      return messages;
-
-    } catch (error) {
-      console.error('Error fetching messages for user:', error);
-      return [];
-    }
-
-
-
-  }
-
-  // ========= user =================
+  // ==================== user ===========================
+  // ==================== user ===========================
   // 如果是io.on則會對所有 非namespace的用戶作用
   userNamespace.on("connection", (socket) => {
     // client send to Admin
@@ -139,5 +115,34 @@ const initializeSocket = (io) => {
 
 }
 
+
+
+// ====================== fun =================
+// 拿出admin與該user的所有對話紀錄
+async function getMessagesForUser(userId) {
+  try {
+    // 使用 Sequelize 查詢所有與指定 userId 有關的消息
+    const messages = await Message.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { senderId: userId, receiverId: 1 },
+          { senderId: 1, receiverId: userId }
+        ]
+      },
+      order: [['createdAt', 'DESC']], //取最新的六筆訊息
+      limit: 6
+    });
+
+    // 返回查詢結果 因為是 DESC 是新到舊 所以要反轉
+    return messages.reverse();
+
+  } catch (error) {
+    console.error('Error fetching messages for user:', error);
+    return [];
+  }
+
+
+
+}
 
 module.exports = initializeSocket

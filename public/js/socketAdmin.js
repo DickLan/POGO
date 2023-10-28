@@ -58,7 +58,7 @@ socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(message)
-
+  messagesAdmin.scrollTo(0, document.body.scrollHeight)
 })
 // 收到新訊息 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', (data) => {
@@ -66,6 +66,7 @@ socketAdmin.on('updateAimTalker', (data) => {
   const { roomId, message } = data
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(message)
+  messagesAdmin.scrollTo(0, document.body.scrollHeight)
 })
 
 
@@ -141,7 +142,7 @@ async function loadMessageAdmin(userId) {
         messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
 
       }
-
+      messagesAdmin.scrollTo(0, document.body.scrollHeight)
     })
     messagesAdmin.scrollTo(0, document.body.scrollHeight)
 
@@ -180,7 +181,7 @@ async function loadMember(users) {
   // 點擊member可以在右側顯示完整對話
 
 
-  // 定義點擊 member li時的行為
+  // 定義點擊 member li時的行為 => 顯示不同 user 來訊
   document.querySelectorAll('li').forEach(li => {
     li.addEventListener('click', function () {
 
@@ -206,7 +207,8 @@ async function loadMember(users) {
   // 該如何渲染新用戶？
   // １ 靠socket監聽，有新用戶發送訊息時，再loadMessage一次
 }
-// get history msg
+// 定義點擊 member li時的行為 => 顯示不同 user 來訊 
+// 從 server side 收到訊息後，才 display
 socketAdmin.on('receive-user-messages', (messages) => {
   // console.log('receive-user-messages receive')
   displayMessages(messages)
@@ -229,7 +231,9 @@ function displayMessages(messages) {
       messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(msg.message)
 
     }
-
+    messagesAdmin.scrollTo(0, document.body.scrollHeight)
   })
+
+
   messagesAdmin.scrollTo(0, document.body.scrollHeight)
 }
