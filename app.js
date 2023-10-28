@@ -18,145 +18,21 @@ const flash = require('connect-flash')
 const en = require('./locales/en-US.json')
 const zh = require('./locales/zh-TW.json')
 // counters
+const { getMessages } = require('./controllers/user-controller')
+
 // socket.io
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const httpServer = createServer(app);  // 將 app 作為參數傳入
+
+// socket
+const initializeSocket = require('./sockets/namespaceSockets')
 const io = new Server(httpServer, { /* options */ });
-// 新增Namespace來管理不同用戶行為
-const adminNamespace = io.of('/admin')
-const userNamespace = io.of('/user')
-const { User, Message, Sequelize } = require('./models/')
-
-// ========= admin =================
-adminNamespace.on('connection', (socket) => {
-  // 這裡只影響連接到 /admin的客戶端 就是adminChat page
-  // console.log('Admin connected');
-  // 發送確認訊息
-  adminNamespace.emit('message', 'Welcome admin')
-
-  // join room
-  socket.on('joinRoom', (roomId) => {
-    console.log(`Admin User ${socket.id} has join the room ${roomId}`);
-    socket.join(roomId)
-    adminNamespace.to(roomId).emit('message', `Admin User ${socket.id} has join the room ${roomId}`)
-  })
-
-  // test room
-  socket.on('message', async (data) => {
-    // 收到從 client 來的訊息
-    const { message, receiverId, senderId } = data
-    let roomId = data.roomId
-    // 將收到的 message 存到 db
-    // console.log('server AdminNamespace receive data=', data)
-    try {
-      await Message.create({
-        userId: senderId,
-        message, receiverId, senderId
-      })
-      console.log('admin message saved to db!')
-    } catch (error) {
-      console.log(error)
-      console.error('Failed to save message to db')
-    }
-    // !!!!!!!!!!!!非常重要 roomId 必須是Int 不能是string!!!!!!!!!!!!!!
-    roomId = parseInt(roomId)
-    console.log('admin NSpace roomId', roomId)
-    // 進行處理後，將要 update view 的訊息傳回給 client 前端
-    adminNamespace.to(roomId).emit('updateMyself', data)
-    // admin 發的訊息 顯示在 user client 前端
-    userNamespace.to(roomId).emit('updateAimTalker', data)
-
-  });
-
-  // member 點擊相關處理
-  socket.on('request-user-messages', async (userId) => {
-    const messages = await getMessagesForUser(userId)
-    // console.log('request-user-messages receive')
-    adminNamespace.emit('receive-user-messages', messages)
-    // console.log('receive-user-messages sent')
-  })
-  // leave room
-  socket.on('leaveRoom', async (roomId) => {
-    console.log(`roomId===========`, roomId)
-    console.log(`admin leave room-${roomId.roomId}!`)
-    socket.leave(roomId.roomId)
-  })
-
-})
-
-async function getMessagesForUser(userId) {
-  try {
-    // 使用 Sequelize 查詢所有與指定 userId 有關的消息
-    const messages = await Message.findAll({
-      where: {
-        [Sequelize.Op.or]: [
-          { senderId: userId, receiverId: 1 },
-          { senderId: 1, receiverId: userId }
-        ]
-      },
-      order: [['createdAt', 'ASC']]
-    });
-
-    // 返回查詢結果
-    return messages;
-
-  } catch (error) {
-    console.error('Error fetching messages for user:', error);
-    return [];
-  }
-
-
-
-}
-
-// ========= user =================
-// 如果是io.on則會對所有 非namespace的用戶作用
-userNamespace.on("connection", (socket) => {
-  // client send to Admin
-  // console.log('New user client connected');
-
-  // join room
-  socket.on('joinRoom', (roomId) => {
-    // console.log(`Normal User ${socket.id} has join the room ${roomId}`);
-    // console.log(`app.js user roomId: ${roomId}`);
-
-    socket.join(roomId)
-    userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
-  })
-  // 
-  socket.on('message', async (data) => {
-    const { message, receiverId, senderId } = data
-    let roomId = data.roomId
-    // 將收到的 message 存到 db
-    // console.log('server UserNamespace receive data=', data)
-    try {
-      await Message.create({
-        userId: senderId,
-        message, receiverId, senderId
-      })
-      console.log('user message saved to db!')
-      console.log('user roomId========', roomId)
-    } catch (error) {
-      console.log(error)
-      console.error('Failed to save message to db')
-    }
-    roomId = parseInt(roomId)
-    // 存完後，才丟回給前端 
-    userNamespace.to(roomId).emit('updateMyself', data)
-    // user 發的訊息 顯示在 admin client 前端
-    adminNamespace.to(roomId).emit('updateAimTalker', data)
-
-  })
-
-
-
-});
+initializeSocket(io)
 
 // 改變顯示語言
 const cookieParser = require('cookie-parser')
-const { ro } = require('faker/lib/locales')
-const { getMessages } = require('./controllers/user-controller')
+
 app.use(cookieParser())
 // helpers ssss別忘
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs', helpers: handlebarsHelpers }))
