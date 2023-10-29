@@ -15,6 +15,7 @@ const messagesAdmin = document.getElementById('messagesAdmin')
 // member
 const memberUl = document.getElementById('memberUl')
 
+
 let currentUserId = 1
 
 const roomId = currentUserId
@@ -24,7 +25,8 @@ socketAdmin.on('message', msg => {
 })
 
 // console.log('userAdmin=========123===========', user)
-loadMessageAdmin(user.id)
+// 這是剛點進 admin chat 時的畫面，目前先拿掉 
+// loadMessageAdmin(user.id)
 
 
 
@@ -70,7 +72,39 @@ socketAdmin.on('updateAimTalker', (data) => {
 })
 
 
-// fun 區
+fetchDataAndLoadMembers()
+
+
+
+
+
+
+// 接收回傳的訊息
+socketAdmin.on('receive-more-messages', function (messages) {
+  messages.reverse()
+  messages.forEach(message => {
+    // 將 msg 加入聊天視窗
+    // 要加在當前對話的上面
+    const firstMsgElement = messagesAdmin.firstChild
+    let msgGoingToBeAdded
+    // me
+    if (message.senderId === 1) {
+      msgGoingToBeAdded = document.createElement('div');
+      msgGoingToBeAdded.innerHTML = generateChatMsgAdminSocketAdmin(message.message)
+      // if not 1 => + user
+    } else {
+      msgGoingToBeAdded = document.createElement('div');
+      msgGoingToBeAdded.innerHTML = generateChatMsgUserSocketAdmin(message.message)
+    }
+    messagesAdmin.insertBefore(msgGoingToBeAdded, firstMsgElement.nextSibling)
+    messagesAdmin.scrollTo(0, document.body.scrollHeight)
+
+  })
+  loadedMessageCount += messages.length
+})
+
+
+// ＝＝＝＝＝＝＝＝＝＝＝fun 區
 
 
 
@@ -121,7 +155,7 @@ function generateMemberHTML(user) {
 }
 
 
-// load admin msg
+// load admin msg 這裡是剛進 admin時載入的訊息 不是member li 點擊後的
 async function loadMessageAdmin(userId) {
   try {
     // console.log('user=========321===========', user)
@@ -132,6 +166,18 @@ async function loadMessageAdmin(userId) {
     // await console.log('response=', response)
     // await console.log('messages=', messages)
     messagesAdmin.innerHTML = ''
+
+    // const loadMoreButton = document.createElement('button');
+    // loadMoreButton.className = "loadMoreButton juistin btn btn-primary";
+    // loadMoreButton.innerText = "Load More Msg";
+    // loadMoreButton.addEventListener('click', function () {
+    //   console.log('click');
+    //   socketAdmin.emit('load-more-messages', { userId: currentUserId, skipCount: loadedMessageCount });
+    // });
+
+    // 將新的 "Load More" 按鈕添加到 messagesAdmin
+    // messagesAdmin.appendChild(loadMoreButton);
+
 
     messages.forEach(msg => {
       // if senderId = 1 => + admin
@@ -164,9 +210,8 @@ async function fetchDataAndLoadMembers() {
   }
 }
 
-
-fetchDataAndLoadMembers()
-
+// load more
+let loadedMessageCount = 4; // 初始已載入的訊息數量
 
 
 async function loadMember(users) {
@@ -202,6 +247,8 @@ async function loadMember(users) {
     })
   })
 
+
+  // })
   // 但這功能是進入 admin chat page時執行一次
   // 若已經在admin chat page時，有新用戶發訊息來
   // 該如何渲染新用戶？
@@ -212,15 +259,41 @@ async function loadMember(users) {
 socketAdmin.on('receive-user-messages', (messages) => {
   // console.log('receive-user-messages receive')
   displayMessages(messages)
-
+  // 上方display 先新增完button ，下面才可以QS
+  const lMB = document.querySelector('.loadMoreButton');
+  lMB.addEventListener('click', function () {
+    console.log('click');
+    socketAdmin.emit('load-more-messages', { userId: currentUserId, skipCount: loadedMessageCount });
+  });
 })
 
+
+
+
+// 這裡定義了 點擊不同 member 後，讀入訊息的行為
 function displayMessages(messages) {
   const roomId = currentUserId
   socketAdmin.emit('joinRoom', roomId)
 
   // console.log('receive-user-messages', messages)
   messagesAdmin.innerHTML = ''
+  // 找到原有的 "Load More" 按鈕和移除它
+  // const oldLoadMoreButton = document.querySelector('.loadMoreButton');
+  // if (oldLoadMoreButton) {
+  //   console.log('tes found');
+  //   console.log('removeChild(oldLoadMoreButton)');
+  //   // messagesAdmin.removeChild(oldLoadMoreButton);
+  // }
+
+  // 添加新的 "Load More" 按鈕
+  const loadMoreButton = document.createElement('button');
+  loadMoreButton.className = "loadMoreButton 2 btn btn-primary";
+  loadMoreButton.innerText = "Load More Msg";
+
+  // 將新的 "Load More" 按鈕添加到 messagesAdmin
+  messagesAdmin.appendChild(loadMoreButton);
+
+  // 發出 loadmore request
 
   messages.forEach(msg => {
     // if senderId = 1 => + admin
