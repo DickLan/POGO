@@ -17,6 +17,7 @@ const memberUl = document.getElementById('memberUl')
 
 
 let currentUserId = 1
+let chattedRoomIds = []
 
 const roomId = currentUserId
 socketAdmin.emit('joinRoom', roomId)
@@ -58,6 +59,7 @@ formAdmin.addEventListener('submit', (e) => {
 // 收到新訊息 新增一條 chatbox 中 admin使用者的發言
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
+
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgAdminSocketAdmin(message)
   messagesAdmin.scrollTo(0, document.body.scrollHeight)
@@ -71,6 +73,16 @@ socketAdmin.on('updateAimTalker', (data) => {
   messagesAdmin.scrollTo(0, document.body.scrollHeight)
 })
 
+// normal user 發送訊息時，admin檢查是否為新 member chat
+socketAdmin.on('newMemberCheck', (data) => {
+  console.log('newMemberCheck=============data', data)
+  const { roomId } = data
+  // 如果這是一個新的對話
+  if (!chattedRoomIds.includes(roomId)) {
+    chattedRoomIds.push(roomId);
+    fetchDataAndLoadMembers();
+  }
+})
 
 fetchDataAndLoadMembers()
 
@@ -212,6 +224,7 @@ async function fetchDataAndLoadMembers() {
 
 // load more
 let loadedMessageCount = 4; // 初始已載入的訊息數量
+
 
 
 async function loadMember(users) {

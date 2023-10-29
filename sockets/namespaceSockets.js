@@ -113,6 +113,9 @@ const initializeSocket = (io) => {
       // user 發的訊息 顯示在 admin client 前端
       adminNamespace.to(roomId).emit('updateAimTalker', data)
 
+      // normal user 發送訊息時，admin檢查是否為新 member chat
+      adminNamespace.emit('newMemberCheck', data)
+
     })
 
 
