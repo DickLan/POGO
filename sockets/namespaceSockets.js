@@ -66,6 +66,12 @@ const initializeSocket = (io) => {
       socket.leave(roomId.roomId)
     })
 
+    // load more msg
+    socket.on('load-more-messages', async (data) => {
+      const messages = await getMessagesForUser(data.userId, data.skipCount)
+      socket.emit('receive-more-messages', messages)
+    })
+
   })
 
 
@@ -119,7 +125,7 @@ const initializeSocket = (io) => {
 
 // ====================== fun =================
 // 拿出admin與該user的所有對話紀錄
-async function getMessagesForUser(userId) {
+async function getMessagesForUser(userId, skipCount = 0) {
   try {
     // 使用 Sequelize 查詢所有與指定 userId 有關的消息
     const messages = await Message.findAll({
@@ -130,10 +136,12 @@ async function getMessagesForUser(userId) {
         ]
       },
       order: [['createdAt', 'DESC']], //取最新的六筆訊息
-      limit: 6
+      limit: 4,
+      offset: skipCount
     });
 
-    // 返回查詢結果 因為是 DESC 是新到舊 所以要反轉
+    // 返回查詢結果 是從新到舊 但點擊member li，render時會從舊的開始新增 所以要反轉
+    // 至於 receive-more-messages 的再一次反轉 就在前端中定義
     return messages.reverse();
 
   } catch (error) {
