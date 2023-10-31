@@ -154,7 +154,7 @@ function generateChatMsgAdminSocketAdmin(msg) {
 function generateMemberHTML(user) {
   // javascript 前端不支援 hbs 語法
   // 所以用條件判斷
-  let isReadHtml = user.Messages && user.Messages[0].isRead ? '' : '<img width="20" height="20" src="/images/someIcon/newMsg.png">'
+  let isReadHtml = user.Messages && user.Messages[0].isReadAdmin ? '' : '<img width="20" height="20" src="/images/someIcon/newMsg.png">'
   return `
     <li class="p-2 border-bottom" data-user-id="${user.id}">
                 <div class="d-flex justify-content-between">
