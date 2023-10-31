@@ -88,5 +88,6 @@
   "searchPokemons": "擁有的寶可夢",
   "searchPokemonsPlaceHolder": "寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...只能是半形斜線/",
   "_commentOthers": "=========== Others ==============.",
-  "feedbackLang": "zh"
+  "feedbackLang": "zh",
+  "cartPayButton":"目前僅支援'台灣銀行轉帳'與'8591支付'"
 }

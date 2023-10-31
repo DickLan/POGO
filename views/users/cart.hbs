@@ -1,4 +1,4 @@
-<span>Cart is empty now, let's look for your ideal account!</span>
+{{!-- <span>Cart is empty now, let's look for your ideal account!</span> --}}
 
 <section class="h-100" style="background-color: #000000;">
   <div class="container h-100 py-5">
@@ -7,10 +7,10 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
-          <div>
+          {{!-- <div>
             <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
                   class="fas fa-angle-down mt-1"></i></a></p>
-          </div>
+          </div> --}}
         </div>
 
         {{!--each item --}}
@@ -30,8 +30,6 @@
 
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
               </div>
-              {{!-- delete --}}
-              <h1>{{this.Cart.accountId}}</h1>
               <form action="/cart/{{this.Cart.accountId}}?_method=DELETE" class="col-md-1 col-lg-1 col-xl-1 text-end"
                 method="post">
                 <button type="submit" class="text-danger">
@@ -45,8 +43,8 @@
         {{/each}}
 
 
-
-        <div class="card mb-4">
+        {{!-- promo code 暫時不放 --}}
+        {{!-- <div class="card mb-4">
           <div class="card-body p-4 d-flex flex-row">
             <div class="form-outline flex-fill">
               <input type="text" id="form1" class="form-control form-control-lg" />
@@ -54,11 +52,12 @@
             </div>
             <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
           </div>
-        </div>
+        </div> --}}
 
         <div class="card">
           <div class="card-body">
-            <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+            <button type="button" class="btn btn-warning btn-block btn-lg">{{lang.cartPayButton}}</button>
+            {{!-- <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button> --}}
           </div>
         </div>
 
