@@ -65,25 +65,30 @@ socketAdmin.on('updateMyself', (data) => {
   messagesAdmin.scrollTo(0, document.body.scrollHeight)
 })
 // 收到新訊息 新增一條 chatbox 中 一般使用者的發言
-socketAdmin.on('updateAimTalker', (data) => {
+socketAdmin.on('updateAimTalker', async (data) => {
   console.log('updateAimTalker=============data', data)
   const { roomId, message } = data
+  fetchDataAndLoadMembers()
   // console.log('admin client receive data=======', data)
   messagesAdmin.innerHTML += generateChatMsgUserSocketAdmin(message)
   messagesAdmin.scrollTo(0, document.body.scrollHeight)
+
+
 })
 
 // normal user 發送訊息時，admin檢查是否為新 member chat
-socketAdmin.on('newMemberCheck', (data) => {
+socketAdmin.on('newMemberCheck', async (data) => {
   console.log('newMemberCheck=============data', data)
   const { roomId } = data
+  fetchDataAndLoadMembers()
   // 如果這是一個新的對話
   if (!chattedRoomIds.includes(roomId)) {
     chattedRoomIds.push(roomId);
     fetchDataAndLoadMembers();
+    ('newMemberCheck=============inside')
   }
 })
-
+// 初始載入 admin chatbox member list
 fetchDataAndLoadMembers()
 
 
@@ -119,7 +124,7 @@ socketAdmin.on('receive-more-messages', function (messages) {
 // ＝＝＝＝＝＝＝＝＝＝＝fun 區
 
 
-
+// 對話視窗中新增一條對話 +對方
 function generateChatMsgUserSocketAdmin(msg) {
   return ` 
   <div class="d-flex flex-row justify-content-start mb-4">
@@ -132,7 +137,7 @@ function generateChatMsgUserSocketAdmin(msg) {
                 
   </div>`
 }
-
+// 對話視窗中新增一條對話 +我 admin
 function generateChatMsgAdminSocketAdmin(msg) {
   return `
                 <div class="d-flex flex-row justify-content-end mb-4">
@@ -145,17 +150,23 @@ function generateChatMsgAdminSocketAdmin(msg) {
         </div>`
 }
 
-
+// 生成左側 member list 的各個li
 function generateMemberHTML(user) {
+  // javascript 前端不支援 hbs 語法
+  // 所以用條件判斷
+  let isReadHtml = user.Messages && user.Messages[0].isRead ? '' : '<img width="20" height="20" src="/images/someIcon/newMsg.png">'
   return `
     <li class="p-2 border-bottom" data-user-id="${user.id}">
                 <div class="d-flex justify-content-between">
                   <div class="d-flex flex-row">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-1.webp" alt="avatar"
                       class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">${user.name}</p>
-                      <p class="small text-muted">${user.Messages[0].message}</p>
+
+                    <div class="pt-1 ">
+                      <p class="fw-bold mb-0 member-list-name">${user.name}</p>
+                      <p class="d-inline small member-list-message">${user.Messages[0].message}</p>
+                      ${isReadHtml}
+
                     </div>
                   </div>
                   <div class="pt-1">
@@ -178,18 +189,6 @@ async function loadMessageAdmin(userId) {
     // await console.log('response=', response)
     // await console.log('messages=', messages)
     messagesAdmin.innerHTML = ''
-
-    // const loadMoreButton = document.createElement('button');
-    // loadMoreButton.className = "loadMoreButton juistin btn btn-primary";
-    // loadMoreButton.innerText = "Load More Msg";
-    // loadMoreButton.addEventListener('click', function () {
-    //   console.log('click');
-    //   socketAdmin.emit('load-more-messages', { userId: currentUserId, skipCount: loadedMessageCount });
-    // });
-
-    // 將新的 "Load More" 按鈕添加到 messagesAdmin
-    // messagesAdmin.appendChild(loadMoreButton);
-
 
     messages.forEach(msg => {
       // if senderId = 1 => + admin
@@ -232,7 +231,7 @@ async function loadMember(users) {
   // forEach載入每一個user 
   users.forEach(user => {
     memberUl.innerHTML += generateMemberHTML(user)
-    // console.log('user=============', user)
+    console.log('user==2===========', user)
   })
   // 渲染 用戶名 ＆ 最新訊息在 member list
   // member list order by time
@@ -255,6 +254,7 @@ async function loadMember(users) {
       socketAdmin.emit('request-user-messages', userId)
       // 再加入新房
       socketAdmin.emit('joinRoom', { roomId: currentUserId })
+      fetchDataAndLoadMembers()
       // console.log('request-user-messages sent')
       // console.log('member userId', userId)
     })
@@ -267,8 +267,10 @@ async function loadMember(users) {
   // 該如何渲染新用戶？
   // １ 靠socket監聽，有新用戶發送訊息時，再loadMessage一次
 }
-// 定義點擊 member li時的行為 => 顯示不同 user 來訊 
-// 從 server side 收到訊息後，才 display
+
+
+// 定義點擊 member li時的行為 => 發出request for 歷史訊息
+// 從 server side 收到訊息後，才 display 顯示不同 user 來訊 
 socketAdmin.on('receive-user-messages', (messages) => {
   // console.log('receive-user-messages receive')
   displayMessages(messages)

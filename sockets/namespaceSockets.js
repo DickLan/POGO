@@ -5,6 +5,7 @@
 const { Message, Sequelize } = require('../models/')
 
 const { getMessages } = require('../controllers/user-controller')
+const { use } = require('chai')
 
 const initializeSocket = (io) => {
   const adminNamespace = io.of('/admin')
@@ -52,10 +53,11 @@ const initializeSocket = (io) => {
 
     });
 
-    // member 點擊相關處理
+    // member li 點擊時的處理
     socket.on('request-user-messages', async (userId) => {
+      await updateIsRead(userId)
       const messages = await getMessagesForUser(userId)
-      // console.log('request-user-messages receive')
+      console.log('request-user-messages receive=====', messages)
       adminNamespace.emit('receive-user-messages', messages)
       // console.log('receive-user-messages sent')
     })
@@ -152,8 +154,23 @@ async function getMessagesForUser(userId, skipCount = 0) {
     return [];
   }
 
-
-
 }
+
+
+
+async function updateIsRead(userId) {
+  await Message.update({ isRead: true }, {
+    where: {
+      [Sequelize.Op.or]: [
+        { senderId: userId, receiverId: 1 },
+        { senderId: 1, receiverId: userId }
+      ]
+    }
+  })
+}
+
+
+
+
 
 module.exports = initializeSocket
