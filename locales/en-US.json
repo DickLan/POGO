@@ -93,5 +93,6 @@
   "searchPokemons": "Contains Pokemon",
   "searchPokemonsPlaceHolder": "PokeName1/PokeName2/PokeName3...it could only be sepeated by this / symbol",
   "_commentOthers": "=========== Others ==============.",
-  "feedbackLang": "en"
+  "feedbackLang": "en",
+  "cartPayButton": "Only Skrill and BTC available for now"
 }
