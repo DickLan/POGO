@@ -267,3 +267,16 @@ tr {
   height: 400px;
   overflow-y: auto;
 }
+
+
+/* member */
+
+.member-list-name,
+.member-list-message {
+  font-size: 20px;
+}
+
+.member-list-message {
+  text-emphasis-color: green;
+  color: rgb(164, 225, 225);
+}
