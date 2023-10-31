@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     message: DataTypes.TEXT,
     senderId: DataTypes.INTEGER,
     receiverId: DataTypes.INTEGER,
-    isRead: DataTypes.BOOLEAN
+    isReadAdmin: DataTypes.BOOLEAN,
+    isReadUser: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Message',

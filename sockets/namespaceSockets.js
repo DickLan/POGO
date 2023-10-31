@@ -159,7 +159,7 @@ async function getMessagesForUser(userId, skipCount = 0) {
 
 
 async function updateIsRead(userId) {
-  await Message.update({ isRead: true }, {
+  await Message.update({ isReadAdmin: true }, {
     where: {
       [Sequelize.Op.or]: [
         { senderId: userId, receiverId: 1 },
