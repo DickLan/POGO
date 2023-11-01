@@ -24,20 +24,16 @@ console.log('joinRoom socket.js', currentRoomId)
 // console.log(`socket.js user====`, user)
 
 
-// 一進入LS網站，就載入msg
+// 一進入LS網站，就加入room，加入room後，就載入msg
 // 之後會是 有登入才載入
-// 載入歷史訊息
+// 加入room後，載入歷史訊息
+socketUser.on('receive-history-message', async (historyMessages) => {
+  // loadMessage(user.id)
 
-let notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
-let newMsgIcon = document.querySelector('#newMsgIcon')
-
-async function loadMessage(userId) {
   try {
     // console.log('user=========321===========', user)
-    // console.log('loadM run')
-    const response = await fetch(`/messages/${userId}`)
-    const data = await response.json()
-    const { messages, unReadCounts } = data;
+    console.log('receive-history-message', historyMessages)
+    const messages = historyMessages;
     // await console.log('response=', response)
     // await console.log('data=', data)
     // await console.log('messages=', messages)
@@ -55,7 +51,9 @@ async function loadMessage(userId) {
     })
     chatWindowBody.scrollTo(0, document.body.scrollHeight)
 
-
+    const response = await fetch(`/messages/${user.id}`)
+    const data = await response.json()
+    const { unReadCounts } = data;
     // load msg 時 同時將 未讀訊息數量顯示
 
     if (unReadCounts > 0) {
@@ -78,9 +76,14 @@ async function loadMessage(userId) {
   } catch (error) {
     console.error('Failed to load messages', error);
   }
-}
+})
+
+// 載入未讀訊息
+let notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
+let newMsgIcon = document.querySelector('#newMsgIcon')
+
 // console.log('user=========123===========', user)
-// loadMessage(user.id)
+
 
 
 // client 在chatbox enter => 發訊息給 server
@@ -186,4 +189,55 @@ function displayMsgRemindsIcon() {
 function hideMsgRemindsIcon() {
   notYetReadMsgCounts.style.display = 'none'
   newMsgIcon.style.display = 'none'
+}
+
+
+// 先停用這組 改從 server socket 拿歷史最新四筆訊息
+async function loadMessage(userId) {
+  try {
+    // console.log('user=========321===========', user)
+    // console.log('loadM run')
+    const response = await fetch(`/messages/${userId}`)
+    const data = await response.json()
+    const { messages, unReadCounts } = data;
+    // await console.log('response=', response)
+    // await console.log('data=', data)
+    // await console.log('messages=', messages)
+    // await console.log('unReadCounts=', unReadCounts)
+    chatWindowBody.innerHTML = ''
+
+    messages.forEach(msg => {
+      // if senderId = 1 => + admin
+      if (msg.senderId === 1) {
+        chatWindowBody.innerHTML += generateChatMsgAdmin(msg.message)
+        // if not 1 => + user
+      } else {
+        chatWindowBody.innerHTML += generateChatMsgUser(msg.message)
+      }
+    })
+    chatWindowBody.scrollTo(0, document.body.scrollHeight)
+
+
+    // load msg 時 同時將 未讀訊息數量顯示
+
+    if (unReadCounts > 0) {
+      notYetReadMsgCounts.textContent = unReadCounts
+      // display icon
+
+      notYetReadMsgCounts.style.display = 'block'
+      newMsgIcon.style.display = 'block'
+
+    } else {
+
+      notYetReadMsgCounts.style.display = 'none'
+      newMsgIcon.style.display = 'none'
+
+    }
+
+
+
+
+  } catch (error) {
+    console.error('Failed to load messages', error);
+  }
 }

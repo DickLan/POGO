@@ -272,7 +272,7 @@ async function loadMember(users) {
 // 定義點擊 member li時的行為 => 發出request for 歷史訊息
 // 從 server side 收到訊息後，才 display 顯示不同 user 來訊 
 socketAdmin.on('receive-user-messages', (messages) => {
-  // console.log('receive-user-messages receive')
+  // console.log('receive-user-messages', messages)
   displayMessages(messages)
   // 上方display 先新增完button ，下面才可以QS
   const lMB = document.querySelector('.loadMoreButton');
