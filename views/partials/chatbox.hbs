@@ -1,6 +1,21 @@
 <button id="chat-icon" style="position: fixed; right: 20px; bottom: 20px; z-index: 100; ">
-  <img src="/images/someIcon/chat.png" alt="">
+
+  <div>
+    {{!-- 如果 isReadUser = false 才顯示下面兩樣 --}}
+    {{!-- {{if }} --}}
+    <span class="notYetReadMsgCounts"
+      style="position:fixed;right: 60px; bottom:60px; color: aqua;display:none ">0</span>
+    <img id="newMsgIcon" width="30" height="30" src="/images/someIcon/newMsg.png"
+      style="position: fixed; right: 20px; bottom: 60px; z-index: 100; display:none">
+  </div>
+
+  <div>
+    <img src="/images/someIcon/chat.png" alt="">
+  </div>
+
 </button>
+
+
 
 {{!-- "background-color:rgb(0,0,0,0);" 可以暫時隱藏 --}}
 <section style="background-color:rgba(44, 19, 155, 0.5);">
