@@ -85,14 +85,21 @@ const initializeSocket = (io) => {
     // console.log('New user client connected');
 
     // join room
-    socket.on('joinRoom', (roomId) => {
+    socket.on('joinRoom', async (roomId) => {
       // console.log(`Normal User ${socket.id} has join the room ${roomId}`);
       // console.log(`app.js user roomId: ${roomId}`);
 
       socket.join(roomId)
       console.log('joinRoom nameSpace.js', roomId)
       userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
+
+      // 成功 join room 後，發送該 user's歷史訊息
+      const historyMessages = await getMessagesForUser(roomId, 0)
+      console.log('historyMessages', historyMessages)
+      userNamespace.to(roomId).emit('receive-history-message', historyMessages)
     })
+
+
     // 
     socket.on('message', async (data) => {
       const { message, receiverId, senderId } = data
@@ -143,7 +150,9 @@ async function getMessagesForUser(userId, skipCount = 0) {
       },
       order: [['createdAt', 'DESC']], //取最新的六筆訊息
       limit: 4,
-      offset: skipCount
+      offset: skipCount,
+      raw: true,
+      nest: true
     });
 
     // 返回查詢結果 是從新到舊 但點擊member li，render時會從舊的開始新增 所以要反轉
