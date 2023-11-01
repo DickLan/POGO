@@ -29,7 +29,7 @@ router.delete('/cart/:id', authenticated, userController.removeCartItem)
 // messages
 router.get('/messages/allUsers', userController.getUsers)
 router.get('/messages/:userId', userController.getMessages)
-
+router.post('/messages/markAsRead', userController.postAsRead)
 
 // auth
 router.get('/login', userController.getLogin)

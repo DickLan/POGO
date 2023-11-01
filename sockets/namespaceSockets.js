@@ -57,7 +57,7 @@ const initializeSocket = (io) => {
     socket.on('request-user-messages', async (userId) => {
       await updateIsRead(userId)
       const messages = await getMessagesForUser(userId)
-      console.log('request-user-messages receive=====', messages)
+      // console.log('request-user-messages receive=====', messages)
       adminNamespace.emit('receive-user-messages', messages)
       // console.log('receive-user-messages sent')
     })
@@ -90,6 +90,7 @@ const initializeSocket = (io) => {
       // console.log(`app.js user roomId: ${roomId}`);
 
       socket.join(roomId)
+      console.log('joinRoom nameSpace.js', roomId)
       userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
     })
     // 
@@ -104,7 +105,7 @@ const initializeSocket = (io) => {
           message, receiverId, senderId
         })
         console.log('user message saved to db!')
-        console.log('user roomId========', roomId)
+        // console.log('user roomId========', roomId)
       } catch (error) {
         console.log(error)
         console.error('Failed to save message to db')

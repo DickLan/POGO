@@ -104,12 +104,15 @@ const userController = {
     // res.locals.user 是給 view 使用的，在這裡若要使用user
     // 需要從 passport 裡面調用 => req.user
     const user = req.user || null
+    console.log('user:', user);
+
     // console.log('getMessages user=============', user);
     if (!user) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
-
+    console.log('============1=============')
     try {
+      console.log('============2=============')
       const messages = await Message.findAll({
         where: {
           [Sequelize.Op.or]: [
@@ -119,8 +122,21 @@ const userController = {
         },
         order: [['createdAt', 'ASC']]
       })
+      // check 該 user 有多少 unReadMsg
+      console.log('============3=============')
+      const unReadCounts = await Message.count({
+        where: {
+          isReadUser: false,
+          [Sequelize.Op.or]: [
+            { senderId: 1 },
+            { receiverId: user.id }
+          ]
+        }
+      })
+      console.log('============4=============')
+      console.log('controller unReadCounts', unReadCounts)
       // console.log('Getmessages=============', messages)
-      return res.json(messages)
+      return res.json({ messages, unReadCounts })
     } catch (error) {
       console.log(error)
       return res.status(500).json({ error: 'Error load messages' })
@@ -154,7 +170,27 @@ const userController = {
       console.log(error)
     }
 
-  })
+  }),
+  postAsRead: async (req, res, next) => {
+    const user = req.user
+    try {
+      await Message.update(
+        { isReadUser: true },
+        {
+          where: {
+            isReadUser: false,
+            [Sequelize.Op.or]: [
+              { senderId: 1 },
+              { receiverId: user.id }
+            ]
+          }
+        })
+      res.status(200).send('Updated successfully');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal Server Error');
+    }
+  }
 
 
 
