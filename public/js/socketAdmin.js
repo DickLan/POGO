@@ -22,7 +22,7 @@ let chattedRoomIds = []
 const roomId = currentUserId
 socketAdmin.emit('joinRoom', roomId)
 socketAdmin.on('message', msg => {
-  console.log('message from AdminNamespace=', msg, '123');
+  // console.log('message from AdminNamespace=', msg, '123');
 })
 
 // console.log('userAdmin=========123===========', user)
@@ -66,7 +66,7 @@ socketAdmin.on('updateMyself', (data) => {
 })
 // 收到新訊息 新增一條 chatbox 中 一般使用者的發言
 socketAdmin.on('updateAimTalker', async (data) => {
-  console.log('updateAimTalker=============data', data)
+  // console.log('updateAimTalker=============data', data)
   const { roomId, message } = data
   fetchDataAndLoadMembers()
   // console.log('admin client receive data=======', data)
@@ -78,7 +78,7 @@ socketAdmin.on('updateAimTalker', async (data) => {
 
 // normal user 發送訊息時，admin檢查是否為新 member chat
 socketAdmin.on('newMemberCheck', async (data) => {
-  console.log('newMemberCheck=============data', data)
+  // console.log('newMemberCheck=============data', data)
   const { roomId } = data
   fetchDataAndLoadMembers()
   // 如果這是一個新的對話
@@ -186,8 +186,8 @@ async function loadMessageAdmin(userId) {
 
     const response = await fetch(`/messages/${userId}`)
     const messages = await response.json()
-    // await console.log('response=', response)
-    // await console.log('messages=', messages)
+    // await // console.log('response=', response)
+    // await // console.log('messages=', messages)
     messagesAdmin.innerHTML = ''
 
     messages.forEach(msg => {
@@ -213,11 +213,11 @@ async function fetchDataAndLoadMembers() {
   try {
     const memberResponse = await fetch(`/messages/allUsers`)
     const usersWithMsg = await memberResponse.json()
-    // await console.log('memberResponse=', memberResponse)
-    // await console.log('usersWithMsg=', usersWithMsg)
+    // await // console.log('memberResponse=', memberResponse)
+    // await // console.log('usersWithMsg=', usersWithMsg)
     loadMember(usersWithMsg)
   } catch (error) {
-    console.log('發生錯誤：', error);
+    // console.log('發生錯誤：', error);
   }
 }
 
@@ -231,7 +231,7 @@ async function loadMember(users) {
   // forEach載入每一個user 
   users.forEach(user => {
     memberUl.innerHTML += generateMemberHTML(user)
-    console.log('user==2===========', user)
+    // console.log('user==2===========', user)
   })
   // 渲染 用戶名 ＆ 最新訊息在 member list
   // member list order by time
@@ -244,10 +244,10 @@ async function loadMember(users) {
 
       // getAttribute是string 所以要轉int !!!!!!!!!!!!!!!!
       const userId = parseInt(li.getAttribute('data-user-id'))
-      console.log('userId=====6=====', userId)
-      console.log(typeof userId)
-      console.log('userId=====6=====', currentUserId)
-      console.log(typeof currentUserId)
+      // console.log('userId=====6=====', userId)
+      // console.log(typeof userId)
+      // console.log('userId=====6=====', currentUserId)
+      // console.log(typeof currentUserId)
       // 先離開舊房
       socketAdmin.emit('leaveRoom', { roomId: currentUserId })
       currentUserId = userId
@@ -277,7 +277,7 @@ socketAdmin.on('receive-user-messages', (messages) => {
   // 上方display 先新增完button ，下面才可以QS
   const lMB = document.querySelector('.loadMoreButton');
   lMB.addEventListener('click', function () {
-    console.log('click');
+    // console.log('click');
     socketAdmin.emit('load-more-messages', { userId: currentUserId, skipCount: loadedMessageCount });
   });
 })
@@ -295,8 +295,8 @@ function displayMessages(messages) {
   // 找到原有的 "Load More" 按鈕和移除它
   // const oldLoadMoreButton = document.querySelector('.loadMoreButton');
   // if (oldLoadMoreButton) {
-  //   console.log('tes found');
-  //   console.log('removeChild(oldLoadMoreButton)');
+  //   // console.log('tes found');
+  //   // console.log('removeChild(oldLoadMoreButton)');
   //   // messagesAdmin.removeChild(oldLoadMoreButton);
   // }
 

@@ -8,7 +8,7 @@ const adminController = {
       // nest: true
     })
       .then(accounts => {
-        // console.log('accounts=',accounts)
+        // console.log('accounts=', accounts)
 
         return res.render('admin/accounts', { accounts })
       })
@@ -85,7 +85,7 @@ const adminController = {
     //   clientIP = req.header['x-forwarder-for'] || '127.0.0.1'
     // } else {
     //   // 開發環境 設一個固定ＩＰ
-    //   console.log('dev')
+    //   // console.log('dev')
     //   clientIP = '127.0.0.5'
     // }
     Promise.all([
@@ -117,10 +117,10 @@ const adminController = {
             counts2: 111
           })
             .then(() => {
-              console.log('保存成功');
+              // console.log('保存成功');
             })
             .catch(err => {
-              console.log('保存失敗：', err);
+              // console.log('保存失敗：', err);
             });
         }
 

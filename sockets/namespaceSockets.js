@@ -21,7 +21,7 @@ const initializeSocket = (io) => {
 
     // join room
     socket.on('joinRoom', (roomId) => {
-      console.log(`Admin User ${socket.id} has join the room ${roomId}`);
+      // console.log(`Admin User ${socket.id} has join the room ${roomId}`);
       socket.join(roomId)
       adminNamespace.to(roomId).emit('message', `Admin User ${socket.id} has join the room ${roomId}`)
     })
@@ -38,14 +38,14 @@ const initializeSocket = (io) => {
           userId: senderId,
           message, receiverId, senderId
         })
-        console.log('admin message saved to db!')
+        // console.log('admin message saved to db!')
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         console.error('Failed to save message to db')
       }
       // !!!!!!!!!!!!非常重要 roomId 必須是Int 不能是string!!!!!!!!!!!!!!
       roomId = parseInt(roomId)
-      console.log('admin NSpace roomId', roomId)
+      // console.log('admin NSpace roomId', roomId)
       // 進行處理後，將要 update view 的訊息傳回給 client 前端
       adminNamespace.to(roomId).emit('updateMyself', data)
       // admin 發的訊息 顯示在 user client 前端
@@ -63,8 +63,8 @@ const initializeSocket = (io) => {
     })
     // leave room
     socket.on('leaveRoom', async (roomId) => {
-      console.log(`roomId===========`, roomId)
-      console.log(`admin leave room-${roomId.roomId}!`)
+      // console.log(`roomId===========`, roomId)
+      // console.log(`admin leave room-${roomId.roomId}!`)
       socket.leave(roomId.roomId)
     })
 
@@ -90,12 +90,12 @@ const initializeSocket = (io) => {
       // console.log(`app.js user roomId: ${roomId}`);
 
       socket.join(roomId)
-      console.log('joinRoom nameSpace.js', roomId)
+      // console.log('joinRoom nameSpace.js', roomId)
       userNamespace.to(roomId).emit('message', `Normal User ${socket.id} has join the room ${roomId}`)
 
       // 成功 join room 後，發送該 user's歷史訊息
       const historyMessages = await getMessagesForUser(roomId, 0)
-      console.log('historyMessages', historyMessages)
+      // console.log('historyMessages', historyMessages)
       userNamespace.to(roomId).emit('receive-history-message', historyMessages)
     })
 
@@ -111,10 +111,10 @@ const initializeSocket = (io) => {
           userId: senderId,
           message, receiverId, senderId
         })
-        console.log('user message saved to db!')
+        // console.log('user message saved to db!')
         // console.log('user roomId========', roomId)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         console.error('Failed to save message to db')
       }
       roomId = parseInt(roomId)
@@ -127,6 +127,27 @@ const initializeSocket = (io) => {
       adminNamespace.emit('newMemberCheck', data)
 
     })
+
+    // load-more-messages
+    // 歷史訊息已載入後，先掛載 loadmore button listener
+    socket.on('load-history-message-done', async (data) => {
+      roomId = data
+      // console.log('load-history-message-done server')
+      // console.log('roomId', roomId)
+      userNamespace.to(roomId).emit('hang-load-more-button', '0')
+      // console.log('userId', userId)
+      // console.log('skipCount', skipCount)
+      // // moreHistoryMessages
+
+    })
+
+    // 點擊 loadmore button 後 => load more msg
+    socket.on('load-more-messages', async (data) => {
+      const messages = await getMessagesForUser(data.userId, data.skipCount)
+      socket.emit('receive-more-messages', messages)
+    })
+
+
 
 
 
