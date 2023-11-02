@@ -6,7 +6,7 @@ const userController = {
 
   // login & register
   getLogin: (req, res, next) => {
-    console.log(req.cookies.lang)
+    // console.log(req.cookies.lang)
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
@@ -18,7 +18,7 @@ const userController = {
     res.render('users/register')
   },
   postRegister: (req, res, next) => {
-    // console.log(req.body)
+    // // console.log(req.body)
     const { name, email, password, confirmPassword } = req.body
     const errors = []
     if (!name || !email || !password || !confirmPassword) {
@@ -46,7 +46,7 @@ const userController = {
         })
       })
       .then(() => {
-        // console.log(77777)
+        // // console.log(77777)
         req.flash('success_msg', '成功註冊帳號！')
         res.redirect('/login')
       })
@@ -96,23 +96,23 @@ const userController = {
 
     const userId = req.user.id
     let data = req.user.CartAccounts
-    // console.log('================')
-    // console.log(data)
+    // // console.log('================')
+    // // console.log(data)
     res.render('users/cart', { cartItems: data })
   },
   getMessages: async (req, res, next) => {
     // res.locals.user 是給 view 使用的，在這裡若要使用user
     // 需要從 passport 裡面調用 => req.user
     const user = req.user || null
-    console.log('user:', user);
+    // console.log('user:', user);
 
-    // console.log('getMessages user=============', user);
+    // // console.log('getMessages user=============', user);
     if (!user) {
       return res.status(401).json({ error: 'User not authenticated' });
     }
-    console.log('============1=============')
+    // // console.log('============1=============')
     try {
-      console.log('============2=============')
+      // // console.log('============2=============')
       const messages = await Message.findAll({
         where: {
           [Sequelize.Op.or]: [
@@ -123,7 +123,7 @@ const userController = {
         order: [['createdAt', 'ASC']]
       })
       // check 該 user 有多少 unReadMsg
-      console.log('============3=============')
+      // console.log('============3=============')
       const unReadCounts = await Message.count({
         where: {
           isReadUser: false,
@@ -133,12 +133,12 @@ const userController = {
           ]
         }
       })
-      console.log('============4=============')
-      console.log('controller unReadCounts', unReadCounts)
-      // console.log('Getmessages=============', messages)
+      // console.log('============4=============')
+      // console.log('controller unReadCounts', unReadCounts)
+      // // console.log('Getmessages=============', messages)
       return res.json({ messages, unReadCounts })
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       return res.status(500).json({ error: 'Error load messages' })
     }
   },
@@ -167,7 +167,7 @@ const userController = {
       })
       return res.json(usersWithMsg)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
 
   }),
@@ -187,7 +187,7 @@ const userController = {
         })
       res.status(200).send('Updated successfully');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       res.status(500).send('Internal Server Error');
     }
   }

@@ -21,13 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
           notYetReadMsgCounts.style.display = 'none'
           newMsgIcon.style.display = 'none'
 
-          console.log('Messages marked as read');
+          // console.log('Messages marked as read');
           chatWindowBody.scrollTo(0, document.body.scrollHeight)
         } else {
-          console.log('Failed to mark messages as read');
+          // console.log('Failed to mark messages as read');
         }
       } catch (error) {
-        console.log('Error:', error);
+        // console.log('Error:', error);
       }
 
 

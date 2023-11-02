@@ -21,4 +21,4 @@ const names = [
   'Chi-Yu', 'Roaring Moon', 'Iron Valiant', 'Koraidon', 'Miraidon'
 ];
 
-console.log(names.length)
+// console.log(names.length)

@@ -120,7 +120,7 @@ const accountController = {
         .map(teamName => ({ team: teamName }))
       // 原先的寫法如下
       // team.map(team => {
-      //   console.log('team=', team)
+      //   // console.log('team=', team)
       //   if (team.includes('red')) {
       //     teamConditions[Sequelize.Op.or].push({ team: 'red' })
       // console.log('========================')
@@ -201,7 +201,7 @@ const accountController = {
       // 防呆 trim前後空格與空行
       trimPokemonContains = pokemonContains.trim()
       containsArray = trimPokemonContains.split('/')
-      console.log(containsArray)
+      // console.log(containsArray)
 
       // 開始邏輯運算
       containsArray.forEach(searchPokemon => {
