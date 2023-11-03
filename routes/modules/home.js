@@ -37,15 +37,15 @@ router.post('/users/login', passport.authenticate('local', {
   failureRedirect: '/users/login', failureFlash: true
 }), userController.postLogin)
 
-router.get('/logout', authenticated, (req, res) => {
+router.get('/users/logout', authenticated, (req, res) => {
   req.logout()
   req.flash('success_msg', 'success logout ^_^')
   res.redirect('/users/login')
 })
 
 
-router.get('/register', userController.getRegister)
-router.post('/register', userController.postRegister)
+router.get('/users/register', userController.getRegister)
+router.post('/users/register', userController.postRegister)
 
 
 
