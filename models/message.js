@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     senderId: DataTypes.INTEGER,
     receiverId: DataTypes.INTEGER,
     isReadAdmin: DataTypes.BOOLEAN,
-    isReadUser: DataTypes.BOOLEAN
+    isReadUser: DataTypes.BOOLEAN,
+    resetPasswordToken: DataTypes.STRING,
+    resetPasswordExpires: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Message',

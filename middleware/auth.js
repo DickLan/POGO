@@ -4,7 +4,7 @@ const authenticated = (req, res, next) => {
     return next()
   }
   req.flash('warning_msg', 'please log in first ^_^')
-  res.redirect('/login')
+  res.redirect('/users/login')
 }
 
 const authenticatedAdmin = (req, res, next) => {
@@ -13,7 +13,7 @@ const authenticatedAdmin = (req, res, next) => {
     res.redirect('/')
   }
   req.flash('warning_msg', 'please log in first ^_^')
-  res.redirect('/login')
+  res.redirect('/users/login')
 }
 
 module.exports = {

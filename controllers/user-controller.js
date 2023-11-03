@@ -1,6 +1,7 @@
 const { raw } = require('express')
 const { User, Cart, Account, Message, Sequelize, sequelize } = require('../models')
 const bcryptjs = require('bcryptjs')
+const crypto = require('crypto')
 
 const userController = {
 
@@ -10,6 +11,20 @@ const userController = {
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
+    // const rememberMe = req.body['remember-me']
+    // console.log(req.body)
+    // console.log('rememberMe=========', rememberMe)
+    // console.log('req.session=========', req.session)
+    // console.log('req.user=========', req.user.id)
+
+    // // 如果登入時有勾選 rememberMe
+    // if (rememberMe === '1') {
+    //   const oneWeek = 7 * 24 * 3600 * 1000; // cookie 的有效期，這裡設定為一週
+    //   userId = req.user.id
+    //   // secure for https, httpOnly for http
+    //   res.cookis('rememberMe', userId, { maxAge: oneWeek, httpOnly: true, secure: true })
+    // }
+
     req.flash('success_msg', 'success login')
     res.redirect('/accounts')
   },
@@ -48,7 +63,7 @@ const userController = {
       .then(() => {
         // // console.log(77777)
         req.flash('success_msg', '成功註冊帳號！')
-        res.redirect('/login')
+        res.redirect('/users/login')
       })
       .catch(err => next(err))
   },
@@ -190,6 +205,9 @@ const userController = {
       // console.log(error);
       res.status(500).send('Internal Server Error');
     }
+  },
+  forgotPassword:(req,res)=>{
+
   }
 
 

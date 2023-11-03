@@ -32,15 +32,15 @@ router.get('/messages/:userId', userController.getMessages)
 router.post('/messages/markAsRead', userController.postAsRead)
 
 // auth
-router.get('/login', userController.getLogin)
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/login', failureFlash: true
+router.get('/users/login', userController.getLogin)
+router.post('/users/login', passport.authenticate('local', {
+  failureRedirect: '/users/login', failureFlash: true
 }), userController.postLogin)
 
 router.get('/logout', authenticated, (req, res) => {
   req.logout()
   req.flash('success_msg', 'success logout ^_^')
-  res.redirect('/login')
+  res.redirect('/users/login')
 })
 
 
@@ -56,9 +56,9 @@ router.post('/register', userController.postRegister)
 //   res.render('public/search')
 // })
 
-router.get('/contact', (req, res) => {
-  res.render('public/contact', { activeRoute: 'contact' })
-})
+// router.get('/contact', (req, res) => {
+//   res.render('public/contact', { activeRoute: 'contact' })
+// })
 
 router.get('/feedback', (req, res) => {
   res.render('public/feedback', { activeRoute: 'feedback' })
