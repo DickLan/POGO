@@ -86,7 +86,7 @@
         <ul class="navbar-nav">
           <li class="nav-item me-2">
             {{#if isAuthenticated}}
-            <a class="nav-link btn btn-dark" href="/logout">{{lang.headerLogout}}</a>
+            <a class="nav-link btn btn-dark" href="/users/logout">{{lang.headerLogout}}</a>
             {{else}}
             <a class="nav-link btn btn-primary" href="/users/login">{{lang.headerLogin}}</a>
             {{/if}}
@@ -94,7 +94,7 @@
 
           </li>
           <li class="nav-item">
-            <a class="nav-link btn btn-success" href="/register">{{lang.headerRegister}}</a>
+            <a class="nav-link btn btn-success" href="/users/register">{{lang.headerRegister}}</a>
           </li>
         </ul>
       </div>
