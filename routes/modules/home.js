@@ -43,9 +43,16 @@ router.get('/users/logout', authenticated, (req, res) => {
   res.redirect('/users/login')
 })
 
-
 router.get('/users/register', userController.getRegister)
 router.post('/users/register', userController.postRegister)
+
+router.get('/users/forgotPassword', userController.getForgotPassword)
+router.post('/users/forgotPassword', userController.
+  postForgotPassword)
+
+router.get('/users/resetPassword', userController.getResetPassword)
+router.post('/users/resetPassword', userController.
+  postResetPassword)
 
 
 
