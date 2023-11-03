@@ -2,6 +2,7 @@ const { raw } = require('express')
 const { User, Cart, Account, Message, Sequelize, sequelize } = require('../models')
 const bcryptjs = require('bcryptjs')
 const crypto = require('crypto')
+const emailService = require('../public/js/emailService')
 
 const userController = {
 
@@ -206,9 +207,92 @@ const userController = {
       res.status(500).send('Internal Server Error');
     }
   },
-  forgotPassword:(req,res)=>{
+  getForgotPassword: (req, res) => {
+    res.render('users/forgotPassword')
+  },
+  postForgotPassword: (req, res) => {
+    console.log(req.body)
+    const { userName, email } = req.body
 
-  }
+    User.findOne({ where: { email, name: userName } })
+      .then(user => {
+        // 1 處理用戶不存在，或是名稱與信箱不完全正確的情況
+        if (!user) {
+          console.log('no this user or email')
+        }
+        // 2 生成 reset TOKEN and ExpireTime
+        console.log('2 生成 reset TOKEN and ExpireTime')
+        const resetToken = crypto.randomBytes(20).toString('hex')
+        const resetTokenExpiry = Date.now() + 3600000 // token 有效期限 1 小時
+        console.log('resetToken', resetToken)
+        // 3 將 token 和有效期存儲到用戶記錄中
+        return user.update({
+          resetPasswordToken: resetToken,
+          resetPasswordExpires: resetTokenExpiry,
+        })
+      })
+      .then(user => {
+        // 4 發送郵件給用戶 包含重置密碼連結
+        return emailService.sendResetPasswordEmail(user, user.resetPasswordToken)
+
+        // 先用假傳送
+        // console.log('user=======', user)
+        // console.log('Pretend to send email to:', user.email, 'with token:', user.resetPasswordToken);
+        // return Promise.resolve({
+        //   message: "Fake email sent success",
+        //   resetToken: user.resetPasswordToken
+        // });
+      })
+      .then(info => {
+        console.log('Reset password email sent', info)
+        res.status(200).send('A pw reset eamil has been sent')
+      })
+      .catch(error => {
+        console.error('Error sending reset password email:', error);
+        res.status(500).send('An error occurred while sending password reset email.')
+      })
+  },
+
+
+
+  getResetPassword: (req, res) => {
+    const { id, token, name } = req.query
+    console.log('req.query', req.query)
+    res.render('users/resetPassword', { id, token, name })
+  },
+  postResetPassword: (req, res, next) => {
+    const { id, token, password, confirmPassword } = req.body
+    if (password !== confirmPassword) {
+      req.flash('error_msg', '密碼和確認密碼不匹配！');
+      return res.redirect('back'); // 或者是指定的URL
+    }
+    let resetUser
+    User.findOne({ where: { id, resetPasswordToken: token } })
+      .then(user => {
+        if (!user) {
+          req.flash('error_msg', 'Reset token not valid or expired already')
+          throw new Error('Now allow to reset password')
+        }
+        console.log('user=======', user)
+        resetUser = user
+        return bcryptjs.hash(password, 10)
+      })
+      .then(hash => {
+        return resetUser.update({
+          password: hash,
+          resetPasswordToken: null, // 清除 token
+          resetTokenExpiry: null
+        })
+      })
+      .then(() => {
+        // // console.log(77777)
+        req.flash('success_msg', '成功更改密碼！')
+        res.redirect('/users/login')
+      })
+      .catch(err => next(err))
+
+
+  },
 
 
 
