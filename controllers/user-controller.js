@@ -254,11 +254,19 @@ const userController = {
   },
 
 
-
-  getResetPassword: (req, res) => {
+  // 從信箱點擊 重設連結時 呈現的畫面
+  getResetPassword: (req, res, next) => {
     const { id, token, name } = req.query
-    console.log('req.query', req.query)
-    res.render('users/resetPassword', { id, token, name })
+    User.findOne({ where: { id, resetPasswordToken: token } })
+      .then(user => {
+        if (!user) {
+          req.flash('error_msg', 'Reset token not valid or expired already')
+          return res.send('Reset token not valid or expired already')
+        }
+        console.log('req.query', req.query)
+        return res.render('users/resetPassword', { id, token, name })
+      })
+      .catch(err => next(err))
   },
   postResetPassword: (req, res, next) => {
     const { id, token, password, confirmPassword } = req.body
@@ -271,7 +279,7 @@ const userController = {
       .then(user => {
         if (!user) {
           req.flash('error_msg', 'Reset token not valid or expired already')
-          throw new Error('Now allow to reset password')
+          throw new Error('Not allow to reset password')
         }
         console.log('user=======', user)
         resetUser = user
