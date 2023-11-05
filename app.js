@@ -80,5 +80,5 @@ app.use((req, res, next) => {
 app.use(routes)
 
 httpServer.listen(port, () => {
-  // console.log('listening now')
+  console.log('listening now')
 })
