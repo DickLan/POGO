@@ -23,7 +23,7 @@ const sendResetPasswordEmail = (user, resetToken) => {
   const isDevelopment = process.env.NODE_ENV === 'development';
   // 本地開發時才發這連結
   const testLink = isDevelopment ? `<p><a href="http://localhost:3001/users/resetPassword?token=${resetToken}&id=${user.id}&name=${encodeURIComponent(user.name)}" target="_blank">Reset your password TEST</a></p>`
-    : '';
+    : ''
 
   const html = `<!DOCTYPE html>
 <html>

@@ -1,15 +1,21 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+// if (process.env.NODE_ENV !== 'production') {
+// 打算讓生產環境也用相同的 env 所以不特別設條件
+require('dotenv').config()
+// }
 const port = 3001
 const routes = require('./routes')
 const handlebarsHelpers = require('./helpers/handlebars-helper')
 const methodOverride = require('method-override')
 
 const session = require('express-session')
+// session to mysql
+const SequelizeStore = require('connect-session-sequelize')(session.Store)
+const { sequelize } = require('./models/')
+
+
 const usePassport = require('./config/passport')
 const { getUser } = require('./helpers/auth-helper')
 const flash = require('connect-flash')
@@ -43,6 +49,9 @@ app.use(methodOverride('_method'))
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
+  store: new SequelizeStore({
+    db: sequelize,//使用之前已配置好的 sequelize 實例
+  }),
   resave: false,
   saveUninitialized: true
 }))
@@ -79,6 +88,15 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-httpServer.listen(port, () => {
-  console.log('listening now')
-})
+// 確保了在服務器開始接收請求之前，所有的數據庫表都已經準備好了
+sequelize.sync({ force: false }) // 預設為 false ： 若表已存在，就不會覆蓋，不會新建表，會用舊的表． 若表不存在，就創立新的表
+  .then(() => {
+    console.log('Session table created')
+    httpServer.listen(port, () => {
+      console.log('listening now')
+    })
+  }).catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+
