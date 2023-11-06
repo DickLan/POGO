@@ -20,9 +20,12 @@ const transporter = nodemailer.createTransport({
 // 撰寫郵件選項
 const sendResetPasswordEmail = (user, resetToken) => {
 
+  console.log('process.env.NODE_ENV======', process.env.NODE_ENV)
+
   const isDevelopment = process.env.NODE_ENV === 'development';
+  console.log('isDevelopment======', isDevelopment)
   // 本地開發時才發這連結
-  const testLink = isDevelopment ? `<p><a href="http://localhost:3001/users/resetPassword?token=${resetToken}&id=${user.id}&name=${encodeURIComponent(user.name)}" target="_blank">Reset your password TEST</a></p>`
+  const testLink = isDevelopment ? `<p><a href="http://localhost:3001/users/resetPassword?token=${resetToken}&id=${user.id}&name=${encodeURIComponent(user.name)}" target="_blank">Reset your password TEST 開發測試模式才有的連結</a></p>`
     : ''
 
   const html = `<!DOCTYPE html>
@@ -60,8 +63,7 @@ const sendResetPasswordEmail = (user, resetToken) => {
 
   ${testLink}
 
-// 開發測試時
-<p><a href="http://localhost:3001/users/resetPassword?token=${resetToken}&id=${user.id}&name=${user.name}" target="_blank">Reset your password TEST</a></p>
+<p><a href="https://www.littlesheng.com/users/resetPassword?token=${resetToken}&id=${user.id}&name=${user.name}" target="_blank">Reset your password</a></p>
 
   <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
 </div>
