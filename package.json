@@ -5,10 +5,10 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "NODE_ENV=production nodemon app.js",
-    "prostart": "NODE_ENV=production node app.js",
-    "prodev": "nodemon app.js",
+    "devStart": "NODE_ENV=development node app.js",
+    "devDev": "NODE_ENV=development nodemon app.js",
+    "proStart": "NODE_ENV=production node app.js",
+    "proDev": "nodemon app.js",
     "lint": "eslint \"**/*.js\" --fix",
     "test": "mocha tests --exit --recursive --timeout 5000"
   },
