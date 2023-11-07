@@ -90,6 +90,7 @@ app.use(routes)
 
 // 確保了在服務器開始接收請求之前，所有的數據庫表都已經準備好了
 sequelize.sync({ force: false }) // 預設為 false ： 若表已存在，就不會覆蓋，不會新建表，會用舊的表． 若表不存在，就創立新的表
+  // 這裡指的是 在 db 建立表，沒事不要開 true，會把資料都清空
   .then(() => {
     console.log('Session table created')
     httpServer.listen(port, () => {

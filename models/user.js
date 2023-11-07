@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
     resetPasswordToken: DataTypes.STRING,
-    resetPasswordExpires: DataTypes.DATE
+    resetPasswordExpires: DataTypes.DATE,
+    mailIsVerified: DataTypes.BOOLEAN,
+    verifyMailToken: DataTypes.STRING,
+    verifyMailExpires: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'User',

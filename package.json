@@ -8,7 +8,7 @@
     "devStart": "NODE_ENV=development node app.js",
     "devDev": "NODE_ENV=development nodemon app.js",
     "proStart": "NODE_ENV=production node app.js",
-    "proDev": "nodemon app.js",
+    "prodev": "nodemon app.js",
     "lint": "eslint \"**/*.js\" --fix",
     "test": "mocha tests --exit --recursive --timeout 5000"
   },
