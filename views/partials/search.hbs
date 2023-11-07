@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         {{!-- form start here --}}
-        <form action="/accounts/search" method="post">
+        <form id="searchForm" action="/accounts/search" method="post">
           {{!-- the account be edited --}}
           <div class="container">
             {{!-- this.id 方便辨認用 --}}
@@ -145,6 +145,7 @@
 
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Search</button>
+          <button id="clearSearchBtn" type="button" class="btn btn-warning">Clear</button>
 
       </div>
 
