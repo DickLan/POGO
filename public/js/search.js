@@ -9,4 +9,15 @@ clearSearchBtn.addEventListener('click', function () {
   // 這對於 <input> 標籤來說是 value 屬性，但對於 <textarea> 來說，是它的子元素。
   // 如果想要在點擊清除按鈕時清空 <textarea>，需要在JavaScript中明確地設置其內容為空字符串
   searchedPokemons.value = ''
-})  
+})
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const accountId = urlParams.get('accountId')
+  if (accountId) {
+    const element = document.getElementById(`id-${accountId}`)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+})

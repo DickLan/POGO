@@ -231,7 +231,7 @@ const accountController = {
         }))
         // console.log(data)
         // accounts.contents_iv100 = accounts.contents_iv100.split('／')
-        return res.render('public/accounts', { accounts: data, ...searchedValues })
+        return res.render('public/accounts', { accounts: data, ...searchedValues, activeRoute: 'accounts' })
       })
       .catch(err => next(err))
   }
