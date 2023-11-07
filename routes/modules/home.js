@@ -54,6 +54,8 @@ router.get('/users/resetPassword', userController.getResetPassword)
 router.post('/users/resetPassword', userController.
   postResetPassword)
 
+// 點擊驗證信後，跳轉連結，並顯示"成功驗證信箱"
+router.get('/users/verifyMail', userController.getVerifyMail)
 
 
 // router.get('/accounts', (req, res) => {

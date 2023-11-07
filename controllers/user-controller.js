@@ -3,6 +3,7 @@ const { User, Cart, Account, Message, Sequelize, sequelize } = require('../model
 const bcryptjs = require('bcryptjs')
 const crypto = require('crypto')
 const emailService = require('../public/js/emailService')
+const { use } = require('chai')
 
 const userController = {
 
@@ -49,22 +50,45 @@ const userController = {
     }
     User.findOne({ where: { email } })
       .then(user => {
-        if (user) throw new Error('this email already exist')
+
+        // 如果找到用戶，並且郵箱已經驗證，拋出錯誤
+        if (user && user.mailIsVerified) {
+          throw new Error('This email is already registered and verified.');
+        }
+        // 如果找到用戶，但郵箱未驗證，拋出錯誤
+        if (user && !user.mailIsVerified) {
+          throw new Error('This account is already registered but not verified, please check your email to verify your account.');
+        }
+        // 如果沒有找到用戶，則繼續執行密碼加密
         return bcryptjs.hash(password, 10)
       })
       .then(hash => {
+        const verifyMailToken = crypto.randomBytes(20).toString('hex')
+        const verifyMailExpires = Date.now() + 36000000
+        // token 有效期限 10 小時 
         return User.create({
           errors,
           name,
           email,
           password: hash,
-          confirmPassword
+          confirmPassword,
+          mailIsVerified: false, // 預設信箱未驗證，需要點擊信箱連結才會 true
+          verifyMailToken,
+          verifyMailExpires: verifyMailExpires
         })
+      })
+      .then((user) => {
+        return emailService.sendVerifyEmail(user)
       })
       .then(() => {
         // // console.log(77777)
-        req.flash('success_msg', '成功註冊帳號！')
-        res.redirect('/users/login')
+        req.flash('success_msg', '已發送驗證信件，請於一小時內點擊信箱驗證連結，以完成驗證！若超時未點擊，請重新註冊帳號^_^')
+        // 確保 flash 已經存到 session，才重新導向
+        req.session.save(err => {
+          if (err) return next(err)
+          res.redirect('/users/login')
+        })
+
       })
       .catch(err => next(err))
   },
@@ -233,7 +257,7 @@ const userController = {
       })
       .then(user => {
         // 4 發送郵件給用戶 包含重置密碼連結
-        return emailService.sendResetPasswordEmail(user, user.resetPasswordToken)
+        return emailService.sendResetPasswordEmail(user)
 
         // 先用假傳送
         // console.log('user=======', user)
@@ -301,9 +325,36 @@ const userController = {
 
 
   },
+  getVerifyMail: (req, res, next) => {
+    const { id, token } = req.query
+    User.findOne({ where: { id, verifyMailToken: token } })
+      .then(user => {
+        if (!user) {
+          
+          req.flash('error_msg', 'Verify Mail token not valid or tokenexpired already')
+          console.log('warning_msg', '沒有成功驗證信箱！')
+          throw new Error('Not allow to Verify Mail')
+        }
+        user.update({
+          mailIsVerified: true
+          // 正式上線時 要清空 token
+        })
+      })
+      .then(() => {
+        // // console.log(77777)
+        console.log('success_msg', '成功驗證信箱！')
+        req.flash('success_msg', '成功驗證信箱！')
+        // 確保 flash 已經存到 session，才重新導向
+        req.session.save(err => {
+          if (err) return next(err)
+          res.redirect('/users/login')
+        })
 
+      })
+      .catch(err => next(err))
 
-
+  }
 
 }
+
 module.exports = userController
