@@ -28,3 +28,6 @@ tesgenger.js
 backup
 developTools
 backup/
+
+# db relative
+config/config.json
