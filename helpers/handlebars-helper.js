@@ -6,6 +6,8 @@ const dictForNameTrans = require('../pokeDictionary')
 module.exports = {
   // 獲得當前年份
   currentYear: () => dayjs().year(),
+  currentMonth: () => dayjs().month() + 1,
+  currentDay: () => dayjs().date(),
   // 計算一個日期到當前時間 已經過了多久
   relativeTimeFromNow: () => dayjs().fromNow(),
   relativeTimeFromA: a => dayjs(a).fromNow(),

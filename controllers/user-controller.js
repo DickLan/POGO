@@ -28,7 +28,9 @@ const userController = {
     // }
 
     req.flash('success_msg', 'success login')
-    res.redirect('/accounts')
+    req.session.save(err => {
+      res.redirect('/accounts')
+    })
   },
 
   getRegister: (req, res, next) => {
@@ -111,7 +113,9 @@ const userController = {
       })
       .then(() => {
         req.flash('success_msg', 'added to cart!')
-        res.redirect('back')
+        req.session.save(err => {
+          res.redirect('back')
+        })
       })
       .catch(err => next(err))
   },
@@ -126,7 +130,9 @@ const userController = {
       })
       .then(() => {
         req.flash('success_msg', 'Cancel added!')
-        res.redirect('back')
+        req.session.save(err => {
+          res.redirect('back')
+        })
       })
       .catch(err => next(err))
   }
@@ -330,8 +336,8 @@ const userController = {
     User.findOne({ where: { id, verifyMailToken: token } })
       .then(user => {
         if (!user) {
-          
-          req.flash('error_msg', 'Verify Mail token not valid or tokenexpired already')
+
+          req.flash('error_msg', 'Verify Mail token not valid or token expired already  ')
           console.log('warning_msg', '沒有成功驗證信箱！')
           throw new Error('Not allow to Verify Mail')
         }
