@@ -114,16 +114,17 @@ const userController = {
       .then(() => {
         req.flash('success_msg', 'added to cart!')
         req.session.save(err => {
-          res.redirect('back')
+          res.redirect(`/accounts?accountId=${accountId}`)
         })
       })
       .catch(err => next(err))
   },
   // remove one cart item once
   removeCartItem: (req, res, next) => {
-    const cartItemId = req.params.id
+    // 這裡的id是account's id 0123456，而不是Y01這種id
+    const accountId = req.params.id
     // 從 db Cart 尋找 是否有 accountId = req.params傳來的id相符
-    Cart.findOne({ where: { accountId: cartItemId } })
+    Cart.findOne({ where: { accountId } })
       .then(cartItem => {
         if (!cartItem) throw new Error('no this Item')
         return cartItem.destroy()
@@ -131,7 +132,7 @@ const userController = {
       .then(() => {
         req.flash('success_msg', 'Cancel added!')
         req.session.save(err => {
-          res.redirect('back')
+          res.redirect(`/accounts?accountId=${accountId}`)
         })
       })
       .catch(err => next(err))

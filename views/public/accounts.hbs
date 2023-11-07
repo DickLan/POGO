@@ -109,7 +109,12 @@
                 <div class="card-text priceAccountId col-3 d-flex flex-column justify-content-between  ">
                   <span class="accountPrice px-0 py-0 align-self-center">$ {{this.price}} </span>
                   <span class="accountPrice px-0 py-0 align-self-center"> NT</span><br>
-                  <span class="accountId ml-auto align-self-end">#{{this.accountId}}</span>
+                  {{!-- 這的 this.id 是給 element.scrollIntoView 使用的 --}}
+                  {{!-- accountId 是 y01那種id --}}
+                  <span class="accountId ml-auto align-self-end" id="id-{{this.id}}">
+                    #{{this.accountId}}
+                    {{!-- #{{this.id}} --}}
+                  </span>
                 </div>
 
               </div>
