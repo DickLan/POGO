@@ -130,11 +130,11 @@ const accountController = {
     }
     // level
     if (level) {
-      whereCondition.level = { [Sequelize.Op.gt]: level }
+      whereCondition.level = { [Sequelize.Op.gte]: level }
     }
     // startdust
     if (stardust) {
-      whereCondition.stardust = { [Sequelize.Op.gt]: stardust }
+      whereCondition.stardust = { [Sequelize.Op.gte]: stardust }
     }
     // price 
     // =================Correct==========
