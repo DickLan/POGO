@@ -4,12 +4,14 @@ const bcryptjs = require('bcryptjs')
 const crypto = require('crypto')
 const emailService = require('../public/js/emailService')
 const { use } = require('chai')
+const d = require('../pokeDictionary')
 
 const userController = {
 
   // login & register
   getLogin: (req, res, next) => {
     // console.log(req.cookies.lang)
+    console.log('d==============================', d)
     res.render('users/login')
   },
   postLogin: (req, res, next) => {
