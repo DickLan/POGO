@@ -29,33 +29,37 @@ socketAdmin.on('message', msg => {
 // 這是剛點進 admin chat 時的畫面，目前先拿掉 
 // loadMessageAdmin(user.id)
 
+// 獲取 textarea 元素
+var textarea = document.getElementById('chatbox-inputAdmin');
 
 
+// 監聽 textarea 的鍵盤事件
+textarea.addEventListener('keydown', function (e) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    e.preventDefault();
+    if (inputAdmin.value) {
+      // client send to server
+      // console.log('client inputAdmin.value', inputAdmin.value)
+      // 在 adminChatbox中 sender固定為admin id為１
+      const senderId = "1"
+      const receiverId = currentUserId
 
-// const messagesAdmin = document.getElementById('messagesAdmin')
-// clientAdmin 在chatbox enter => 發訊息給 server
-formAdmin.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (inputAdmin.value) {
-    // client send to server
-    // console.log('client inputAdmin.value', inputAdmin.value)
-    // 在 adminChatbox中 sender固定為admin id為１
-    const senderId = "1"
-    const receiverId = currentUserId
+      // admin 發消息到伺服器 並指定roomId
+      socketAdmin.emit('message', {
+        roomId: receiverId,
+        message: inputAdmin.value,
+        receiverId: receiverId,
+        senderId: parseInt(senderId)
+      })
 
-    // admin 發消息到伺服器 並指定roomId
-    socketAdmin.emit('message', {
-      roomId: receiverId,
-      message: inputAdmin.value,
-      receiverId: receiverId,
-      senderId: parseInt(senderId)
-    })
-
-    // 初始化輸入
-    inputAdmin.value = ''
-    messagesAdmin.scrollTo(0, document.body.scrollHeight)
+      // 初始化輸入
+      inputAdmin.value = ''
+      messagesAdmin.scrollTo(0, document.body.scrollHeight)
+    }
   }
-})
+});
+
+
 // 收到新訊息 新增一條 chatbox 中 admin使用者的發言
 socketAdmin.on('updateMyself', (data) => {
   const { roomId, message } = data
