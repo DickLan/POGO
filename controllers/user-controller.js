@@ -127,7 +127,7 @@ Goldeen
 Seaking
 Staryu
 Starmie
-Mr. Mime
+Mr-Mime
 Scyther
 Jynx
 Electabuzz
@@ -500,7 +500,7 @@ Cresselia
 Phione
 Manaphy
 Darkrai
-Shaymin
+Shaymin-land
 Arceus
 
 Victini
@@ -878,7 +878,7 @@ Obstagoon
 Perrserker
 Cursola
 Sirfetch』d
-Mr. Rime
+Mr-Rime
 Runerigus
 Milcery
 Alcremie
@@ -1044,11 +1044,11 @@ const userController = {
   // login & register
   getLogin: (req, res, next) => {
     // console.log(req.cookies.lang)
-
+    const errors_login = req.flash('error');
+    console.log('err==get==========', errors_login)
     const randomIndex = Math.floor(Math.random() * 916 + 1)
     const pokeName = pokeNames[randomIndex]
-    console.log('d==============================', pokeName)
-    res.render('users/login', { pokeName })
+    res.render('users/login', { pokeName, errors_login })
   },
   postLogin: (req, res, next) => {
     // const rememberMe = req.body['remember-me']
@@ -1065,10 +1065,18 @@ const userController = {
     //   res.cookis('rememberMe', userId, { maxAge: oneWeek, httpOnly: true, secure: true })
     // }
 
-    req.flash('success_msg', 'success login')
-    req.session.save(err => {
-      res.redirect('/accounts')
-    })
+    const errors = req.flash('error');
+    console.log('err==post==========', errors)
+    // 錯誤處理
+    if (errors.length > 0) {
+      console.log('Login errors:', errors);
+      res.render('login', { errors }); // 把錯誤傳給視圖
+    } else {
+      req.flash('success_msg', 'Success login');
+      req.session.save(err => {
+        res.redirect('/accounts')
+      })
+    }
   },
 
   getRegister: (req, res, next) => {

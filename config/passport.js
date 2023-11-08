@@ -1,3 +1,4 @@
+const flash = require('connect-flash');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const { User, Account } = require('../models')
@@ -12,7 +13,10 @@ module.exports = app => {
   passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, cb) => {
     // console.log(666)
     // console.log(User)
-    User.findOne({ where: { email } })
+    User.findOne({
+      where: { email },
+      raw: true
+    })
       .then(user => {
         // console.log('user=', user)
         if (!user) {
@@ -22,6 +26,12 @@ module.exports = app => {
           .then(isMatch => {
             if (!isMatch) {
               return cb(null, false, { message: "Email or Pw incorrect" })
+            }
+            // 如果信箱未驗證 跳出驗證提示
+            console.log('c==============================', user)
+            if (!user.mailIsVerified) {
+              console.log('d==============================')
+              return cb(null, false, { message: "Email not yet verified." })
             }
             return cb(null, user)
           })

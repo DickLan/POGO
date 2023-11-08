@@ -1165,7 +1165,7 @@ Goldeen
 Seaking
 Staryu
 Starmie
-Mr. Mime
+Mr-Mime
 Scyther
 Jynx
 Electabuzz
@@ -1538,7 +1538,7 @@ Cresselia
 Phione
 Manaphy
 Darkrai
-Shaymin
+Shaymin-land
 Arceus
 
 Victini
@@ -1916,7 +1916,7 @@ Obstagoon
 Perrserker
 Cursola
 Sirfetch』d
-Mr. Rime
+Mr-Rime
 Runerigus
 Milcery
 Alcremie
