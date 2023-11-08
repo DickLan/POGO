@@ -113,10 +113,17 @@
   {{!-- left promocode --}}
 
   <div class="ms-2">
-    <span style="font-weight: 1000; color:aqua">
+    <span style="font-weight: 1000; color:aqua;font-size:large">
       {{#if user.name}}
-      Hi {{user.name}}! {{currentMonth}}月感恩回饋，全場帳號皆享
-      ９ 折優惠！！！
+      Hi {{user.name}}！ {{currentMonth}}月感恩回饋來囉，全場帳號皆享
+      ９ 折優惠．
+      <br>
+      驗證信箱後，告知客服您的註冊信箱，即可在結帳時享有此優惠．
+      <br>
+      購買多個帳號或老顧客回鍋，再享額外折扣，買越多折越多！！！
+
+      {{else}}
+      {{currentMonth}}月感恩回饋，註冊登入後，馬上獲得專屬優惠！！！
       {{/if}}</span>
     {{!-- <span>promocode:</span> --}}
   </div>
