@@ -35,19 +35,19 @@ let composing = false
 // textarea 編輯中
 textarea.addEventListener('compositionstart', (function (e) {
   composing = true
-  // console.log('Composition started.'); // 輸入法開始
+  console.log('Composition started.'); // 輸入法開始
 }))
 // textarea 編輯完成
 textarea.addEventListener('compositionend', (function (e) {
   composing = false
-  // console.log('Composition ended.'); // 輸入法結束
+  console.log('Composition ended.'); // 輸入法結束
 }))
 
 // 監聽 textarea 的鍵盤事件
 textarea.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey && !composing) {
     e.preventDefault();
-    // console.log('Enter pressed without composing.'); // 確認Enter鍵行為
+    console.log('Enter pressed without composing.'); // 確認Enter鍵行為
     if (inputAdmin.value) {
       // client send to server
       // console.log('client inputAdmin.value', inputAdmin.value)
