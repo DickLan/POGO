@@ -96,5 +96,6 @@
   "feedbackLang": "en",
   "cartPayButton": "Only Skrill, BTC, or Taiwan payment available for now",
   "cartPayTips1": "To purchase any account, please contact our service agent for furthur process.",
-  "cartPayTips2": "The website payment system is still under development."
+  "cartPayTips2": "The website payment system is still under development.",
+  "pageToUpdate": "Page will be updated later"
 }
