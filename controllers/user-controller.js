@@ -1130,7 +1130,8 @@ const userController = {
       })
       .then(() => {
         // // console.log(77777)
-        req.flash('success_msg', '已發送驗證信件，請於一小時內點擊信箱驗證連結，以完成驗證！若超時未點擊，請重新註冊帳號^_^')
+        req.flash('success_msg', `Verification email sent. Please click the verification link in your inbox within one hour to complete the verification.
+        已發送驗證信件，請於一小時內點擊信箱驗證連結，以完成驗證^_^`)
         // 確保 flash 已經存到 session，才重新導向
         req.session.save(err => {
           if (err) return next(err)
@@ -1158,7 +1159,7 @@ const userController = {
         })
       })
       .then(() => {
-        req.flash('success_msg', 'added to cart!')
+        req.flash('success_msg', 'Added to cart.')
         req.session.save(err => {
           res.redirect(`/accounts?accountId=${accountId}`)
         })
@@ -1348,7 +1349,7 @@ const userController = {
   postResetPassword: (req, res, next) => {
     const { id, token, password, confirmPassword } = req.body
     if (password !== confirmPassword) {
-      req.flash('error_msg', '密碼和確認密碼不匹配！');
+      req.flash('error_msg', 'Password and Confirm Password is not match');
       return res.redirect('back'); // 或者是指定的URL
     }
     let resetUser
@@ -1371,7 +1372,7 @@ const userController = {
       })
       .then(() => {
         // // console.log(77777)
-        req.flash('success_msg', '成功更改密碼！')
+        req.flash('success_msg', 'Password changed successfully.')
         res.redirect('/users/login')
       })
       .catch(err => next(err))
@@ -1395,8 +1396,8 @@ const userController = {
       })
       .then(() => {
         // // console.log(77777)
-        console.log('success_msg', '成功驗證信箱！')
-        req.flash('success_msg', '成功驗證信箱！')
+        console.log('success_msg', 'Email verified successfully.')
+        req.flash('success_msg', 'Email verified successfully.')
         // 確保 flash 已經存到 session，才重新導向
         req.session.save(err => {
           if (err) return next(err)

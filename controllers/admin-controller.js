@@ -30,7 +30,7 @@ const adminController = {
         })
       })
       .then(() => {
-        req.flash('success_msg', 'update success!')
+        req.flash('success_msg', 'Update success!')
         req.session.save(err => {
           res.redirect('/admin/accounts')
         })
@@ -67,7 +67,7 @@ const adminController = {
         acct.destroy()
       })
       .then(() => {
-        req.flash('success_msg', 'success delete')
+        req.flash('success_msg', 'Success delete.')
         req.session.save(err => {
           res.redirect('/admin/accounts')
         })
