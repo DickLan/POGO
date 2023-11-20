@@ -51,7 +51,7 @@ module.exports = app => {
       }]
     })
       // lean是mongodb ; toJSON是 sequelize
-      .then(user => cb(null, user.toJSON()))
+      .then(user => user ? cb(null, user.toJSON()) : cb(null, null))
       .catch(err => cb(err, null))
   })
 
