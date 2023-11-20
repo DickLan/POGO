@@ -37,6 +37,7 @@ Pokémon Go Account Sales Website
 
 This website is primarily used to facilitate the sale of inventory Pokémon accounts.
 
+
 **Installation Guide**
 * 		Download the project via git clone or direct download of the project zip.
 * 		Run npm i to install required packages.
