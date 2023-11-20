@@ -28,6 +28,8 @@
 **聯繫方式**
 discord : linco0357
 
+
+
 ****========= English Guide ===========****
 
 **Project Name and Description**
