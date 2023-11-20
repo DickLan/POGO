@@ -30,29 +30,30 @@ discord : linco0357
 
 ****========= English Guide ===========****
 
-Project Name and Description:
+**Project Name and Description**
 Pokémon Go Account Sales Website
 This website is primarily used to facilitate the sale of inventory Pokémon accounts.
 
-Installation Guide:
+**Installation Guide**
+* 		Download the project via git clone or direct download of the project zip.
+* 		Run npm i to install required packages.
+* 		Ensure MySQL Database is installed. If not, it can be downloaded from the MySQL official website.
+* 		Create a database named 'pogo' in MySQL.
+* 		Update MySQL configuration in the project to successfully connect to the database. The settings are located in config/config.json.
+* 		Set environment variables in the .env file with the relevant configurations.
+* 		Run npm run seeds to load seed data.
+* 		Run npm run proStart to run the project in production environment.
+* 		If the above steps are correctly executed, after step 8, connecting to http://localhost:3001/accounts/ should display five seed accounts.
 
-Download the project via git clone or direct download of the project zip.
-Run npm i to install required packages.
-Ensure MySQL Database is installed. If not, it can be downloaded from the MySQL official website.
-Create a database named 'pogo' in MySQL.
-Update MySQL configuration in the project to successfully connect to the database. The settings are located in config/config.json.
-Set environment variables in the .env file with the relevant configurations.
-Run npm run seeds to load seed data.
-Run npm run proStart to run the project in production environment.
-If the above steps are correctly executed, after step 8, connecting to http://localhost:3001/accounts/ should display five seed accounts.
-Features:
+**Features**
+* 		Users can register an account and log in/out.
+* 		Search for accounts with specific criteria such as level, stardust, price, etc.
+* 		Directly chat with the administrator in real-time via the chat window in the bottom right corner.
+* 		After logging in, users can add/remove favorite accounts to/from the shopping cart.
+* 		Sort accounts by price.
+* 		Switch display languages in the top right corner, currently supporting Chinese and English.
 
-Users can register an account and log in/out.
-Search for accounts with specific criteria such as level, stardust, price, etc.
-Directly chat with the administrator in real-time via the chat window in the bottom right corner.
-After logging in, users can add/remove favorite accounts to/from the shopping cart.
-Sort accounts by price.
-Switch display languages in the top right corner, currently supporting Chinese and English.
-Contact Information:
+**Contact Information**
 Discord: linco0357
+
 
