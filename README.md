@@ -11,8 +11,10 @@
 4.  MySQL 創建一個資料庫- pogo
 5.  初始化 Sequelize，並更新專案中 MySQL 的配置，使專案能成功連接數據庫，設定位置在 config/config.json 中
 6.  設定環境變數，請在 .env 中設定相關配置
-7.  npm run seeds 載入種子資料
-8.  npm run proStart 在生產環境運行專案
+
+7.  init-db 透過 sequelize 創建 db，並執行 migrate 
+8.  npm run seeds 載入種子資料
+9.  npm run proStart 在生產環境運行專案
 上述若正確執行
 在 8. 執行後， 連接 http://localhost:3001/accounts/
 應該要能看到五個種子帳號

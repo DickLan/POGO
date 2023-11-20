@@ -11,7 +11,8 @@
     "prodev": "nodemon app.js",
     "lint": "eslint \"**/*.js\" --fix",
     "test": "mocha tests --exit --recursive --timeout 5000",
-    "seeds": "npx sequelize db:seed:all"
+    "seeds": "npx sequelize db:seed:all",
+    "init-db": "sequelize db:create && sequelize db:migrate"
   },
   "repository": {
     "type": "git",
