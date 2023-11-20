@@ -34,6 +34,7 @@ discord : linco0357
 
 **Project Name and Description**
 Pokémon Go Account Sales Website
+
 This website is primarily used to facilitate the sale of inventory Pokémon accounts.
 
 **Installation Guide**
