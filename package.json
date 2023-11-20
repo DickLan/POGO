@@ -10,7 +10,8 @@
     "proStart": "NODE_ENV=production node app.js",
     "prodev": "nodemon app.js",
     "lint": "eslint \"**/*.js\" --fix",
-    "test": "mocha tests --exit --recursive --timeout 5000"
+    "test": "mocha tests --exit --recursive --timeout 5000",
+    "seeds": "npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
