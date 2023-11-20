@@ -9,7 +9,7 @@
 2.  執行 npm i 安裝所需套件
 3.  確保已經安裝 MySQL 資料庫，若未安裝，可以訪問 MySQL 官網 下載並安裝。
 4.  MySQL 創建一個資料庫- pogo
-5.  更新專案中 MySQL 的配置，使專案能成功連接數據庫，設定位置在 config/config.json 中
+5.  初始化 Sequelize，並更新專案中 MySQL 的配置，使專案能成功連接數據庫，設定位置在 config/config.json 中
 6.  設定環境變數，請在 .env 中設定相關配置
 7.  npm run seeds 載入種子資料
 8.  npm run proStart 在生產環境運行專案
@@ -53,7 +53,8 @@ This website is primarily used to facilitate the sale of inventory Pokémon acco
 * 		Users can register an account and log in/out.
 * 		Search for accounts with specific criteria such as level, stardust, price, etc.
 * 		Directly chat with the administrator in real-time via the chat window in the bottom right corner.
-* 		After logging in, users can add/remove favorite accounts to/from the shopping cart.
+* 		After logging in, users can add/remove favorite a
+ccounts to/from the shopping cart.
 * 		Sort accounts by price.
 * 		Switch display languages in the top right corner, currently supporting Chinese and English.
 

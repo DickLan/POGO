@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "StrongPasswordYouLike",
+    "database": "pogo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "testuser",
+    "password": "StrongPasswordYouLike",
+    "database": "pogo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "pogouser",
+    "password": "StrongPasswordYouLike",
+    "database": "pogo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
