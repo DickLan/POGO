@@ -194,9 +194,14 @@ const accountController = {
       });
       whereCondition[Sequelize.Op.and].push(priceConditions)
     }
+
     // contains pokemon
+    // console.log('dictForAccountDetail', dictForAccountDetail)
     if (pokemonContains) {
+      // for normal pokes
       const pokemonContainsConditions = []
+      // for legend pokes
+      const pokemonContainsConditionsLegend = []
       // pokemonContains=字串 'aa/bb/cc'
       // 防呆 trim前後空格與空行
       trimPokemonContains = pokemonContains.trim()
@@ -205,16 +210,36 @@ const accountController = {
 
       // 開始邏輯運算
       containsArray.forEach(searchPokemon => {
-        pokemonContainsConditions.push({
-          contentsIv100: {
-            [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
-          }
-        })
+        let conditions = {
+          [Sequelize.Op.or]: [
+
+            {
+              contentsIv100: {
+                [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
+              }
+            },
+            {
+              contentsLegend: {
+                [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
+              }
+            }
+
+
+          ]
+        }
+
+        pokemonContainsConditions.push(conditions)
+
+        // pokemonContainsConditionsLegend.push({
+        //   contentsLegend: {
+        //     [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
+        //   }
+        // })
+
       })
       // 因為 pokemonContainsConditions是一個包含搜尋條件的陣列
       // 所以用展開運算子搭配push 將每個元素作為獨立元素，增加到whereCond之中
       whereCondition[Sequelize.Op.and].push(...pokemonContainsConditions)
-
     }
     Account.findAll({
       raw: true,
