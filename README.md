@@ -12,7 +12,7 @@
 5.  初始化 Sequelize，並更新專案中 MySQL 的配置，使專案能成功連接數據庫，設定位置在 config/config.json 中
 6.  設定環境變數，請在 .env 中設定相關配置
 
-7.  init-db 透過 sequelize 創建 db，並執行 migrate 
+7.  執行 init-db ，會透過 sequelize 創建 db，並執行 migrate 
 8.  npm run seeds 載入種子資料
 9.  npm run proStart 在生產環境運行專案
 上述若正確執行

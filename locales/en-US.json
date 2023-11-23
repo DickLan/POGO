@@ -13,9 +13,9 @@
   "_commentIndex": "=========== Index ==============.",
   "indexWelcome": "Welcome",
   "indexGreeting": "Welcome to Little Sheng Iv100 club",
-  "indexSlogan": "Never try cheap but risky accounts!",
+  "indexSlogan": "Acquire premium accounts now and embark on your journey as a Pokémon master.",
   "indexImg": "en",
-  "indexBrowseButton": "Browse all accounts",
+  "indexBrowseButton": "Start your trip now",
   "indexIntro1": [
     "It's best to look for trustworthy sellers, like Little Sheng Store.",
     "Here's our sales record in Taiwan's famous game accounts platforms."
@@ -34,13 +34,12 @@
   ],
   "_commentAccounts": "=========== Accounts ==============.",
   "accountsInfo1": [
-    "This means the account hasn't chosen a team yet.",
-    "The buyer can decide on their team after purchase.",
-    "Simply visit any gym, and you can change it!"
+    "Want to start with a new account but always afraid of being hacked or receiving black mail?",
+    "With Little Sheng's accounts, you won't have to worry about these issues."
   ],
   "accountsInfo2": [
-    "All Pokémon in the Iv100 inventory are IV100. Here's the Iv100 Pokémon club, so I only list down the IV100 ones.",
-    "Usually there are other Pokémon that are not IV100 or shiny, but due to technical issues, I can't list them all now."
+    "Welcome to the Iv100 Club, where only Pokémon with IV100 are listed. (Legendary Pokémon come with random IVs.)",
+    "Typically, accounts also include other random non-IV100 Pokémon or Shiny Pokémon, but due to technical issues, they are not all listed currently."
   ],
   "accountsFilter": "Filter",
   "accountSort": "Sort",
@@ -97,5 +96,5 @@
   "cartPayButton": "Only Skrill, BTC, or Taiwan payment available for now",
   "cartPayTips1": "To purchase any account, please contact our service agent for furthur process.",
   "cartPayTips2": "The website payment system is still under development.",
-  "pageToUpdate": "Page will be updated later"
+  "pageToUpdate": "Feedback from customers."
 }
