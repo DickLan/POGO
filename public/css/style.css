@@ -307,7 +307,7 @@ tr {
 
 .team-info {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   /* 或其他適合的佈局 */
 }
 
