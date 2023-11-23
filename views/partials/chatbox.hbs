@@ -1,4 +1,4 @@
-<button id="chat-icon" style="position: fixed; right: 20px; bottom: 20px; z-index: 100; ">
+<button id="chat-icon" style="position: fixed; right: 20px; bottom: 20px;z-index: 100; ">
 
   <div>
     {{!-- 如果 isReadUser = false 才顯示下面兩樣 --}}
@@ -19,7 +19,7 @@
 
 {{!-- "background-color:rgb(0,0,0,0);" 可以暫時隱藏 --}}
 <section style="background-color45:rgba(44, 19, 155, 0.5);">
-  
+
   <div class="chat-container">
 
     <div class="row d-flex justify-content-center">
@@ -27,7 +27,15 @@
         <form action="" id="chatbox-form">
 
 
+
+
           <div class="card" id="chat-window">
+
+            {{!--login request --}}
+            <div id="log-check-chatbox" class="chat-overlay">
+              <p>請登入以使用交談功能</p>
+            </div>
+
             <div class="card-header d-flex justify-content-between align-items-center p-3">
               <h5 class="mb-0">Helper</h5>
               {{!-- <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">Let's Chat --}}

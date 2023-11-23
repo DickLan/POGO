@@ -280,3 +280,27 @@ tr {
   text-emphasis-color: green;
   color: rgb(164, 225, 225);
 }
+
+#log-check-chatbox {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(114, 102, 102, 0.5);
+  color: white;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  /* 確保此值大於聊天視窗的 z-index */
+}
+
+#log-check-chatbox p {
+  /* background: rgba(114, 102, 102, 0.5); */
+  font-size: larger;
+  color: rgb(224, 40, 40);
+  align-items: center;
+  justify-content: end;
+  /* 確保此值大於聊天視窗的 z-index */
+}
