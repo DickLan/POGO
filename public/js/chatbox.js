@@ -1,3 +1,5 @@
+// const chatUser = user ? user : null
+// if (user && user.id) {
 // 定義main layout 畫面 normal user 的chatbox按鈕被點擊時的行為
 document.addEventListener("DOMContentLoaded", function () {
   const chatIcon = document.getElementById('chat-icon');
@@ -11,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // 點擊交談視窗時 將訊息標示為已讀
       try {
-        const response = await fetch('/messages/markAsRead', {
+        const response = user ? await fetch('/messages/markAsRead', {
           method: 'POST'
-        })
+        }) : null
         if (response.status === 200) {
 
           const notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
@@ -37,3 +39,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+

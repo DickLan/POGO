@@ -1,5 +1,5 @@
 const userLoggedIn = user ? true : false
-console.log('userLoggedIn', userLoggedIn)
+// console.log('userLoggedIn', userLoggedIn)
 const loginCheck = document.querySelector('#log-check-chatbox')
 
 if (userLoggedIn) {
@@ -10,7 +10,7 @@ if (userLoggedIn) {
   loginCheck.classList.add('d-flex')
 }
 
-window.onload = function () {
-  const userLoggedIn = req.user.isAuthenticaed()
-  console.log('userLoggedIn', userLoggedIn)
-}
+// window.onload = function () {
+//   const userLoggedIn = req.user.isAuthenticaed()
+//   console.log('userLoggedIn', userLoggedIn)
+// }
