@@ -47,6 +47,7 @@
   "accountsDetail": "詳細資訊",
   "accountsCartAdd": "加入購物車",
   "accountsCartCancel": "移除購物車",
+  "accountsTeamInfo": "這代表是未選色隊伍，可以在任意道館選擇陣營",
   "_commentAccount": "=========== Account ==============.",
   "accountTitle": "檢視帳號",
   "accountSubTitle": "查看帳號資訊，和更多的IV100寶可夢",
@@ -93,5 +94,6 @@
   "cartPayButton": "付款方式目前僅支援：台灣本地銀行轉帳、8591支付、LinePay、街口",
   "cartPayTips1": "目前有購買需求可透過 8591 或是直接聯繫本站客服",
   "cartPayTips2": "網站付款機制仍在開發中",
-  "pageToUpdate": "來自客戶的回饋"
+  "pageToUpdate": "來自客戶的回饋",
+  "chatOverlay": "請登入以使用交談功能"
 }

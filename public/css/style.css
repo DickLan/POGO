@@ -304,3 +304,32 @@ tr {
   justify-content: end;
   /* 確保此值大於聊天視窗的 z-index */
 }
+
+.team-info {
+  position: relative;
+  display: inline-block;
+  /* 或其他適合的佈局 */
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(120, 69, 69);
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  /* 將提示框移到元素的中心 */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.team-info:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

@@ -91,6 +91,11 @@
                 {{!-- <span>db ID {{this.id}}</span> --}}
                 <div class="team-info col-3">
                   <img class="img-fluid" src="/images/PokeTeams/{{this.team}}.png" alt="">
+                  {{#ifCond this.team "yet"}}
+                  {{!-- {{#each}}內的任何引用都要注意 階層 --}}
+                  <span class="tooltip">{{ ../ lang.accountsTeamInfo}}</span>
+                  {{/ifCond}}
+
                 </div>
                 {{!-- Level & Stardust --}}
                 <div class="card-text levelStardust col-6 mx-auto ">

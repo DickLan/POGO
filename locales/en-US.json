@@ -50,6 +50,7 @@
   "accountsDetail": "Detail",
   "accountsCartAdd": "AddToCart",
   "accountsCartCancel": "CancelAdded",
+  "accountsTeamInfo": "This means the account has free team, user could join team in any gym later",
   "_commentAccount": "=========== Account ==============.",
   "accountTitle": "View Account",
   "accountSubTitle": "Check the Pokémon account detailed info and more IV100 pokemon.",
@@ -96,5 +97,6 @@
   "cartPayButton": "Only Skrill, BTC, or Taiwan payment available for now",
   "cartPayTips1": "To purchase any account, please contact our service agent for furthur process.",
   "cartPayTips2": "The website payment system is still under development.",
-  "pageToUpdate": "Feedback from customers."
+  "pageToUpdate": "Feedback from customers.",
+  "chatOverlay": "Login to chat."
 }
