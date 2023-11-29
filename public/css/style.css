@@ -1,5 +1,8 @@
-/* 在你的 CSS 檔案中添加這段代碼 */
-
+/* TODO:
+1. 顏色變數
+2. css檔案管理
+3. class命名
+*/
 
 /* 最好每一次專案都設這個 會讓img自動適應視窗大小 */
 img {
@@ -24,17 +27,28 @@ img {
 
 /* 定義header active樣式 */
 .main-header .nav-link.active {
-  color: rgb(42, 187, 88) !important;
-  background-color: rgb(89, 47, 130);
-  border-radius: 50%;
-  /* 使用 !important 來確保這個規則優先 */
+  color: rgb(255, 218, 7); // yellow
+  background-color: rgba(89, 47, 130, .5);
+  border-radius: 20%;
+}
+
+.nav-link:hover {
+  color: rgb(255, 218, 7);
 }
 
 .index-vice-title {
-  margin-left: 50%;
-  margin-top: 0%;
-  font-size: 14px;
+  font-size: 24px;
   color: rgb(255, 218, 7);
+  margin-bottom: 0;
+}
+
+.title-description {
+  position: absolute;
+  font-size: 12px;
+  color: white;
+}
+.data-search-btn {
+  font-weight: 400;
 }
 
 .flash-message {
@@ -42,7 +56,7 @@ img {
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  z-index: 99;
   /* 確保它在最上層 */
   width: 70%;
 }
@@ -68,7 +82,7 @@ tr {
 .account {
   /* padding: 0 20px; */
   display: flex;
-  /* b/g/s 
+  /* b/g/s
   flex-basis:每張卡佔多少空間
   flex-glow:分配剩餘空間 ０:不分配 1:平均分 ２：中間是右邊的兩倍
   flex-shrink:空間不足時如何收縮 這裡統一設１：表示三個帳號都會同比例收縮
@@ -77,6 +91,49 @@ tr {
   /* flex: 32.5% 0 1; */
   /* margin-right: -100px; */
 }
+
+.switch-field {
+	display: flex;
+	overflow: hidden;
+}
+
+.switch-field input {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+	overflow: hidden;
+}
+
+.switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 12px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.5s ease-in-out;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+.switch-field input:checked + label {
+	background-color: rgb(255, 218, 7);
+	box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
+}
+
+
 
 /* 只在 992 以上視窗起作用 */
 @media (min-width:992px) {
@@ -146,11 +203,6 @@ tr {
   /* 這裡的最後一個數值 (0.5) 控制透明度 */
   z-index: 999;
   /* 確保遮罩層在最上層 */
-}
-
-.nav-link:hover {
-  background-color: aqua;
-  color: red;
 }
 
 .levelStardust {

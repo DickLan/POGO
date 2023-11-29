@@ -1,18 +1,20 @@
 <nav class="navbar main-header navbar-expand-lg navbar-light bg-info  ">
   <div class="container-fluid">
     {{!-- left --}}
-    <div class="left d-flex align-items-end ">
+    <div class="left">
       <div class="navbar-brand">
-        <a class="navbar-brand text-white d-flex align-items-center " href="/">
-          <img src="/images/pokeball.png" class="me-3  " alt="Icon" width="34" height="34">
-          PoGo Accounts Sale</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        <a class="navbar-brand d-flex align-items-end" href="/">
+          <img src="/images/pokeball.png" class="me-3" alt="Icon" width="34" height="34">
+          <div class="mb-2">
+            <h1 class="index-vice-title">{{lang.headerViceTitle}}</h1>
+            <span class="title-description position-absolute">PoGo Accounts Sale</span>
+          </div>
+        </a>
+        {{!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
-        <span class="index-vice-title ">{{lang.headerViceTitle}}</span>
+        </button> --}}
       </div>
-
     </div>
     {{!-- middle --}}
     <div class="middle">
@@ -40,14 +42,14 @@
             <a class="nav-link {{#ifCond activeRoute 'feedback'}} active {{/ifCond}}"
               href="/feedback">{{lang.headerFeedback}}</a>
           </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-sm nav-link data-search-btn" data-bs-toggle="modal"
+              data-bs-target="#searchModal">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span class="ms-0">{{lang.headerSearch}}</span>
+            </button>
 
-          <button type="button" class="btn btn-sm btn-rounded"
-            style="font-weight: 400; font-size:26px; color:rgb(60, 164, 164)" data-bs-toggle="modal"
-            data-bs-target="#searchModal">
-            <img class="me-0" src="/images/someIcon/search.png" style="transform: scale(1.15);" alt="search button">
-            <span class="ms-0">{{lang.headerSearch}}</span>
-          </button>
-
+          </li>
         </ul>
       </div>
     </div>
@@ -60,12 +62,42 @@
     {{!--right --}}
     <div class="right">
 
-      {{!-- language & currency --}}
-      <div class="LandC">
+      {{!-- auth --}}
+      {{!-- <div class="collapse navbar-collapse" id="navbarNav"> --}}
+        <ul class="navbar-nav">
+          {{!-- language & currency --}}
+          <li class="nav-item">
+            <div class="switch-field">
+              <input type="radio" id="radio-en" name="switch-one" value="en" checked/>
+              <label for="radio-en">En</label>
+              <input type="radio" id="radio-zh" name="switch-one" value="zh"/>
+              <label for="radio-zh">中</label>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+            <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+              {{!-- <li><a class="dropdown-item" href="#">Action</a></li> --}}
+              <li class="me-2">
+                {{#if isAuthenticated}}
+                <a class="nav-link dropdown-item" href="/users/logout">{{lang.headerLogout}}</a>
+                {{else}}
+                <a class="nav-link dropdown-item" href="/users/login">{{lang.headerLogin}}</a>
+                {{/if}}
+              </li>
+              <li>
+                <a class="nav-link dropdown-item " href="/users/register">{{lang.headerRegister}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      {{!-- </div> --}}
+
+
+      {{!-- <div>
         <div class="btn-group">
           <button class="btn btn-secondary btn-sm dropdown-toggle mb-1" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-
             {{#ifCond lang.name 'en-US' }}
             Engish
             {{else}}
@@ -78,28 +110,7 @@
           </ul>
         </div>
       </div>
-
-
-
-      {{!-- auth --}}
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item me-2">
-            {{#if isAuthenticated}}
-            <a class="nav-link btn btn-dark" href="/users/logout">{{lang.headerLogout}}</a>
-            {{else}}
-            <a class="nav-link btn btn-primary" href="/users/login">{{lang.headerLogin}}</a>
-            {{/if}}
-
-
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-success" href="/users/register">{{lang.headerRegister}}</a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
+    </div> --}}
 
     {{!-- 不用加 public --}}
     <link rel="stylesheet" href="/css/header.css">
