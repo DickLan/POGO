@@ -67,15 +67,19 @@
         <ul class="navbar-nav">
           {{!-- language & currency --}}
           <li class="nav-item">
+            {{!-- <span>{{lang.name}}</span> --}}
             <div class="switch-field">
-              <input type="radio" id="radio-en" name="switch-one" value="en" checked/>
+              <input type="radio" id="radio-en" name="switch-one" value="en" {{#ifCond lang.name 'en-US' }} checked
+                {{/ifCond}} />
               <label for="radio-en">En</label>
-              <input type="radio" id="radio-zh" name="switch-one" value="zh"/>
+              <input type="radio" id="radio-zh" name="switch-one" value="zh" {{#ifCond lang.name 'zh-TW'
+                }}checked{{/ifCond}} />
               <label for="radio-zh">中</label>
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+              aria-expanded="false"><i class="fa-solid fa-user"></i></a>
             <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
               {{!-- <li><a class="dropdown-item" href="#">Action</a></li> --}}
               <li class="me-2">
@@ -91,7 +95,8 @@
             </ul>
           </li>
         </ul>
-      {{!-- </div> --}}
+        {{!--
+      </div> --}}
 
 
       {{!-- <div>

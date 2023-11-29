@@ -81,7 +81,7 @@ const accountController = {
       searchedPriceRange: (req.body.price) ? (typeof (req.body.price) === 'string' ? [req.body.price] : req.body.price) : [],
       searchedPokemons: req.body.searchedPokemons
     };
-    // console.log(searchedValues)
+    // console.log('searchedValues', searchedValues)
 
     // View 裏設定的 href ?sort=xxxx  xxxx就是query, get的時候用query
     // post用body
