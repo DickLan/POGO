@@ -7,9 +7,9 @@ const accountController = {
     // sort 選擇
     let sortRule = ['id', 'ASC']
     const selectedSortRule = req.query.sort
-    if (selectedSortRule === "Price-low-to-high") {
+    if (selectedSortRule === 'Price-low-to-high') {
       sortRule = ['price', 'ASC']
-    } else if (selectedSortRule === "Price-high-to-low") {
+    } else if (selectedSortRule === 'Price-high-to-low') {
       sortRule = ['price', 'DESC']
     }
 
@@ -19,11 +19,10 @@ const accountController = {
       // nest: true
     })
       .then(accounts => {
-
-        // 透過自訂的cToE 
+        // 透過自訂的cToE
         // 把excel的iv100寶可夢 從word字串轉成英文名稱陣列
         // 圓陸鯊／過動員／噴火龍... => [aa,bbb,ccc,]
-        let data = accounts.map(act => ({
+        const data = accounts.map(act => ({
           ...act,
           // 見一個新的array 辨認圖片用
           // 只傳前９個item作為展示用 到detail時再全部顯示
@@ -49,7 +48,7 @@ const accountController = {
     // console.log('req', req.originalUrl)
     Account.findByPk(id, { raw: true })
       .then(account => {
-        let data = account
+        const data = account
         // 從字串轉Iv100寶可夢為對應英文名稱之陣列
         data.contentsIv100Array = accountsHelper.cToE(data.contentsIv100)
         // 從字串轉Legend寶可夢為對應英文名稱之陣列
@@ -68,8 +67,7 @@ const accountController = {
       .catch(err => next(err))
   },
   postSearchedAccounts: (req, res, next) => {
-
-    // req.body 是 post  req.query 是 get 
+    // req.body 是 post  req.query 是 get
 
     // console.log(res.locals.options)
     // 這部分是傳給 view 讓 search 表單保持使用者的選擇
@@ -80,7 +78,7 @@ const accountController = {
       searchedStardust: req.body.stardust,
       searchedPriceRange: (req.body.price) ? (typeof (req.body.price) === 'string' ? [req.body.price] : req.body.price) : [],
       searchedPokemons: req.body.searchedPokemons
-    };
+    }
     // console.log('searchedValues', searchedValues)
 
     // View 裏設定的 href ?sort=xxxx  xxxx就是query, get的時候用query
@@ -90,7 +88,7 @@ const accountController = {
     // query 拿到的單個變數 會是字串，如果是多個變數，才會是陣列包起來的字串
 
     let { accountId, team, level, stardust, price } = req.body
-    let pokemonContains = req.body.searchedPokemons
+    const pokemonContains = req.body.searchedPokemons
     // console.log('{accountId,team,level,stardust,price,pokemonContains}', { accountId, team, level, stardust, price, pokemonContains })
     const whereCondition = {}
     // for checkboxes
@@ -136,16 +134,16 @@ const accountController = {
     if (stardust) {
       whereCondition.stardust = { [Sequelize.Op.gte]: stardust }
     }
-    // price 
+    // price
     // =================Correct==========
     if (price) {
-      const validPrice = ['0to1k', '0to2k', '2kto4k', '4kto6k', '6kUp'];
+      const validPrice = ['0to1k', '0to2k', '2kto4k', '4kto6k', '6kUp']
       const priceConditions = {
         [Sequelize.Op.or]: []
-      };
+      }
 
       if (typeof price === 'string') {
-        price = [price];
+        price = [price]
       }
 
       price.forEach(selectedPriceRange => {
@@ -156,42 +154,42 @@ const accountController = {
                 price: {
                   [Sequelize.Op.between]: [0, 1000]
                 }
-              });
-              break;
+              })
+              break
             case '0to2k':
               priceConditions[Sequelize.Op.or].push({
                 price: {
                   [Sequelize.Op.between]: [0, 2000]
                 }
-              });
-              break;
+              })
+              break
             case '2kto4k':
               priceConditions[Sequelize.Op.or].push({
                 price: {
                   [Sequelize.Op.between]: [2000, 4000]
                 }
-              });
-              break;
+              })
+              break
             case '4kto6k':
               priceConditions[Sequelize.Op.or].push({
                 price: {
                   [Sequelize.Op.between]: [4000, 6000]
                 }
-              });
-              break;
+              })
+              break
             case '6kUp':
               priceConditions[Sequelize.Op.or].push({
                 price: {
                   [Sequelize.Op.gte]: 6000
                 }
-              });
-              break;
+              })
+              break
             // 如果上面都沒執行到 就執行default
             default:
-              break;
+              break
           }
         }
-      });
+      })
       whereCondition[Sequelize.Op.and].push(priceConditions)
     }
 
@@ -201,16 +199,26 @@ const accountController = {
       // for normal pokes
       const pokemonContainsConditions = []
       // for legend pokes
-      const pokemonContainsConditionsLegend = []
+      // const pokemonContainsConditionsLegend = []
       // pokemonContains=字串 'aa/bb/cc'
       // 防呆 trim前後空格與空行
-      trimPokemonContains = pokemonContains.trim()
-      containsArray = trimPokemonContains.split('/')
+      const trimPokemonContains = pokemonContains.trim()
+      const containsArray = trimPokemonContains.split('/')
       // console.log(containsArray)
+
+      // 因為改了 更改語系的方式 所以新增語系檢查
+      // 初始進入網頁時 因為沒有語系？ 預設設定為 zh-tw
+      // console.log('req.cookies.lang========', req.cookies.lang)
+      // console.log('typeof (req.cookies.lang)========', typeof (req.cookies.lang))
+      if (typeof (req.cookies.lang) !== 'string') {
+        req.cookies.lang = 'zh-TW'
+        // console.log('did')
+      }
+      // console.log('req.cookies.lang after========', req.cookies.lang)
 
       // 開始邏輯運算
       containsArray.forEach(searchPokemon => {
-        let conditions = {
+        const conditions = {
           [Sequelize.Op.or]: [
 
             {
@@ -224,7 +232,6 @@ const accountController = {
               }
             }
 
-
           ]
         }
 
@@ -235,7 +242,6 @@ const accountController = {
         //     [Sequelize.Op.like]: req.cookies.lang === 'zh-TW' ? `%${searchPokemon}%` : `%${dictForAccountDetail[searchPokemon]}%`
         //   }
         // })
-
       })
       // 因為 pokemonContainsConditions是一個包含搜尋條件的陣列
       // 所以用展開運算子搭配push 將每個元素作為獨立元素，增加到whereCond之中
@@ -243,11 +249,11 @@ const accountController = {
     }
     Account.findAll({
       raw: true,
-      where: whereCondition,
+      where: whereCondition
       // nest: true
     })
       .then(accounts => {
-        let data = accounts.map(act => ({
+        const data = accounts.map(act => ({
           ...act,
           contentsIv100Array: accountsHelper.cToE(act.contentsIv100).slice(0, 9),
           // 檢查是否有 req.user 有的話才進行下一步動作

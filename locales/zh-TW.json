@@ -88,7 +88,7 @@
   "searchPrice": "價格範圍",
   "searchCurrency": "幣別",
   "searchPokemons": "擁有的寶可夢",
-  "searchPokemonsPlaceHolder": "寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...只能是半形斜線'/'，例如：噴火龍/圓陸鯊，就會搜到包含這兩隻的帳號",
+  "searchPokemonsPlaceHolder": "完整的寶可夢名稱1/寶可夢名稱2/寶可夢名稱3...只能是半形斜線'/'，例如：噴火龍/圓陸鯊，就會搜到包含這兩隻的帳號，",
   "_commentOthers": "=========== Others ==============.",
   "feedbackLang": "zh",
   "cartPayButton": "付款方式目前僅支援：台灣本地銀行轉帳、8591支付、LinePay、街口",
