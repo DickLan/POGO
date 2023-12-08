@@ -1,11 +1,9 @@
 if (user && user.id) {
   // console.log(user)
 
-
-
   // 定義 socket client 端的相關設定
   // socket 這個 instance 會建立一個 webSocket 並連接到與伺服器關聯的socket.io伺服器
-  const socketUser = io('/user');
+  const socketUser = io('/user')
 
   // const User = require('../../models/user')
   // 這邊是 public chatbox 的設定
@@ -25,17 +23,16 @@ if (user && user.id) {
 
   // console.log(`socket.js user====`, user)
 
-
   // 一進入LS網站，就加入room，加入room後，就載入msg
   // 之後會是 有登入才載入
   // 加入room後，載入歷史訊息
-  socketUser.on('receive-history-message', async (historyMessages) => {
+  socketUser.on('receive-history-message', async historyMessages => {
     // loadMessage(user.id)
 
     try {
       // console.log('user=========321===========', user)
       // console.log('receive-history-message', historyMessages)
-      const messages = historyMessages;
+      const messages = historyMessages
       // await // console.log('response=', response)
       // await // console.log('data=', data)
       // await // console.log('messages=', messages)
@@ -44,12 +41,11 @@ if (user && user.id) {
 
       // 創建 "Load More" 按鈕
       // 後續點擊時，像 server 發出請求，索取更早的歷史訊息
-      const loadMoreButtonUser = document.createElement('button');
-      loadMoreButtonUser.className = "loadMoreButtonUser 2 btn btn-primary";
-      loadMoreButtonUser.innerText = "Load More Msg";
+      const loadMoreButtonUser = document.createElement('button')
+      loadMoreButtonUser.className = 'loadMoreButtonUser 2 btn btn-primary'
+      loadMoreButtonUser.innerText = 'Load More Msg'
       // 將 "Load More" 按鈕添加到 chatWindowBody
-      chatWindowBody.appendChild(loadMoreButtonUser);
-
+      chatWindowBody.appendChild(loadMoreButtonUser)
 
       messages.forEach(msg => {
         // if senderId = 1 => + admin
@@ -64,7 +60,7 @@ if (user && user.id) {
 
       const response = await fetch(`/messages/${user.id}`)
       const data = await response.json()
-      const { unReadCounts } = data;
+      const { unReadCounts } = data
 
       // 歷史訊息載入完成，發出完成訊息，準備掛載 listener
       // console.log('load-history-message-done client')
@@ -77,90 +73,73 @@ if (user && user.id) {
 
         notYetReadMsgCounts.style.display = 'block'
         newMsgIcon.style.display = 'block'
-
       } else {
-
         notYetReadMsgCounts.style.display = 'none'
         newMsgIcon.style.display = 'none'
-
       }
-
-
-
-
     } catch (error) {
-      console.error('Failed to load messages', error);
+      console.error('Failed to load messages', error)
     }
   })
 
   // 載入歷史訊息完成後，掛載 load more listener
-  socketUser.on('hang-load-more-button', async (data) => {
-    const lMBUser = document.querySelector('.loadMoreButtonUser');
+  socketUser.on('hang-load-more-button', async data => {
+    const lMBUser = document.querySelector('.loadMoreButtonUser')
     // console.log('Button element:', lMBUser);  // 檢查這個元素是否被正確選中
 
     lMBUser.addEventListener('click', function () {
       // console.log('click user');
-      socketUser.emit('load-more-messages', { userId: user.id, skipCount: loadedMessageCountUser });
-    });
-
+      socketUser.emit('load-more-messages', { userId: user.id, skipCount: loadedMessageCountUser })
+    })
   })
 
   // 接收更多歷史訊息
-  socketUser.on('receive-more-messages', async (messages) => {
+  socketUser.on('receive-more-messages', async messages => {
     // 获取当前的滚动高度
-    let previousScrollHeight = chatWindowBody.scrollHeight;
+    const previousScrollHeight = chatWindowBody.scrollHeight
 
     // messages.reverse()
     // console.log('messages more msg', messages)
-    const firstMsgElementUser = chatWindowBody.firstChild;
+    const firstMsgElementUser = chatWindowBody.firstChild
     // 創建一個新的 div 來承載消息
-    let msgGoingToBeAddedUser = document.createElement('div');
+    const msgGoingToBeAddedUser = document.createElement('div')
     msgGoingToBeAddedUser.innerHTML = ''
     messages.forEach(msg => {
       // 填充消息
       if (msg.senderId === 1) {
-        msgGoingToBeAddedUser.innerHTML += generateChatMsgAdmin(msg.message);
+        msgGoingToBeAddedUser.innerHTML += generateChatMsgAdmin(msg.message)
       } else {
-        msgGoingToBeAddedUser.innerHTML += generateChatMsgUser(msg.message);
+        msgGoingToBeAddedUser.innerHTML += generateChatMsgUser(msg.message)
       }
-
     })
     // 將消息插入到聊天視窗
-    chatWindowBody.insertBefore(msgGoingToBeAddedUser, firstMsgElementUser.nextSibling);
+    chatWindowBody.insertBefore(msgGoingToBeAddedUser, firstMsgElementUser.nextSibling)
     // 更新 skip offset
     loadedMessageCountUser += messages.length
     // 更新滾動位置
     // 获取新的滚动高度
-    let newScrollHeight = chatWindowBody.scrollHeight;
+    const newScrollHeight = chatWindowBody.scrollHeight
 
     // 计算新消息的总高度
-    let newMessagesHeight = newScrollHeight - previousScrollHeight;
+    const newMessagesHeight = newScrollHeight - previousScrollHeight
 
     // 更新滚动位置到新加载的消息
-    chatWindowBody.scrollTop += newMessagesHeight;
-
-
+    chatWindowBody.scrollTop += newMessagesHeight
   })
 
-
-
-
-
   // 載入未讀訊息
-  let notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
-  let newMsgIcon = document.querySelector('#newMsgIcon')
+  const notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
+  const newMsgIcon = document.querySelector('#newMsgIcon')
 
   // console.log('user=========123===========', user)
 
-
-
   // client 在chatbox enter => 發訊息給 server
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', e => {
+    e.preventDefault()
     if (input.value) {
       // console.log(`socket.js roomId2: ${currentRoomId}`);
       // 在 normal user Chatbox中 receiver固定為admin id為１
-      const receiverId = "1"
+      const receiverId = '1'
       const senderId = user.id
       // console.log('user====================', user)
 
@@ -178,7 +157,7 @@ if (user && user.id) {
     }
   })
   // 收到新訊息 新增一條 chatbox 中 一般使用者的發言
-  socketUser.on('updateMyself', (data) => {
+  socketUser.on('updateMyself', data => {
     // console.log("updateMyself event triggered");
     const { roomId, message } = data
     // console.log('user client receive data=======', data)
@@ -187,11 +166,9 @@ if (user && user.id) {
     chatWindowBody.append(newLine)
     input.value = ''
     chatWindowBody.scrollTo(0, document.body.scrollHeight)
-
-
   })
   // 收到新訊息 新增一條 chatbox 中 admin使用者的發言
-  socketUser.on('updateAimTalker', async (data) => {
+  socketUser.on('updateAimTalker', async data => {
     const { roomId, message } = data
     // console.log('666666666666666666666666666666666666666666user client receive data=======', data)
     const newLine = document.createElement('div')
@@ -210,17 +187,16 @@ if (user && user.id) {
     const data2 = await response.json()
     // console.log('============6=============')
     // console.log('updateAimTalker user', data2)
-    const { messages, unReadCounts } = data2;
+    const { messages, unReadCounts } = data2
 
     notYetReadMsgCounts.textContent = unReadCounts
     notYetReadMsgCounts.style.display = 'block'
     newMsgIcon.style.display = 'block'
   })
 
-
   // fun 區
 
-  function generateChatMsgUser(msg) {
+  function generateChatMsgUser (msg) {
     return `
                 <div class="d-flex flex-row justify-content-end mb-4">
           <div>
@@ -232,7 +208,7 @@ if (user && user.id) {
         </div>`
   }
 
-  function generateChatMsgAdmin(msg) {
+  function generateChatMsgAdmin (msg) {
     return ` 
   <div class="d-flex flex-row justify-content-start mb-4">
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1"
@@ -245,30 +221,25 @@ if (user && user.id) {
   </div>`
   }
 
-
-
-
-
-  function displayMsgRemindsIcon() {
+  function displayMsgRemindsIcon () {
     notYetReadMsgCounts.style.display = 'block'
     newMsgIcon.style.display = 'block'
   }
 
-  function hideMsgRemindsIcon() {
+  function hideMsgRemindsIcon () {
     notYetReadMsgCounts.style.display = 'none'
     newMsgIcon.style.display = 'none'
   }
 
-
   // 先停用這組 改從 server socket 拿歷史最新四筆訊息
   // 改成 'receive-history-message' 拿歷史最新四筆訊息
-  async function loadMessage(userId) {
+  async function loadMessage (userId) {
     try {
       // console.log('user=========321===========', user)
       // console.log('loadM run')
       const response = await fetch(`/messages/${userId}`)
       const data = await response.json()
-      const { messages, unReadCounts } = data;
+      const { messages, unReadCounts } = data
       // await // console.log('response=', response)
       // await // console.log('data=', data)
       // await // console.log('messages=', messages)
@@ -286,7 +257,6 @@ if (user && user.id) {
       })
       chatWindowBody.scrollTo(0, document.body.scrollHeight)
 
-
       // load msg 時 同時將 未讀訊息數量顯示
 
       if (unReadCounts > 0) {
@@ -295,20 +265,12 @@ if (user && user.id) {
 
         notYetReadMsgCounts.style.display = 'block'
         newMsgIcon.style.display = 'block'
-
       } else {
-
         notYetReadMsgCounts.style.display = 'none'
         newMsgIcon.style.display = 'none'
-
       }
-
-
-
-
     } catch (error) {
-      console.error('Failed to load messages', error);
+      console.error('Failed to load messages', error)
     }
   }
-
 }
