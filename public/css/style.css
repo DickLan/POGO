@@ -83,13 +83,13 @@ tr {
 .account {
   /* padding: 0 20px; */
   display: flex;
-  /* b/g/s
+  /* Three values: flex-grow | flex-shrink | flex-basis */
+  /*  
   flex-basis:每張卡佔多少空間
   flex-glow:分配剩餘空間 ０:不分配 1:平均分 ２：中間是右邊的兩倍
   flex-shrink:空間不足時如何收縮 這裡統一設１：表示三個帳號都會同比例收縮
   若設定不同shrink 就會有不同收縮效果
   */
-  /* flex: 32.5% 0 1; */
   /* margin-right: -100px; */
 }
 
@@ -140,7 +140,7 @@ tr {
 @media (min-width:992px) {
   .account {
     display: flex;
-    flex: 32.5% 0 1;
+    flex: 0 1 32.5%
   }
 }
 
