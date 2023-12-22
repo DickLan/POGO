@@ -16,18 +16,10 @@ img {
   padding-left: 30px;
 }
 
-.indented-text {
-  /* display: block; */
-  /* text-indent: 20px; */
-}
-
-.span-container {
-  /* white-space: pre-line; */
-}
 
 /* 定義header active樣式 */
 .main-header .nav-link.active {
-  color: rgb(255, 218, 7); // yellow
+  color: rgb(255, 218, 7);
   background-color: rgba(89, 47, 130, .5);
   border-radius: 20%;
 }
