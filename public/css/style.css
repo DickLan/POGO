@@ -266,8 +266,11 @@ tr {
 
 /* chat */
 
+
+
 #chat-window .form-control {
   border-color: transparent;
+
 }
 
 #chat-window .form-control:focus {
@@ -303,6 +306,18 @@ tr {
   overflow-y: auto;
   /* 允許垂直滾動 */
 }
+
+@media screen and (max-width:768px) {
+  #chat-window {
+    /* 在手機的顯示設定 */
+    width: 90%;
+    right: 3%;
+    /* 靠右邊 */
+    bottom: 10%;
+    /* 靠底部 */
+  }
+}
+
 
 #chat-icon {
   background: transparent;

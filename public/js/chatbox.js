@@ -1,23 +1,23 @@
 // const chatUser = user ? user : null
 // if (user && user.id) {
 // 定義main layout 畫面 normal user 的chatbox按鈕被點擊時的行為
-document.addEventListener("DOMContentLoaded", function () {
-  const chatIcon = document.getElementById('chat-icon');
-  const chatWindow = document.getElementById('chat-window');
-  const chatWindowBody = document.getElementById('chat-window-body');
-
+document.addEventListener('DOMContentLoaded', function () {
+  const chatIcon = document.getElementById('chat-icon')
+  const chatWindow = document.getElementById('chat-window')
+  const chatWindowBody = document.getElementById('chat-window-body')
 
   chatIcon.addEventListener('click', async function () {
     if (chatWindow.style.display === 'none' || !chatWindow.style.display) {
-      chatWindow.style.display = 'block';
+      chatWindow.style.display = 'block'
 
       // 點擊交談視窗時 將訊息標示為已讀
       try {
+        // eslint-disable-next-line multiline-ternary, no-undef
         const response = user ? await fetch('/messages/markAsRead', {
           method: 'POST'
-        }) : null
+        })
+          : null
         if (response.status === 200) {
-
           const notYetReadMsgCounts = document.querySelector('.notYetReadMsgCounts')
           const newMsgIcon = document.querySelector('#newMsgIcon')
           notYetReadMsgCounts.style.display = 'none'
@@ -31,12 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
       } catch (error) {
         // console.log('Error:', error);
       }
-
-
-
     } else {
-      chatWindow.style.display = 'none';
+      chatWindow.style.display = 'none'
     }
-  });
-});
-
+  })
+})
