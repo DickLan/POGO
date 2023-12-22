@@ -119,7 +119,8 @@
 
     {{!-- 不用加 public --}}
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/style.css">
+    {{!-- 加上版本號做控制 這樣客戶載入時才會更新新的 css 樣式 --}}
+    <link rel="stylesheet" href="/css/style.css?v=1.0">
 
   </div>
 </nav>
