@@ -9,6 +9,7 @@ https://www.littlesheng.com/accounts
 主要用來協助銷售庫存的寶可夢帳號
 
 **安裝指南**
+
 1.  透過 git clone 或直接下載專案 zip
 2.  執行 npm i 安裝所需套件
 3.  確保已經安裝 MySQL 資料庫，若未安裝，可以訪問 MySQL 官網 下載並安裝。
@@ -19,11 +20,13 @@ https://www.littlesheng.com/accounts
 7.  執行 init-db ，會透過 sequelize 創建 db，並執行 migrate 
 8.  npm run seeds 載入種子資料
 9.  npm run proStart 在生產環境運行專案
+
 上述若正確執行
 在 8. 執行後， 連接 http://localhost:3001/accounts/
 應該要能看到五個種子帳號
 
 **功能說明**
+
 1. 可以註冊帳號，並登入登出
 2. 可以增加條件來搜尋帳號，如等級、星砂、價格...等
 3. 可以直接透過右下角聊天視窗，和管理員即時交談
