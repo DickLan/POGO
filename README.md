@@ -1,5 +1,8 @@
 ****========= 中文版本 ===========****
 
+專案網址：
+https://www.littlesheng.com/accounts
+
 **專案名稱與簡介**
 寶可夢 Go 帳號販售網站
 主要用來協助銷售庫存的寶可夢帳號
@@ -34,6 +37,9 @@ discord : linco0357
 
 ****========= English Guide ===========****
 
+Address：
+https://www.littlesheng.com/accounts
+
 **Project Name and Description**
 Pokémon Go Account Sales Website
 
@@ -55,12 +61,12 @@ This website is primarily used to facilitate the sale of inventory Pokémon acco
 * 		Users can register an account and log in/out.
 * 		Search for accounts with specific criteria such as level, stardust, price, etc.
 * 		Directly chat with the administrator in real-time via the chat window in the bottom right corner.
-* 		After logging in, users can add/remove favorite a
-ccounts to/from the shopping cart.
+* 		After logging in, users can add/remove favorite accounts to/from the shopping cart.
 * 		Sort accounts by price.
 * 		Switch display languages in the top right corner, currently supporting Chinese and English.
 
 **Contact Information**
+
 Discord: linco0357
 
 
